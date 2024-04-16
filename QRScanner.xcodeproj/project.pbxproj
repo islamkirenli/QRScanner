@@ -13,6 +13,8 @@
 		B538E87E2BCDBF6800D72DC1 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B538E87D2BCDBF6800D72DC1 /* Base */; };
 		B538E8802BCDBF6800D72DC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B538E87F2BCDBF6800D72DC1 /* Assets.xcassets */; };
 		B538E8832BCDBF6800D72DC1 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B538E8822BCDBF6800D72DC1 /* Base */; };
+		B5D7B35A2BCF1909007234B4 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D7B3592BCF1909007234B4 /* ScannerViewController.swift */; };
+		B5D7B35C2BCF1918007234B4 /* MakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D7B35B2BCF1918007234B4 /* MakerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		B538E87F2BCDBF6800D72DC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B538E8822BCDBF6800D72DC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B538E8842BCDBF6800D72DC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B5D7B3592BCF1909007234B4 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
+		B5D7B35B2BCF1918007234B4 /* MakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +63,8 @@
 				B538E8762BCDBF6800D72DC1 /* AppDelegate.swift */,
 				B538E8782BCDBF6800D72DC1 /* SceneDelegate.swift */,
 				B538E87A2BCDBF6800D72DC1 /* ViewController.swift */,
+				B5D7B3592BCF1909007234B4 /* ScannerViewController.swift */,
+				B5D7B35B2BCF1918007234B4 /* MakerViewController.swift */,
 				B538E87C2BCDBF6800D72DC1 /* Main.storyboard */,
 				B538E87F2BCDBF6800D72DC1 /* Assets.xcassets */,
 				B538E8812BCDBF6800D72DC1 /* LaunchScreen.storyboard */,
@@ -138,9 +144,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5D7B35C2BCF1918007234B4 /* MakerViewController.swift in Sources */,
 				B538E87B2BCDBF6800D72DC1 /* ViewController.swift in Sources */,
 				B538E8772BCDBF6800D72DC1 /* AppDelegate.swift in Sources */,
 				B538E8792BCDBF6800D72DC1 /* SceneDelegate.swift in Sources */,
+				B5D7B35A2BCF1909007234B4 /* ScannerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
