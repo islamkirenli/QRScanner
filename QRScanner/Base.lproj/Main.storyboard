@@ -15,14 +15,48 @@
                     <view key="view" contentMode="scaleToFill" id="PCQ-as-XsL">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="URL Girin" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="W41-Mt-wUP">
+                                <rect key="frame" x="16" y="204" width="361" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0M3-dG-THb">
+                                <rect key="frame" x="142" y="293" width="108" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="QR Oluştur"/>
+                                <connections>
+                                    <action selector="createQRCodeButtonTapped:" destination="7Be-qt-h80" eventType="touchUpInside" id="dtO-Oy-eYU"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="t8s-M5-bb3">
+                                <rect key="frame" x="46" y="383" width="301" height="266"/>
+                            </imageView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="3jU-rH-Dts"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="W41-Mt-wUP" firstAttribute="centerX" secondItem="0M3-dG-THb" secondAttribute="centerX" id="4eR-2C-UiX"/>
+                            <constraint firstItem="W41-Mt-wUP" firstAttribute="leading" secondItem="PCQ-as-XsL" secondAttribute="leadingMargin" id="56z-0A-wXQ"/>
+                            <constraint firstItem="3jU-rH-Dts" firstAttribute="bottom" secondItem="t8s-M5-bb3" secondAttribute="bottom" constant="120" id="CC3-tr-ORQ"/>
+                            <constraint firstItem="t8s-M5-bb3" firstAttribute="leading" secondItem="3jU-rH-Dts" secondAttribute="leading" constant="46" id="PC9-zI-yRp"/>
+                            <constraint firstItem="0M3-dG-THb" firstAttribute="centerX" secondItem="t8s-M5-bb3" secondAttribute="centerX" id="SuC-h8-ddz"/>
+                            <constraint firstItem="W41-Mt-wUP" firstAttribute="top" secondItem="3jU-rH-Dts" secondAttribute="top" constant="145" id="kWr-0u-2AN"/>
+                            <constraint firstItem="t8s-M5-bb3" firstAttribute="top" secondItem="0M3-dG-THb" secondAttribute="bottom" constant="55" id="l1h-NX-dLo"/>
+                            <constraint firstItem="0M3-dG-THb" firstAttribute="top" secondItem="W41-Mt-wUP" secondAttribute="bottom" constant="55" id="rjP-o2-pO8"/>
+                            <constraint firstItem="W41-Mt-wUP" firstAttribute="trailing" secondItem="PCQ-as-XsL" secondAttribute="trailingMargin" id="sjQ-Fa-DYv"/>
+                            <constraint firstItem="0M3-dG-THb" firstAttribute="leading" secondItem="3jU-rH-Dts" secondAttribute="leading" constant="142" id="t5F-qf-oki"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="QR Maker" image="qrcode" catalog="system" id="r1V-tR-9LA"/>
+                    <connections>
+                        <outlet property="imageView" destination="t8s-M5-bb3" id="5r9-jc-GzI"/>
+                        <outlet property="urlTextField" destination="W41-Mt-wUP" id="fxV-s1-Cap"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g8s-Fx-FGz" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1059" y="269"/>
+            <point key="canvasLocation" x="1054.1984732824426" y="268.3098591549296"/>
         </scene>
         <!--QR Scanner-->
         <scene sceneID="hW7-qo-Yeh">
