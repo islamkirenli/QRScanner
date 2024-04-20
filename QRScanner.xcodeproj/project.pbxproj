@@ -13,8 +13,14 @@
 		B538E87E2BCDBF6800D72DC1 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B538E87D2BCDBF6800D72DC1 /* Base */; };
 		B538E8802BCDBF6800D72DC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B538E87F2BCDBF6800D72DC1 /* Assets.xcassets */; };
 		B538E8832BCDBF6800D72DC1 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B538E8822BCDBF6800D72DC1 /* Base */; };
+		B5A835402BD40C7500E7B210 /* GenerateAndDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A8353F2BD40C7500E7B210 /* GenerateAndDesign.swift */; };
+		B5A835422BD4132500E7B210 /* DesignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A835412BD4132500E7B210 /* DesignViewController.swift */; };
+		B5A835442BD4255600E7B210 /* MakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A835432BD4255600E7B210 /* MakerViewController.swift */; };
+		B5A835482BD44E1200E7B210 /* TextMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A835472BD44E1200E7B210 /* TextMakerViewController.swift */; };
+		B5A8354A2BD46BAE00E7B210 /* EmailMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A835492BD46BAE00E7B210 /* EmailMakerViewController.swift */; };
+		B5A8354C2BD470CF00E7B210 /* VcardMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A8354B2BD470CF00E7B210 /* VcardMakerViewController.swift */; };
 		B5D7B35A2BCF1909007234B4 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D7B3592BCF1909007234B4 /* ScannerViewController.swift */; };
-		B5D7B35C2BCF1918007234B4 /* MakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D7B35B2BCF1918007234B4 /* MakerViewController.swift */; };
+		B5D7B35C2BCF1918007234B4 /* URLMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D7B35B2BCF1918007234B4 /* URLMakerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,8 +32,14 @@
 		B538E87F2BCDBF6800D72DC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B538E8822BCDBF6800D72DC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B538E8842BCDBF6800D72DC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B5A8353F2BD40C7500E7B210 /* GenerateAndDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateAndDesign.swift; sourceTree = "<group>"; };
+		B5A835412BD4132500E7B210 /* DesignViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignViewController.swift; sourceTree = "<group>"; };
+		B5A835432BD4255600E7B210 /* MakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakerViewController.swift; sourceTree = "<group>"; };
+		B5A835472BD44E1200E7B210 /* TextMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextMakerViewController.swift; sourceTree = "<group>"; };
+		B5A835492BD46BAE00E7B210 /* EmailMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailMakerViewController.swift; sourceTree = "<group>"; };
+		B5A8354B2BD470CF00E7B210 /* VcardMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VcardMakerViewController.swift; sourceTree = "<group>"; };
 		B5D7B3592BCF1909007234B4 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
-		B5D7B35B2BCF1918007234B4 /* MakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakerViewController.swift; sourceTree = "<group>"; };
+		B5D7B35B2BCF1918007234B4 /* URLMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLMakerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,17 +72,39 @@
 		B538E8752BCDBF6800D72DC1 /* QRScanner */ = {
 			isa = PBXGroup;
 			children = (
+				B5A835452BD44D9D00E7B210 /* viewControllers */,
 				B538E8762BCDBF6800D72DC1 /* AppDelegate.swift */,
 				B538E8782BCDBF6800D72DC1 /* SceneDelegate.swift */,
-				B538E87A2BCDBF6800D72DC1 /* ViewController.swift */,
-				B5D7B3592BCF1909007234B4 /* ScannerViewController.swift */,
-				B5D7B35B2BCF1918007234B4 /* MakerViewController.swift */,
+				B5A8353F2BD40C7500E7B210 /* GenerateAndDesign.swift */,
 				B538E87C2BCDBF6800D72DC1 /* Main.storyboard */,
 				B538E87F2BCDBF6800D72DC1 /* Assets.xcassets */,
 				B538E8812BCDBF6800D72DC1 /* LaunchScreen.storyboard */,
 				B538E8842BCDBF6800D72DC1 /* Info.plist */,
 			);
 			path = QRScanner;
+			sourceTree = "<group>";
+		};
+		B5A835452BD44D9D00E7B210 /* viewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				B538E87A2BCDBF6800D72DC1 /* ViewController.swift */,
+				B5D7B3592BCF1909007234B4 /* ScannerViewController.swift */,
+				B5A835432BD4255600E7B210 /* MakerViewController.swift */,
+				B5A835412BD4132500E7B210 /* DesignViewController.swift */,
+				B5A835462BD44DEF00E7B210 /* Makers */,
+			);
+			path = viewControllers;
+			sourceTree = "<group>";
+		};
+		B5A835462BD44DEF00E7B210 /* Makers */ = {
+			isa = PBXGroup;
+			children = (
+				B5D7B35B2BCF1918007234B4 /* URLMakerViewController.swift */,
+				B5A835472BD44E1200E7B210 /* TextMakerViewController.swift */,
+				B5A835492BD46BAE00E7B210 /* EmailMakerViewController.swift */,
+				B5A8354B2BD470CF00E7B210 /* VcardMakerViewController.swift */,
+			);
+			path = Makers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -144,11 +178,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5D7B35C2BCF1918007234B4 /* MakerViewController.swift in Sources */,
+				B5A835402BD40C7500E7B210 /* GenerateAndDesign.swift in Sources */,
+				B5D7B35C2BCF1918007234B4 /* URLMakerViewController.swift in Sources */,
 				B538E87B2BCDBF6800D72DC1 /* ViewController.swift in Sources */,
+				B5A835442BD4255600E7B210 /* MakerViewController.swift in Sources */,
+				B5A8354C2BD470CF00E7B210 /* VcardMakerViewController.swift in Sources */,
+				B5A8354A2BD46BAE00E7B210 /* EmailMakerViewController.swift in Sources */,
+				B5A835482BD44E1200E7B210 /* TextMakerViewController.swift in Sources */,
 				B538E8772BCDBF6800D72DC1 /* AppDelegate.swift in Sources */,
 				B538E8792BCDBF6800D72DC1 /* SceneDelegate.swift in Sources */,
 				B5D7B35A2BCF1909007234B4 /* ScannerViewController.swift in Sources */,
+				B5A835422BD4132500E7B210 /* DesignViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
