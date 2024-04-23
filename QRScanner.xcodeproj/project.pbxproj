@@ -7,12 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B537D18A2BD7DF36005B8992 /* ImageMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B537D1892BD7DF36005B8992 /* ImageMakerViewController.swift */; };
 		B538E8772BCDBF6800D72DC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B538E8762BCDBF6800D72DC1 /* AppDelegate.swift */; };
 		B538E8792BCDBF6800D72DC1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B538E8782BCDBF6800D72DC1 /* SceneDelegate.swift */; };
 		B538E87B2BCDBF6800D72DC1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B538E87A2BCDBF6800D72DC1 /* ViewController.swift */; };
 		B538E87E2BCDBF6800D72DC1 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B538E87D2BCDBF6800D72DC1 /* Base */; };
 		B538E8802BCDBF6800D72DC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B538E87F2BCDBF6800D72DC1 /* Assets.xcassets */; };
 		B538E8832BCDBF6800D72DC1 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B538E8822BCDBF6800D72DC1 /* Base */; };
+		B565F1D52BD50BAB0028897A /* WIFIMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B565F1D42BD50BAB0028897A /* WIFIMakerViewController.swift */; };
+		B5755B892BD8054A0022CFC5 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5755B882BD8054A0022CFC5 /* HistoryViewController.swift */; };
+		B59DE0B62BD560F800EB6169 /* SocialMedyaMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59DE0B52BD560F700EB6169 /* SocialMedyaMakerViewController.swift */; };
+		B59DE0B82BD56EC200EB6169 /* PDFMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59DE0B72BD56EC200EB6169 /* PDFMakerViewController.swift */; };
 		B5A835402BD40C7500E7B210 /* GenerateAndDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A8353F2BD40C7500E7B210 /* GenerateAndDesign.swift */; };
 		B5A835422BD4132500E7B210 /* DesignViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A835412BD4132500E7B210 /* DesignViewController.swift */; };
 		B5A835442BD4255600E7B210 /* MakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A835432BD4255600E7B210 /* MakerViewController.swift */; };
@@ -24,6 +29,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B537D1892BD7DF36005B8992 /* ImageMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMakerViewController.swift; sourceTree = "<group>"; };
 		B538E8732BCDBF6800D72DC1 /* QRScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QRScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B538E8762BCDBF6800D72DC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B538E8782BCDBF6800D72DC1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -32,6 +38,10 @@
 		B538E87F2BCDBF6800D72DC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B538E8822BCDBF6800D72DC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B538E8842BCDBF6800D72DC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B565F1D42BD50BAB0028897A /* WIFIMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WIFIMakerViewController.swift; sourceTree = "<group>"; };
+		B5755B882BD8054A0022CFC5 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		B59DE0B52BD560F700EB6169 /* SocialMedyaMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMedyaMakerViewController.swift; sourceTree = "<group>"; };
+		B59DE0B72BD56EC200EB6169 /* PDFMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFMakerViewController.swift; sourceTree = "<group>"; };
 		B5A8353F2BD40C7500E7B210 /* GenerateAndDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateAndDesign.swift; sourceTree = "<group>"; };
 		B5A835412BD4132500E7B210 /* DesignViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignViewController.swift; sourceTree = "<group>"; };
 		B5A835432BD4255600E7B210 /* MakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakerViewController.swift; sourceTree = "<group>"; };
@@ -91,6 +101,7 @@
 				B5D7B3592BCF1909007234B4 /* ScannerViewController.swift */,
 				B5A835432BD4255600E7B210 /* MakerViewController.swift */,
 				B5A835412BD4132500E7B210 /* DesignViewController.swift */,
+				B5755B882BD8054A0022CFC5 /* HistoryViewController.swift */,
 				B5A835462BD44DEF00E7B210 /* Makers */,
 			);
 			path = viewControllers;
@@ -103,6 +114,10 @@
 				B5A835472BD44E1200E7B210 /* TextMakerViewController.swift */,
 				B5A835492BD46BAE00E7B210 /* EmailMakerViewController.swift */,
 				B5A8354B2BD470CF00E7B210 /* VcardMakerViewController.swift */,
+				B565F1D42BD50BAB0028897A /* WIFIMakerViewController.swift */,
+				B59DE0B52BD560F700EB6169 /* SocialMedyaMakerViewController.swift */,
+				B59DE0B72BD56EC200EB6169 /* PDFMakerViewController.swift */,
+				B537D1892BD7DF36005B8992 /* ImageMakerViewController.swift */,
 			);
 			path = Makers;
 			sourceTree = "<group>";
@@ -180,14 +195,19 @@
 			files = (
 				B5A835402BD40C7500E7B210 /* GenerateAndDesign.swift in Sources */,
 				B5D7B35C2BCF1918007234B4 /* URLMakerViewController.swift in Sources */,
+				B537D18A2BD7DF36005B8992 /* ImageMakerViewController.swift in Sources */,
 				B538E87B2BCDBF6800D72DC1 /* ViewController.swift in Sources */,
 				B5A835442BD4255600E7B210 /* MakerViewController.swift in Sources */,
 				B5A8354C2BD470CF00E7B210 /* VcardMakerViewController.swift in Sources */,
 				B5A8354A2BD46BAE00E7B210 /* EmailMakerViewController.swift in Sources */,
+				B5755B892BD8054A0022CFC5 /* HistoryViewController.swift in Sources */,
 				B5A835482BD44E1200E7B210 /* TextMakerViewController.swift in Sources */,
 				B538E8772BCDBF6800D72DC1 /* AppDelegate.swift in Sources */,
 				B538E8792BCDBF6800D72DC1 /* SceneDelegate.swift in Sources */,
+				B59DE0B62BD560F800EB6169 /* SocialMedyaMakerViewController.swift in Sources */,
 				B5D7B35A2BCF1909007234B4 /* ScannerViewController.swift in Sources */,
+				B565F1D52BD50BAB0028897A /* WIFIMakerViewController.swift in Sources */,
+				B59DE0B82BD56EC200EB6169 /* PDFMakerViewController.swift in Sources */,
 				B5A835422BD4132500E7B210 /* DesignViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

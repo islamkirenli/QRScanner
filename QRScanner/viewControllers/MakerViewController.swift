@@ -7,46 +7,37 @@
 
 import UIKit
 
-class MakerViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    
-    
-    
-    @IBOutlet weak var tableView: UITableView!
-    
-    let QRCodeChoises = ["URL", "TEXT", "E-MAIL", "VCARD", "WIFI", "TWITTER", "FACEBOOK", "INSTAGRAM", "PDF", "MP3", "IMAGE"]
+class MakerViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tableView.dataSource = self
-        tableView.delegate = self
     }
     
+    @IBAction func urlButton(_ sender: Any) {
+        performSegue(withIdentifier: "toURLMakerVC", sender: nil)
+    }
+    @IBAction func textButton(_ sender: Any) {
+        performSegue(withIdentifier: "toTextMakerVC", sender: nil)
+    }
+    @IBAction func emailButton(_ sender: Any) {
+        performSegue(withIdentifier: "toEmailMakerVC", sender: nil)
+    }
+    @IBAction func vcardButton(_ sender: Any) {
+        performSegue(withIdentifier: "toVcardMakerVC", sender: nil)
+    }
+    @IBAction func wifiButton(_ sender: Any) {
+        performSegue(withIdentifier: "toWIFIMakerVC", sender: nil)
+    }
+    @IBAction func socialMedyaButton(_ sender: Any) {
+        performSegue(withIdentifier: "toSocialMediaMakerVC", sender: nil)
+    }
+    @IBAction func documentButton(_ sender: Any) {
+        performSegue(withIdentifier: "toPDFMakerVC", sender: nil)
+    }
+    @IBAction func imageButton(_ sender: Any) {
+        performSegue(withIdentifier: "toImageMakerVC", sender: nil)
+    }
 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return QRCodeChoises.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        var content = cell.defaultContentConfiguration()
-        content.text = QRCodeChoises[indexPath.row]
-        cell.contentConfiguration = content
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if QRCodeChoises[indexPath.row] == "URL"{
-            performSegue(withIdentifier: "toURLMakerVC", sender: nil)
-        }else if QRCodeChoises[indexPath.row] == "TEXT"{
-            performSegue(withIdentifier: "toTextMakerVC", sender: nil)
-        }else if QRCodeChoises[indexPath.row] == "E-MAIL"{
-            performSegue(withIdentifier: "toEmailMakerVC", sender: nil)
-        }else if QRCodeChoises[indexPath.row] == "VCARD"{
-            performSegue(withIdentifier: "toVcardMakerVC", sender: nil)
-        }
-        
-    }
-    
 
 }
