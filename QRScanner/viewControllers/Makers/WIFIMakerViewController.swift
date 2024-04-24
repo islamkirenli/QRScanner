@@ -15,6 +15,13 @@ class WIFIMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         super.viewDidLoad()
         encryptionTypePickerView.delegate = self
         encryptionTypePickerView.dataSource = self
+        
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(klavyeKapat))
+        view.addGestureRecognizer(gestureRecognizer)
+    }
+    
+    @objc func klavyeKapat(){
+        view.endEditing(true)
     }
     
     // MARK: - UIPickerViewDataSource
