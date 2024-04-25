@@ -205,17 +205,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Wifi Adı" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pnq-3t-DWw">
-                                <rect key="frame" x="16" y="210" width="361" height="34"/>
+                                <rect key="frame" x="16" y="206" width="361" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Şifre" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uiq-tp-cvY">
-                                <rect key="frame" x="16" y="270" width="361" height="34"/>
+                                <rect key="frame" x="16" y="266" width="361" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="njs-hR-L5Z">
-                                <rect key="frame" x="46" y="413" width="108" height="35"/>
+                                <rect key="frame" x="46" y="342" width="108" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="QR Oluştur"/>
                                 <connections>
@@ -223,7 +223,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sEa-IZ-LKM">
-                                <rect key="frame" x="251" y="413" width="96" height="35"/>
+                                <rect key="frame" x="251" y="342" width="96" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Özelleştir"/>
                                 <connections>
@@ -231,40 +231,30 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZV8-sZ-OwM">
-                                <rect key="frame" x="46" y="496" width="301" height="222"/>
+                                <rect key="frame" x="46" y="425" width="301" height="222"/>
                             </imageView>
-                            <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bro-k6-b8K">
-                                <rect key="frame" x="56" y="325" width="280" height="71"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="71" id="MbL-Ly-eSU"/>
-                                </constraints>
-                            </pickerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="mz0-AW-IqF"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Bro-k6-b8K" firstAttribute="leading" secondItem="mz0-AW-IqF" secondAttribute="leading" constant="56" id="3fB-wx-iGu"/>
-                            <constraint firstItem="njs-hR-L5Z" firstAttribute="leading" secondItem="mz0-AW-IqF" secondAttribute="leading" constant="46" id="6ft-dj-ZPb"/>
-                            <constraint firstItem="njs-hR-L5Z" firstAttribute="top" secondItem="Bro-k6-b8K" secondAttribute="bottom" constant="17" id="9JQ-xw-Kxq"/>
-                            <constraint firstItem="pnq-3t-DWw" firstAttribute="leading" secondItem="zD1-Xp-9j5" secondAttribute="leadingMargin" id="AF2-46-FCE"/>
-                            <constraint firstItem="pnq-3t-DWw" firstAttribute="trailing" secondItem="zD1-Xp-9j5" secondAttribute="trailingMargin" id="DbM-f0-pJ7"/>
-                            <constraint firstItem="uiq-tp-cvY" firstAttribute="centerX" secondItem="Bro-k6-b8K" secondAttribute="centerX" id="F9D-ib-huP"/>
-                            <constraint firstItem="uiq-tp-cvY" firstAttribute="top" secondItem="pnq-3t-DWw" secondAttribute="bottom" constant="26" id="FbV-mn-A9C"/>
-                            <constraint firstItem="pnq-3t-DWw" firstAttribute="leading" secondItem="uiq-tp-cvY" secondAttribute="leading" id="Iam-52-rIF"/>
-                            <constraint firstItem="Bro-k6-b8K" firstAttribute="centerX" secondItem="ZV8-sZ-OwM" secondAttribute="centerX" id="NCl-Fd-ZbP"/>
-                            <constraint firstItem="njs-hR-L5Z" firstAttribute="leading" secondItem="ZV8-sZ-OwM" secondAttribute="leading" id="OOw-Hr-jgY"/>
-                            <constraint firstItem="Bro-k6-b8K" firstAttribute="top" secondItem="uiq-tp-cvY" secondAttribute="bottom" constant="21" id="QCR-qQ-V6z"/>
-                            <constraint firstItem="pnq-3t-DWw" firstAttribute="top" secondItem="mz0-AW-IqF" secondAttribute="top" constant="107" id="XQg-mG-2zI"/>
-                            <constraint firstItem="ZV8-sZ-OwM" firstAttribute="top" secondItem="njs-hR-L5Z" secondAttribute="bottom" constant="48" id="hzj-u8-afJ"/>
-                            <constraint firstItem="mz0-AW-IqF" firstAttribute="bottom" secondItem="ZV8-sZ-OwM" secondAttribute="bottom" constant="51" id="nLX-Ii-d0g"/>
-                            <constraint firstItem="sEa-IZ-LKM" firstAttribute="trailing" secondItem="ZV8-sZ-OwM" secondAttribute="trailing" id="ujP-U4-r7f"/>
-                            <constraint firstItem="pnq-3t-DWw" firstAttribute="trailing" secondItem="uiq-tp-cvY" secondAttribute="trailing" id="w2M-rS-oll"/>
-                            <constraint firstItem="njs-hR-L5Z" firstAttribute="baseline" secondItem="sEa-IZ-LKM" secondAttribute="baseline" id="wtn-qd-tah"/>
+                            <constraint firstItem="sEa-IZ-LKM" firstAttribute="trailing" secondItem="ZV8-sZ-OwM" secondAttribute="trailing" id="EDc-ZX-EIO"/>
+                            <constraint firstItem="njs-hR-L5Z" firstAttribute="leading" secondItem="mz0-AW-IqF" secondAttribute="leading" constant="46" id="IpZ-Vg-WJ1"/>
+                            <constraint firstItem="mz0-AW-IqF" firstAttribute="bottom" secondItem="ZV8-sZ-OwM" secondAttribute="bottom" constant="122" id="M79-Dx-xsT"/>
+                            <constraint firstItem="uiq-tp-cvY" firstAttribute="centerX" secondItem="ZV8-sZ-OwM" secondAttribute="centerX" id="N3K-Pr-cFd"/>
+                            <constraint firstItem="njs-hR-L5Z" firstAttribute="leading" secondItem="ZV8-sZ-OwM" secondAttribute="leading" id="OFz-YP-5Wp"/>
+                            <constraint firstItem="pnq-3t-DWw" firstAttribute="leading" secondItem="uiq-tp-cvY" secondAttribute="leading" id="Q1o-OK-uN7"/>
+                            <constraint firstItem="uiq-tp-cvY" firstAttribute="top" secondItem="pnq-3t-DWw" secondAttribute="bottom" constant="26" id="UZP-LC-O1d"/>
+                            <constraint firstItem="pnq-3t-DWw" firstAttribute="leading" secondItem="zD1-Xp-9j5" secondAttribute="leadingMargin" id="Umh-H5-HR3"/>
+                            <constraint firstItem="pnq-3t-DWw" firstAttribute="trailing" secondItem="zD1-Xp-9j5" secondAttribute="trailingMargin" id="abv-fB-PgO"/>
+                            <constraint firstItem="pnq-3t-DWw" firstAttribute="top" secondItem="mz0-AW-IqF" secondAttribute="top" constant="103" id="ccB-nF-Iym"/>
+                            <constraint firstItem="pnq-3t-DWw" firstAttribute="trailing" secondItem="uiq-tp-cvY" secondAttribute="trailing" id="fcJ-uC-jly"/>
+                            <constraint firstItem="njs-hR-L5Z" firstAttribute="top" secondItem="uiq-tp-cvY" secondAttribute="bottom" constant="42" id="tA9-Wf-nJw"/>
+                            <constraint firstItem="ZV8-sZ-OwM" firstAttribute="top" secondItem="njs-hR-L5Z" secondAttribute="bottom" constant="48" id="y2U-pU-V99"/>
+                            <constraint firstItem="njs-hR-L5Z" firstAttribute="baseline" secondItem="sEa-IZ-LKM" secondAttribute="baseline" id="yl6-0t-bjC"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="YOx-vS-P8b"/>
                     <connections>
-                        <outlet property="encryptionTypePickerView" destination="Bro-k6-b8K" id="ktS-Ry-4Wq"/>
                         <outlet property="imageView" destination="ZV8-sZ-OwM" id="YzI-1U-X64"/>
                         <outlet property="passwordTextField" destination="uiq-tp-cvY" id="ppU-Ip-BWc"/>
                         <outlet property="ssidTextField" destination="pnq-3t-DWw" id="nUm-1N-Oev"/>
@@ -487,11 +477,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <pickerView hidden="YES" tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jBx-g2-hly">
+                            <pickerView hidden="YES" tag="3" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jBx-g2-hly">
                                 <rect key="frame" x="0.0" y="247" width="393" height="216"/>
                             </pickerView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Dh-9X-uCB">
-                                <rect key="frame" x="76" y="618" width="255" height="31.333333333333371"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Dh-9X-uCB">
+                                <rect key="frame" x="76" y="378" width="255" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="48" id="GPQ-bG-RUt"/>
                                 </constraints>
@@ -499,7 +489,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZCu-50-XCY">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZCu-50-XCY">
                                 <rect key="frame" x="96" y="517" width="62" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="XX6-gm-9ma"/>
@@ -996,7 +986,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="prs-z7-Nmz"/>
+        <segue reference="O2U-bI-MjX"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="archivebox" catalog="system" width="128" height="107"/>

@@ -1,20 +1,16 @@
 import UIKit
 
-class WIFIMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+
+class WIFIMakerViewController: UIViewController{
 
     @IBOutlet weak var ssidTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var encryptionTypePickerView: UIPickerView!
     @IBOutlet weak var imageView: UIImageView!
     
     
-    var encryptionTypes = ["WPA / WPA2-Personal", "WEP", "WPA / WPA2-Enterprise"]
-    var selectedEncryptionType: String?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        encryptionTypePickerView.delegate = self
-        encryptionTypePickerView.dataSource = self
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(klavyeKapat))
         view.addGestureRecognizer(gestureRecognizer)
@@ -24,25 +20,6 @@ class WIFIMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         view.endEditing(true)
     }
     
-    // MARK: - UIPickerViewDataSource
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return encryptionTypes.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return encryptionTypes[row]
-    }
-    
-    // MARK: - UIPickerViewDelegate
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedEncryptionType = encryptionTypes[row]
-    }
     
     
     @IBAction func designButton(_ sender: Any) {
@@ -51,30 +28,24 @@ class WIFIMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     
     @IBAction func generateQRCodeButtonTapped(_ sender: Any) {
         guard let ssid = ssidTextField.text, !ssid.isEmpty else {
-            showAlert(message: "Lütfen bir SSID girin")
+            showAlert(message: "Please enter SSID")
             return
         }
-        
-        guard let password = passwordTextField.text else {
-            showAlert(message: "Lütfen bir şifre girin")
+
+        guard let code = passwordTextField.text, !code.isEmpty else {
+            showAlert(message: "Please enter code")
             return
         }
-        
-        guard let encryptionType = selectedEncryptionType else {
-            showAlert(message: "Lütfen bir şifreleme türü seçin")
-            return
-        }
-        
-        let wifiInfo = "WIFI:S:\(ssid);T:\(encryptionType);P:\(password)"
-        
-        let sanitizedText = sanitizeTurkishCharacters(wifiInfo)
-        
-        if let qrCodeImage = GenerateAndDesign.generate(from: sanitizedText) {
-            imageView.image = qrCodeImage
-            print(sanitizedText)
+
+        if let qrImage = WifiQR(name: ssid, password: code, size: 100) {
+            imageView.image = qrImage
         } else {
-            showAlert(message: "QR kodu oluşturulamadı")
+            showAlert(message: "Failed to generate QR code")
         }
+    }
+    
+    func WifiQR(name ssid: String, password code: String, size: CGFloat = 10) -> UIImage? {
+        return GenerateAndDesign.generate(from: "WIFI:T:WPA;S:\(ssid);P:\(code);;")
     }
     
     func sanitizeTurkishCharacters(_ text: String) -> String {
