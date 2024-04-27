@@ -38,6 +38,9 @@ class MakerViewController: UIViewController{
     @IBAction func imageButton(_ sender: Any) {
         performSegue(withIdentifier: "toImageMakerVC", sender: nil)
     }
-
+    @IBAction func appsButton(_ sender: Any) {
+        performSegue(withIdentifier: "toAppsMakerVC", sender: nil)
+    }
+    
 
 }

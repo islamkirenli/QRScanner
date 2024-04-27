@@ -26,6 +26,7 @@
 		B5A8354C2BD470CF00E7B210 /* VcardMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A8354B2BD470CF00E7B210 /* VcardMakerViewController.swift */; };
 		B5D7B35A2BCF1909007234B4 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D7B3592BCF1909007234B4 /* ScannerViewController.swift */; };
 		B5D7B35C2BCF1918007234B4 /* URLMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D7B35B2BCF1918007234B4 /* URLMakerViewController.swift */; };
+		B5DF3E952BDC772400F3DE7C /* AppsMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DF3E942BDC772400F3DE7C /* AppsMakerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		B5A8354B2BD470CF00E7B210 /* VcardMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VcardMakerViewController.swift; sourceTree = "<group>"; };
 		B5D7B3592BCF1909007234B4 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		B5D7B35B2BCF1918007234B4 /* URLMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLMakerViewController.swift; sourceTree = "<group>"; };
+		B5DF3E942BDC772400F3DE7C /* AppsMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsMakerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 				B59DE0B52BD560F700EB6169 /* SocialMedyaMakerViewController.swift */,
 				B59DE0B72BD56EC200EB6169 /* PDFMakerViewController.swift */,
 				B537D1892BD7DF36005B8992 /* ImageMakerViewController.swift */,
+				B5DF3E942BDC772400F3DE7C /* AppsMakerViewController.swift */,
 			);
 			path = Makers;
 			sourceTree = "<group>";
@@ -206,6 +209,7 @@
 				B538E8792BCDBF6800D72DC1 /* SceneDelegate.swift in Sources */,
 				B59DE0B62BD560F800EB6169 /* SocialMedyaMakerViewController.swift in Sources */,
 				B5D7B35A2BCF1909007234B4 /* ScannerViewController.swift in Sources */,
+				B5DF3E952BDC772400F3DE7C /* AppsMakerViewController.swift in Sources */,
 				B565F1D52BD50BAB0028897A /* WIFIMakerViewController.swift in Sources */,
 				B59DE0B82BD56EC200EB6169 /* PDFMakerViewController.swift in Sources */,
 				B5A835422BD4132500E7B210 /* DesignViewController.swift in Sources */,
