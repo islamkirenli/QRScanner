@@ -1,1 +1,6 @@
 QRScanner/AppDelegate.swift
+.DS_Store
+Podfile
+Podfile.lock
+Pods/
+QRScanner/GoogleService-Info.plist
