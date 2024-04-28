@@ -1,1 +1,5 @@
 QRScanner/AppDelegate.swift
+QRScanner/GoogleService-Info.plist
+Pods/
+Podfile
+Podfile.lock
