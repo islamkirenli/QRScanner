@@ -19,15 +19,31 @@ class VcardMakerViewController: UIViewController {
     
     @IBOutlet weak var imageView: UIImageView!
     
+    @IBOutlet weak var saveButtonOutlet: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(klavyeKapat))
         view.addGestureRecognizer(gestureRecognizer)
+        
+        saveButtonOutlet.isHidden = true
     }
     
     @objc func klavyeKapat(){
         view.endEditing(true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toSaveVC" {
+            if let destinationVC = segue.destination as? SaveViewController {
+                destinationVC.receivedImage = imageView.image
+            }
+        }
+    }
+    
+    @IBAction func saveButton(_ sender: Any) {
+        performSegue(withIdentifier: "toSaveVC", sender: nil)
     }
     
     @IBAction func generateQRCode(_ sender: Any) {
@@ -49,6 +65,7 @@ class VcardMakerViewController: UIViewController {
         if let qrCode = GenerateAndDesign.generate(from: vCardString) {
             // QR kodunu image view'e ekle
             imageView.image = qrCode
+            saveButtonOutlet.isHidden = false
         }
     }
     

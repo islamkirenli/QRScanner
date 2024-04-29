@@ -7,6 +7,7 @@ class WIFIMakerViewController: UIViewController{
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
     
+    @IBOutlet weak var saveButtonOutlet: UIButton!
     
 
     override func viewDidLoad() {
@@ -14,13 +15,25 @@ class WIFIMakerViewController: UIViewController{
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(klavyeKapat))
         view.addGestureRecognizer(gestureRecognizer)
+        
+        saveButtonOutlet.isHidden = true
     }
     
     @objc func klavyeKapat(){
         view.endEditing(true)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toSaveVC" {
+            if let destinationVC = segue.destination as? SaveViewController {
+                destinationVC.receivedImage = imageView.image
+            }
+        }
+    }
     
+    @IBAction func saveButton(_ sender: Any) {
+        performSegue(withIdentifier: "toSaveVC", sender: nil)
+    }
     
     @IBAction func designButton(_ sender: Any) {
     }
@@ -39,6 +52,7 @@ class WIFIMakerViewController: UIViewController{
 
         if let qrImage = WifiQR(name: ssid, password: code, size: 100) {
             imageView.image = qrImage
+            saveButtonOutlet.isHidden = false
         } else {
             showAlert(message: "Failed to generate QR code")
         }

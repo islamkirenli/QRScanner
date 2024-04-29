@@ -9,6 +9,8 @@ class AppsMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     @IBOutlet weak var idTextField: UITextField!
     @IBOutlet weak var qrCodeImageView: UIImageView!
     
+    @IBOutlet weak var saveButtonOutlet: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         pickerView.delegate = self
@@ -19,10 +21,24 @@ class AppsMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(klavyeKapat))
         view.addGestureRecognizer(gestureRecognizer)
+        
+        saveButtonOutlet.isHidden = true
     }
     
     @objc func klavyeKapat(){
         view.endEditing(true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toSaveVC" {
+            if let destinationVC = segue.destination as? SaveViewController {
+                destinationVC.receivedImage = qrCodeImageView.image
+            }
+        }
+    }
+    
+    @IBAction func saveButton(_ sender: Any) {
+        performSegue(withIdentifier: "toSaveVC", sender: nil)
     }
     
     // UIPickerViewDataSource protocol methods
@@ -70,6 +86,7 @@ class AppsMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         // QR kodu oluşturma işlemi
         if let qrCodeImage = GenerateAndDesign.generate(from: appStoreURL) {
             qrCodeImageView.image = qrCodeImage
+            saveButtonOutlet.isHidden = false
         } else {
             showAlert(message: "QR kodu oluşturulamadı.")
         }

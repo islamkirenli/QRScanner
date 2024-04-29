@@ -5,6 +5,8 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
     @IBOutlet weak var originalImageView: UIImageView!
     @IBOutlet weak var qrCodeImageView: UIImageView!
     
+    @IBOutlet weak var saveButtonOutlet: UIButton!
+    
     var selectedImageData: Data?
     
     override func viewDidLoad() {
@@ -13,6 +15,8 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(selectImageTapped))
         originalImageView.addGestureRecognizer(tapGesture)
         originalImageView.isUserInteractionEnabled = true
+        
+        saveButtonOutlet.isHidden = true
     }
     
     @objc func selectImageTapped() {
@@ -22,12 +26,25 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
         present(imagePicker, animated: true, completion: nil)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toSaveVC" {
+            if let destinationVC = segue.destination as? SaveViewController {
+                destinationVC.receivedImage = qrCodeImageView.image
+            }
+        }
+    }
+    
+    @IBAction func saveButton(_ sender: Any) {
+        performSegue(withIdentifier: "toSaveVC", sender: nil)
+    }
+    
     @IBAction func generateQRTapped(_ sender: Any) {
         if let image = originalImageView.image {
             if let imageURL = saveImageToTemporaryDirectory(image: image) {
                 if let qrCode = generateQRCode(from: imageURL) {
                     print(imageURL)
                     qrCodeImageView.image = qrCode
+                    saveButtonOutlet.isHidden = false
                 } else {
                     print("Failed to generate QR code.")
                 }

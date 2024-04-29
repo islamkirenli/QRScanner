@@ -7,6 +7,8 @@ class SocialMedyaMakerViewController: UIViewController, UIPickerViewDataSource, 
     @IBOutlet weak var accountTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
     
+    @IBOutlet weak var saveButtonOutlet: UIButton!
+    
     let socialMediaPlatforms = ["Facebook", "Twitter", "Instagram"]
     var selectedSocialMediaPlatform: String?
     
@@ -21,10 +23,24 @@ class SocialMedyaMakerViewController: UIViewController, UIPickerViewDataSource, 
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(klavyeKapat))
         view.addGestureRecognizer(gestureRecognizer)
+        
+        saveButtonOutlet.isHidden = true
     }
     
     @objc func klavyeKapat(){
         view.endEditing(true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toSaveVC" {
+            if let destinationVC = segue.destination as? SaveViewController {
+                destinationVC.receivedImage = imageView.image
+            }
+        }
+    }
+    
+    @IBAction func saveButton(_ sender: Any) {
+        performSegue(withIdentifier: "toSaveVC", sender: nil)
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -60,10 +76,11 @@ class SocialMedyaMakerViewController: UIViewController, UIPickerViewDataSource, 
                 let socialMediaURL = "https://www.\(socialMedia.lowercased()).com/\(username)"
 
         if let qrCodeImage = GenerateAndDesign.generate(from: socialMediaURL) {
-                    imageView.image = qrCodeImage
-                } else {
-                    showAlert(message: "QR kodu oluşturulamadı")
-                }
+            imageView.image = qrCodeImage
+            saveButtonOutlet.isHidden = false
+        }else{
+            showAlert(message: "QR kodu oluşturulamadı")
+        }
     }
     
 

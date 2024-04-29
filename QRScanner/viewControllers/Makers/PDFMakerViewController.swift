@@ -5,11 +5,13 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
 
     @IBOutlet weak var qrCodeImageView: UIImageView!
     
+    @IBOutlet weak var saveButtonOutlet: UIButton!
     var selectedPDFURL: URL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        saveButtonOutlet.isHidden = true
     }
 
     
@@ -23,6 +25,18 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
     }
     
     @IBAction func designButton(_ sender: Any) {
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toSaveVC" {
+            if let destinationVC = segue.destination as? SaveViewController {
+                destinationVC.receivedImage = qrCodeImageView.image
+            }
+        }
+    }
+    
+    @IBAction func saveButton(_ sender: Any) {
+        performSegue(withIdentifier: "toSaveVC", sender: nil)
     }
     
     @IBAction func generateQRCodeButtonTapped(_ sender: Any) {
@@ -48,10 +62,11 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
 
                 // Metin verisinden QR kodu oluştur
         if let qrCodeImage = GenerateAndDesign.generate(from: pdfText) {
-                    qrCodeImageView.image = qrCodeImage
-                } else {
-                    showAlert(message: "QR kodu oluşturulamadı.")
-                }
+            qrCodeImageView.image = qrCodeImage
+            saveButtonOutlet.isHidden = false
+        }else{
+            showAlert(message: "QR kodu oluşturulamadı.")
+        }
     }
     
 

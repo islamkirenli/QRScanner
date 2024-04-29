@@ -16,6 +16,7 @@
 		B538E87E2BCDBF6800D72DC1 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B538E87D2BCDBF6800D72DC1 /* Base */; };
 		B538E8802BCDBF6800D72DC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B538E87F2BCDBF6800D72DC1 /* Assets.xcassets */; };
 		B538E8832BCDBF6800D72DC1 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B538E8822BCDBF6800D72DC1 /* Base */; };
+		B5476C742BE01D260059F2C9 /* SaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5476C732BE01D260059F2C9 /* SaveViewController.swift */; };
 		B547A3BD2BDE321D00C3F0FB /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B547A3BC2BDE321D00C3F0FB /* LogInViewController.swift */; };
 		B547A3BF2BDE324400C3F0FB /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B547A3BE2BDE324400C3F0FB /* SignUpViewController.swift */; };
 		B565F1D52BD50BAB0028897A /* WIFIMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B565F1D42BD50BAB0028897A /* WIFIMakerViewController.swift */; };
@@ -47,6 +48,7 @@
 		B538E87F2BCDBF6800D72DC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B538E8822BCDBF6800D72DC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B538E8842BCDBF6800D72DC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B5476C732BE01D260059F2C9 /* SaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveViewController.swift; sourceTree = "<group>"; };
 		B547A3BC2BDE321D00C3F0FB /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		B547A3BE2BDE324400C3F0FB /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		B565F1D42BD50BAB0028897A /* WIFIMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WIFIMakerViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				B5145BA62BDDB057005EA17A /* ProfilViewController.swift */,
 				B547A3BC2BDE321D00C3F0FB /* LogInViewController.swift */,
 				B547A3BE2BDE324400C3F0FB /* SignUpViewController.swift */,
+				B5476C732BE01D260059F2C9 /* SaveViewController.swift */,
 				B5A835462BD44DEF00E7B210 /* Makers */,
 			);
 			path = viewControllers;
@@ -290,6 +293,7 @@
 				B538E8792BCDBF6800D72DC1 /* SceneDelegate.swift in Sources */,
 				B59DE0B62BD560F800EB6169 /* SocialMedyaMakerViewController.swift in Sources */,
 				B5145BA72BDDB057005EA17A /* ProfilViewController.swift in Sources */,
+				B5476C742BE01D260059F2C9 /* SaveViewController.swift in Sources */,
 				B5D7B35A2BCF1909007234B4 /* ScannerViewController.swift in Sources */,
 				B547A3BF2BDE324400C3F0FB /* SignUpViewController.swift in Sources */,
 				B5DF3E952BDC772400F3DE7C /* AppsMakerViewController.swift in Sources */,
