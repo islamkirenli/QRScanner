@@ -1,20 +1,52 @@
 import UIKit
 
-class TextMakerViewController: UIViewController {
+class TextMakerViewController: UIViewController, UITextViewDelegate {
 
     
     @IBOutlet weak var textField: UITextView!
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var characterCountLabel: UILabel!
     
     @IBOutlet weak var saveButtonOutlet: UIButton!
+    @IBOutlet weak var downloadButtonOutlet: UIButton!
+    
+    let maxLength = 500
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        textField.delegate = self
+        updateCharacterCount()
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(klavyeKapat))
         view.addGestureRecognizer(gestureRecognizer)
         
         saveButtonOutlet.isHidden = true
+        downloadButtonOutlet.isHidden = true
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        // Mevcut metnin uzunluğunu ve yeni eklenen metnin uzunluğunu hesapla
+        let currentText = textView.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: text)
+        
+        // Maksimum karakter sayısını kontrol et
+        return updatedText.count <= maxLength
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        // Metin değiştiğinde karakter sayısını güncelle
+        updateCharacterCount()
+    }
+    
+    func updateCharacterCount() {
+        // Mevcut metin uzunluğunu al ve karakter sayısını hesapla
+        let currentText = textField.text ?? ""
+        //let remainingCharacters = maxLength - currentText.count
+        
+        // Kalan karakter sayısını etikete yazdır
+        characterCountLabel.text = "\(currentText.count)/\(maxLength)"
     }
     
     @objc func klavyeKapat(){
@@ -46,6 +78,7 @@ class TextMakerViewController: UIViewController {
             // QR kodunu imageView'a atayın
             imageView.image = qrCodeImage
             saveButtonOutlet.isHidden = false
+            downloadButtonOutlet.isHidden = false
         } else {
             // QR kodu oluşturulamazsa hata mesajı gösterin
             showAlert(message: "QR kodu oluşturulamadı")
@@ -64,6 +97,30 @@ class TextMakerViewController: UIViewController {
     
     @IBAction func designButton(_ sender: Any) {
         performSegue(withIdentifier: "toDesignVC", sender: nil)
+    }
+    
+    
+    @IBAction func downloadButton(_ sender: Any) {
+        saveImage()
+    }
+    
+    @objc func saveImage() {
+        if let pickedImage = imageView.image {
+            UIImageWriteToSavedPhotosAlbum(pickedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        }
+    }
+    
+    @objc func image (_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            // we got back an error!
+            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        } else {
+            let ac = UIAlertController(title: "Saved!", message: "Your altered image has been saved to your photos.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
     }
     
 

@@ -1,4 +1,5 @@
 import UIKit
+import Photos
 
 class URLMakerViewController: UIViewController {
 
@@ -6,7 +7,7 @@ class URLMakerViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     
     @IBOutlet weak var saveButtonOutlet: UIButton!
-    
+    @IBOutlet weak var downloadButtonOutlet: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,6 +16,7 @@ class URLMakerViewController: UIViewController {
         view.addGestureRecognizer(gestureRecognizer)
         
         saveButtonOutlet.isHidden = true
+        downloadButtonOutlet.isHidden = true
     }
     
     @objc func klavyeKapat(){
@@ -49,19 +51,41 @@ class URLMakerViewController: UIViewController {
             // QR kodunu imageView'a atayın
             imageView.image = qrCodeImage
             saveButtonOutlet.isHidden = false
+            downloadButtonOutlet.isHidden = false
         } else {
             // QR kodu oluşturulamazsa hata mesajı gösterin
             showAlert(message: "QR kodu oluşturulamadı")
         }
     }
-    
-    
 
     func showAlert(message: String) {
         let alertController = UIAlertController(title: "Hata", message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Tamam", style: .default, handler: nil)
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
+    }
+    
+    @IBAction func downloadButton(_ sender: Any) {
+        saveImage()
+    }
+    
+    @objc func saveImage() {
+        if let pickedImage = imageView.image {
+            UIImageWriteToSavedPhotosAlbum(pickedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        }
+    }
+    
+    @objc func image (_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            // we got back an error!
+            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        } else {
+            let ac = UIAlertController(title: "Saved!", message: "Your altered image has been saved to your photos.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
     }
 }
 

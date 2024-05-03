@@ -7,9 +7,10 @@ class AppsMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var idTextField: UITextField!
-    @IBOutlet weak var qrCodeImageView: UIImageView!
+    @IBOutlet weak var imageView: UIImageView!
     
     @IBOutlet weak var saveButtonOutlet: UIButton!
+    @IBOutlet weak var downloadButtonOutlet: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,7 @@ class AppsMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         view.addGestureRecognizer(gestureRecognizer)
         
         saveButtonOutlet.isHidden = true
+        downloadButtonOutlet.isHidden = true
     }
     
     @objc func klavyeKapat(){
@@ -32,7 +34,7 @@ class AppsMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toSaveVC" {
             if let destinationVC = segue.destination as? SaveViewController {
-                destinationVC.receivedImage = qrCodeImageView.image
+                destinationVC.receivedImage = imageView.image
             }
         }
     }
@@ -85,8 +87,9 @@ class AppsMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         
         // QR kodu oluşturma işlemi
         if let qrCodeImage = GenerateAndDesign.generate(from: appStoreURL) {
-            qrCodeImageView.image = qrCodeImage
+            imageView.image = qrCodeImage
             saveButtonOutlet.isHidden = false
+            downloadButtonOutlet.isHidden = false
         } else {
             showAlert(message: "QR kodu oluşturulamadı.")
         }
@@ -100,6 +103,30 @@ class AppsMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         let okAction = UIAlertAction(title: "Tamam", style: .default, handler: nil)
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func downloadButton(_ sender: Any) {
+        saveImage()
+    }
+    
+    @objc func saveImage() {
+        if let pickedImage = imageView.image {
+            UIImageWriteToSavedPhotosAlbum(pickedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        }
+    }
+    
+    @objc func image (_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            // we got back an error!
+            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        } else {
+            let ac = UIAlertController(title: "Saved!", message: "Your altered image has been saved to your photos.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
     }
 }
 

@@ -16,6 +16,7 @@
 		B538E87E2BCDBF6800D72DC1 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B538E87D2BCDBF6800D72DC1 /* Base */; };
 		B538E8802BCDBF6800D72DC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B538E87F2BCDBF6800D72DC1 /* Assets.xcassets */; };
 		B538E8832BCDBF6800D72DC1 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B538E8822BCDBF6800D72DC1 /* Base */; };
+		B53F0BE12BE588A500D017F0 /* ShowHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53F0BE02BE588A500D017F0 /* ShowHistoryViewController.swift */; };
 		B5476C742BE01D260059F2C9 /* SaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5476C732BE01D260059F2C9 /* SaveViewController.swift */; };
 		B547A3BD2BDE321D00C3F0FB /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B547A3BC2BDE321D00C3F0FB /* LogInViewController.swift */; };
 		B547A3BF2BDE324400C3F0FB /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B547A3BE2BDE324400C3F0FB /* SignUpViewController.swift */; };
@@ -48,6 +49,7 @@
 		B538E87F2BCDBF6800D72DC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B538E8822BCDBF6800D72DC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B538E8842BCDBF6800D72DC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B53F0BE02BE588A500D017F0 /* ShowHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowHistoryViewController.swift; sourceTree = "<group>"; };
 		B5476C732BE01D260059F2C9 /* SaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveViewController.swift; sourceTree = "<group>"; };
 		B547A3BC2BDE321D00C3F0FB /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		B547A3BE2BDE324400C3F0FB /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				B5A835432BD4255600E7B210 /* MakerViewController.swift */,
 				B5A835412BD4132500E7B210 /* DesignViewController.swift */,
 				B5755B882BD8054A0022CFC5 /* HistoryViewController.swift */,
+				B53F0BE02BE588A500D017F0 /* ShowHistoryViewController.swift */,
 				B5145BA62BDDB057005EA17A /* ProfilViewController.swift */,
 				B547A3BC2BDE321D00C3F0FB /* LogInViewController.swift */,
 				B547A3BE2BDE324400C3F0FB /* SignUpViewController.swift */,
@@ -290,6 +293,7 @@
 				B5755B892BD8054A0022CFC5 /* HistoryViewController.swift in Sources */,
 				B5A835482BD44E1200E7B210 /* TextMakerViewController.swift in Sources */,
 				B538E8772BCDBF6800D72DC1 /* AppDelegate.swift in Sources */,
+				B53F0BE12BE588A500D017F0 /* ShowHistoryViewController.swift in Sources */,
 				B538E8792BCDBF6800D72DC1 /* SceneDelegate.swift in Sources */,
 				B59DE0B62BD560F800EB6169 /* SocialMedyaMakerViewController.swift in Sources */,
 				B5145BA72BDDB057005EA17A /* ProfilViewController.swift in Sources */,

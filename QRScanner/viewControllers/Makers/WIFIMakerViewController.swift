@@ -9,7 +9,8 @@ class WIFIMakerViewController: UIViewController{
     
     @IBOutlet weak var saveButtonOutlet: UIButton!
     
-
+    @IBOutlet weak var downloadButtonOutlet: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -17,6 +18,7 @@ class WIFIMakerViewController: UIViewController{
         view.addGestureRecognizer(gestureRecognizer)
         
         saveButtonOutlet.isHidden = true
+        downloadButtonOutlet.isHidden = true
     }
     
     @objc func klavyeKapat(){
@@ -53,6 +55,7 @@ class WIFIMakerViewController: UIViewController{
         if let qrImage = WifiQR(name: ssid, password: code, size: 100) {
             imageView.image = qrImage
             saveButtonOutlet.isHidden = false
+            downloadButtonOutlet.isHidden = false
         } else {
             showAlert(message: "Failed to generate QR code")
         }
@@ -69,6 +72,30 @@ class WIFIMakerViewController: UIViewController{
                 sanitizedText = sanitizedText.replacingOccurrences(of: String(turkishCharacter), with: String(asciiCharacter))
             }
             return sanitizedText
+    }
+    
+    
+    @IBAction func downloadButton(_ sender: Any) {
+        saveImage()
+    }
+    
+    @objc func saveImage() {
+        if let pickedImage = imageView.image {
+            UIImageWriteToSavedPhotosAlbum(pickedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        }
+    }
+    
+    @objc func image (_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            // we got back an error!
+            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        } else {
+            let ac = UIAlertController(title: "Saved!", message: "Your altered image has been saved to your photos.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
     }
     
 
