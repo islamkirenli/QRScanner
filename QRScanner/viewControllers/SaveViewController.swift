@@ -15,6 +15,7 @@ class SaveViewController: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
     
+    
     let currentUser = Auth.auth().currentUser
     
     var receivedImage : UIImage?
@@ -43,7 +44,7 @@ class SaveViewController: UIViewController {
             
             if let data = imageView.image?.jpegData(compressionQuality: 0.5){
                 let uuid = UUID().uuidString
-                let imageReference = userFolder.child("\(uuid).jpg")
+                let imageReference = userFolder.child("QR_Codes").child("\(uuid).jpg")
                 
                 imageReference.putData(data, metadata: nil) { (storagemetadata, error) in
                     if error != nil{
@@ -62,7 +63,7 @@ class SaveViewController: UIViewController {
                                         if error != nil{
                                             showAlert(message: error?.localizedDescription ?? "hata aldınız.")
                                         }else{
-                                            
+                                            self.dismiss(animated: true)
                                         }
                                     }
                                 }
@@ -73,6 +74,7 @@ class SaveViewController: UIViewController {
                 }
             }
         }
+
         
         
         func showAlert(message: String) {

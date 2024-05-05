@@ -30,6 +30,7 @@
 		B5A835482BD44E1200E7B210 /* TextMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A835472BD44E1200E7B210 /* TextMakerViewController.swift */; };
 		B5A8354A2BD46BAE00E7B210 /* EmailMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A835492BD46BAE00E7B210 /* EmailMakerViewController.swift */; };
 		B5A8354C2BD470CF00E7B210 /* VcardMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A8354B2BD470CF00E7B210 /* VcardMakerViewController.swift */; };
+		B5C124782BE6B8C900FEFB73 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C124772BE6B8C900FEFB73 /* HistoryCell.swift */; };
 		B5C33E232BDD923E00D54549 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5C33E222BDD923E00D54549 /* GoogleService-Info.plist */; };
 		B5D7B35A2BCF1909007234B4 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D7B3592BCF1909007234B4 /* ScannerViewController.swift */; };
 		B5D7B35C2BCF1918007234B4 /* URLMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D7B35B2BCF1918007234B4 /* URLMakerViewController.swift */; };
@@ -63,6 +64,7 @@
 		B5A835472BD44E1200E7B210 /* TextMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextMakerViewController.swift; sourceTree = "<group>"; };
 		B5A835492BD46BAE00E7B210 /* EmailMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailMakerViewController.swift; sourceTree = "<group>"; };
 		B5A8354B2BD470CF00E7B210 /* VcardMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VcardMakerViewController.swift; sourceTree = "<group>"; };
+		B5C124772BE6B8C900FEFB73 /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
 		B5C33E222BDD923E00D54549 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B5D7B3592BCF1909007234B4 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		B5D7B35B2BCF1918007234B4 /* URLMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLMakerViewController.swift; sourceTree = "<group>"; };
@@ -133,6 +135,7 @@
 				B5A835432BD4255600E7B210 /* MakerViewController.swift */,
 				B5A835412BD4132500E7B210 /* DesignViewController.swift */,
 				B5755B882BD8054A0022CFC5 /* HistoryViewController.swift */,
+				B5C124772BE6B8C900FEFB73 /* HistoryCell.swift */,
 				B53F0BE02BE588A500D017F0 /* ShowHistoryViewController.swift */,
 				B5145BA62BDDB057005EA17A /* ProfilViewController.swift */,
 				B547A3BC2BDE321D00C3F0FB /* LogInViewController.swift */,
@@ -298,6 +301,7 @@
 				B59DE0B62BD560F800EB6169 /* SocialMedyaMakerViewController.swift in Sources */,
 				B5145BA72BDDB057005EA17A /* ProfilViewController.swift in Sources */,
 				B5476C742BE01D260059F2C9 /* SaveViewController.swift in Sources */,
+				B5C124782BE6B8C900FEFB73 /* HistoryCell.swift in Sources */,
 				B5D7B35A2BCF1909007234B4 /* ScannerViewController.swift in Sources */,
 				B547A3BF2BDE324400C3F0FB /* SignUpViewController.swift in Sources */,
 				B5DF3E952BDC772400F3DE7C /* AppsMakerViewController.swift in Sources */,
