@@ -36,53 +36,56 @@ class SaveViewController: UIViewController {
     }
     
     @IBAction func saveButton(_ sender: Any) {
-        let storage = Storage.storage()
-        let storageReference = storage.reference()
-        
-        if let currentUserEmail = currentUser?.email{
-            let userFolder = storageReference.child(currentUserEmail)
+        if titleTextField.text?.isEmpty == true{
+            showAlert(message: "Lütfen başlık girin.")
+        }else{
+            let storage = Storage.storage()
+            let storageReference = storage.reference()
             
-            if let data = imageView.image?.jpegData(compressionQuality: 0.5){
-                let uuid = UUID().uuidString
-                let imageReference = userFolder.child("QR_Codes").child("\(uuid).jpg")
+            if let currentUserEmail = currentUser?.email{
+                let userFolder = storageReference.child(currentUserEmail)
                 
-                imageReference.putData(data, metadata: nil) { (storagemetadata, error) in
-                    if error != nil{
-                        showAlert(message: error?.localizedDescription ?? "hata alındı.")
-                    }else{
-                        imageReference.downloadURL { (url, error) in
-                            if error == nil{
-                                let imageURL = url?.absoluteString
-                                
-                                if let imageURL = imageURL{
-                                    let firestoreDB = Firestore.firestore()
+                if let data = imageView.image?.jpegData(compressionQuality: 0.5){
+                    let uuid = UUID().uuidString
+                    let imageReference = userFolder.child("QR_Codes").child("\(uuid).jpg")
+                    
+                    imageReference.putData(data, metadata: nil) { (storagemetadata, error) in
+                        if error != nil{
+                            self.showAlert(message: error?.localizedDescription ?? "hata alındı.")
+                        }else{
+                            imageReference.downloadURL { (url, error) in
+                                if error == nil{
+                                    let imageURL = url?.absoluteString
                                     
-                                    let firestoreQRArray = ["gorselurl" : imageURL, "baslik" : self.titleTextField.text!, "email" : Auth.auth().currentUser!.email, "tarih" : FieldValue.serverTimestamp()] as [String : Any]
-                                    
-                                    firestoreDB.collection("QRCodes").addDocument(data: firestoreQRArray) { error in
-                                        if error != nil{
-                                            showAlert(message: error?.localizedDescription ?? "hata aldınız.")
-                                        }else{
-                                            self.dismiss(animated: true)
+                                    if let imageURL = imageURL{
+                                        let firestoreDB = Firestore.firestore()
+                                        
+                                        let firestoreQRArray = ["gorselurl" : imageURL, "baslik" : self.titleTextField.text!, "email" : Auth.auth().currentUser!.email, "tarih" : FieldValue.serverTimestamp()] as [String : Any]
+                                        
+                                        firestoreDB.collection("QRCodes").addDocument(data: firestoreQRArray) { error in
+                                            if error != nil{
+                                                self.showAlert(message: error?.localizedDescription ?? "hata aldınız.")
+                                            }else{
+                                                self.dismiss(animated: true)
+                                            }
                                         }
                                     }
+                                    
                                 }
-                                
                             }
                         }
                     }
                 }
             }
         }
-
         
-        
-        func showAlert(message: String) {
-            let alertController = UIAlertController(title: "Hata", message: message, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "Tamam", style: .default, handler: nil)
-            alertController.addAction(okAction)
-            present(alertController, animated: true, completion: nil)
-        }
+    }
+    
+    func showAlert(message: String) {
+        let alertController = UIAlertController(title: "Hata", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Tamam", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
         
     }
     
