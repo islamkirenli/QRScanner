@@ -37,7 +37,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         let firestoreDB = Firestore.firestore()
         if let currentUserEmail = currentUser?.email{
             firestoreDB.collection("QRCodes").whereField("email", isEqualTo: currentUserEmail)
-                //.order(by: "tarih", descending: true) 
+                .order(by: "tarih", descending: true) 
                 .addSnapshotListener { (snapshot, error) in
                 if error != nil{
                     self.showAlert(message: error?.localizedDescription ?? "hata var.")

@@ -1,5 +1,7 @@
 import UIKit
-import PDFKit
+import FirebaseStorage
+import FirebaseAuth
+import FirebaseFirestore
 
 class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
 
@@ -7,6 +9,10 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
     
     @IBOutlet weak var saveButtonOutlet: UIButton!
     @IBOutlet weak var downloadButtonOutlet: UIButton!
+    
+    let currentUser = Auth.auth().currentUser
+    
+    var documentURL = ""
     
     var selectedPDFURL: URL?
     
@@ -19,13 +25,76 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
 
     
     @IBAction func selectPDFButtonTapped(_ sender: Any) {
-        
-                let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.pdf])
-                documentPicker.delegate = self
-                documentPicker.allowsMultipleSelection = false
-                self.present(documentPicker, animated: true, completion: nil)
-            
+        let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.item], asCopy: true)
+        documentPicker.delegate = self
+        present(documentPicker, animated: true, completion: nil)
     }
+    
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        guard let selectedURL = urls.first else {
+            return
+        }
+        
+        let storage = Storage.storage()
+        let storageReference = storage.reference()
+        
+        if let currentUserEmail = currentUser?.email{
+            let userFolder = storageReference.child(currentUserEmail)
+            let uuid = UUID().uuidString
+            let documentReference = userFolder.child("Documents").child("\(uuid)")
+            
+            documentReference.putFile(from: selectedURL, metadata: nil) { (storagemetadata, error) in
+                if error != nil{
+                    self.showAlert(message: error?.localizedDescription ?? "döküman yüklenemedi.")
+                }else{
+                    documentReference.downloadURL { url, error in
+                        guard let downloadURL = url else {
+                            self.showAlert(message: error?.localizedDescription ?? "dosya urlsi alınırken hata alındı.")
+                            return
+                        }
+                        self.documentURL = downloadURL.absoluteString
+                        
+                        let firestoreDB = Firestore.firestore()
+                        
+                        let firestoreDocumentArray = ["documenturl" : self.documentURL, "email" : Auth.auth().currentUser!.email, "tarih" : FieldValue.serverTimestamp()] as [String : Any]
+                        
+                        firestoreDB.collection("Documents").addDocument(data: firestoreDocumentArray) { error in
+                            if error != nil{
+                                self.showAlert(message: error?.localizedDescription ?? "firestore'a atılırken hata alındı.")
+                            }else{
+                                
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
+        print("Doküman seçim işlemi iptal edildi")
+    }
+    
+    
+    
+    @IBAction func generateQRCodeButtonTapped(_ sender: Any) {
+        if documentURL.isEmpty == false{
+            if let qrCodeImage = GenerateAndDesign.generate(from: documentURL) {
+                // QR kodunu imageView'a atayın
+                print(documentURL)
+                imageView.image = qrCodeImage
+                saveButtonOutlet.isHidden = false
+                downloadButtonOutlet.isHidden = false
+            } else {
+                // QR kodu oluşturulamazsa hata mesajı gösterin
+                showAlert(message: "QR kodu oluşturulamadı")
+            }
+        }else{
+            showAlert(message: "bir hata alındı.")
+        }
+    }
+    
     
     @IBAction func designButton(_ sender: Any) {
     }
@@ -41,51 +110,7 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
     @IBAction func saveButton(_ sender: Any) {
         performSegue(withIdentifier: "toSaveVC", sender: nil)
     }
-    
-    @IBAction func generateQRCodeButtonTapped(_ sender: Any) {
-        guard let pdfURL = selectedPDFURL else {
-                    showAlert(message: "Lütfen bir PDF dosyası seçin.")
-                    return
-                }
 
-                guard let pdfDocument = PDFDocument(url: pdfURL) else {
-                    showAlert(message: "Seçilen dosya açılamadı.")
-                    return
-                }
-
-                // PDF'den metin verisi al
-                var pdfText = ""
-                for pageIndex in 0..<pdfDocument.pageCount {
-                    if let page = pdfDocument.page(at: pageIndex) {
-                        if let pageText = page.string {
-                            pdfText += pageText
-                        }
-                    }
-                }
-
-                // Metin verisinden QR kodu oluştur
-        if let qrCodeImage = GenerateAndDesign.generate(from: pdfText) {
-            imageView.image = qrCodeImage
-            saveButtonOutlet.isHidden = false
-            downloadButtonOutlet.isHidden = false
-        }else{
-            showAlert(message: "QR kodu oluşturulamadı.")
-        }
-    }
-    
-
-    func showAlert(message: String) {
-        let alertController = UIAlertController(title: "Hata", message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Tamam", style: .default, handler: nil)
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion: nil)
-    }
-
-    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
-        guard let selectedURL = urls.first else { return }
-        selectedPDFURL = selectedURL
-    }
-    
     
     @IBAction func downloadButton(_ sender: Any) {
         saveImage()
@@ -108,6 +133,13 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
             ac.addAction(UIAlertAction(title: "OK", style: .default))
             present(ac, animated: true)
         }
+    }
+    
+    func showAlert(message: String) {
+        let alertController = UIAlertController(title: "Hata", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Tamam", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
     }
 }
 
