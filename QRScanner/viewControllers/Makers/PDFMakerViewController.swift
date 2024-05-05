@@ -3,13 +3,18 @@ import PDFKit
 
 class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
 
-    @IBOutlet weak var qrCodeImageView: UIImageView!
+    @IBOutlet weak var imageView: UIImageView!
+    
+    @IBOutlet weak var saveButtonOutlet: UIButton!
+    @IBOutlet weak var downloadButtonOutlet: UIButton!
     
     var selectedPDFURL: URL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        saveButtonOutlet.isHidden = true
+        downloadButtonOutlet.isHidden = true
     }
 
     
@@ -23,6 +28,18 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
     }
     
     @IBAction func designButton(_ sender: Any) {
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toSaveVC" {
+            if let destinationVC = segue.destination as? SaveViewController {
+                destinationVC.receivedImage = imageView.image
+            }
+        }
+    }
+    
+    @IBAction func saveButton(_ sender: Any) {
+        performSegue(withIdentifier: "toSaveVC", sender: nil)
     }
     
     @IBAction func generateQRCodeButtonTapped(_ sender: Any) {
@@ -48,10 +65,12 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
 
                 // Metin verisinden QR kodu oluştur
         if let qrCodeImage = GenerateAndDesign.generate(from: pdfText) {
-                    qrCodeImageView.image = qrCodeImage
-                } else {
-                    showAlert(message: "QR kodu oluşturulamadı.")
-                }
+            imageView.image = qrCodeImage
+            saveButtonOutlet.isHidden = false
+            downloadButtonOutlet.isHidden = false
+        }else{
+            showAlert(message: "QR kodu oluşturulamadı.")
+        }
     }
     
 
@@ -65,6 +84,30 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         guard let selectedURL = urls.first else { return }
         selectedPDFURL = selectedURL
+    }
+    
+    
+    @IBAction func downloadButton(_ sender: Any) {
+        saveImage()
+    }
+    
+    @objc func saveImage() {
+        if let pickedImage = imageView.image {
+            UIImageWriteToSavedPhotosAlbum(pickedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        }
+    }
+    
+    @objc func image (_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            // we got back an error!
+            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        } else {
+            let ac = UIAlertController(title: "Saved!", message: "Your altered image has been saved to your photos.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
     }
 }
 

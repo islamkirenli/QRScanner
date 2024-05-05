@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class MakerViewController: UIViewController{
+    
+    let guncelKullanici = Auth.auth().currentUser
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,10 +36,18 @@ class MakerViewController: UIViewController{
         performSegue(withIdentifier: "toSocialMediaMakerVC", sender: nil)
     }
     @IBAction func documentButton(_ sender: Any) {
-        performSegue(withIdentifier: "toPDFMakerVC", sender: nil)
+        if guncelKullanici != nil{
+            performSegue(withIdentifier: "toPDFMakerVC", sender: nil)
+        }else{
+            performSegue(withIdentifier: "toLogInVC", sender: nil)
+        }
     }
     @IBAction func imageButton(_ sender: Any) {
-        performSegue(withIdentifier: "toImageMakerVC", sender: nil)
+        if guncelKullanici != nil{
+            performSegue(withIdentifier: "toImageMakerVC", sender: nil)
+        }else{
+            performSegue(withIdentifier: "toLogInVC", sender: nil)
+        }
     }
     @IBAction func appsButton(_ sender: Any) {
         performSegue(withIdentifier: "toAppsMakerVC", sender: nil)

@@ -3,16 +3,26 @@ import UIKit
 class GenerateAndDesign {
     
     static func generate(from string: String) -> UIImage? {
-        let data = string.data(using: String.Encoding.ascii)
+        let data = string.data(using: .ascii)
+        
         if let filter = CIFilter(name: "CIQRCodeGenerator") {
             filter.setValue(data, forKey: "inputMessage")
             let transform = CGAffineTransform(scaleX: 10, y: 10)
             
             if let output = filter.outputImage?.transformed(by: transform) {
-                return UIImage(ciImage: output)
+                if let cgImage = CIContext().createCGImage(output, from: output.extent) {
+                    let uiImage = UIImage(cgImage: cgImage)
+                    // Convert UIImage to Data with JPG representation
+                    if let jpgData = uiImage.jpegData(compressionQuality: 1.0) {
+                        // Create UIImage from JPG Data
+                        return UIImage(data: jpgData)
+                    }
+                }
             }
         }
+        
         return nil
+    
     }
     
     
@@ -49,5 +59,8 @@ class GenerateAndDesign {
         UIGraphicsEndImageContext()
         return combinedImage
     }
+    
+    
+    
 }
 

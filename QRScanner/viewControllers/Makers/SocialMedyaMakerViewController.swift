@@ -7,6 +7,9 @@ class SocialMedyaMakerViewController: UIViewController, UIPickerViewDataSource, 
     @IBOutlet weak var accountTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
     
+    @IBOutlet weak var saveButtonOutlet: UIButton!
+    @IBOutlet weak var downloadButtonOutlet: UIButton!
+    
     let socialMediaPlatforms = ["Facebook", "Twitter", "Instagram"]
     var selectedSocialMediaPlatform: String?
     
@@ -21,10 +24,25 @@ class SocialMedyaMakerViewController: UIViewController, UIPickerViewDataSource, 
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(klavyeKapat))
         view.addGestureRecognizer(gestureRecognizer)
+        
+        saveButtonOutlet.isHidden = true
+        downloadButtonOutlet.isHidden = true
     }
     
     @objc func klavyeKapat(){
         view.endEditing(true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toSaveVC" {
+            if let destinationVC = segue.destination as? SaveViewController {
+                destinationVC.receivedImage = imageView.image
+            }
+        }
+    }
+    
+    @IBAction func saveButton(_ sender: Any) {
+        performSegue(withIdentifier: "toSaveVC", sender: nil)
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -60,10 +78,36 @@ class SocialMedyaMakerViewController: UIViewController, UIPickerViewDataSource, 
                 let socialMediaURL = "https://www.\(socialMedia.lowercased()).com/\(username)"
 
         if let qrCodeImage = GenerateAndDesign.generate(from: socialMediaURL) {
-                    imageView.image = qrCodeImage
-                } else {
-                    showAlert(message: "QR kodu oluşturulamadı")
-                }
+            imageView.image = qrCodeImage
+            saveButtonOutlet.isHidden = false
+            downloadButtonOutlet.isHidden = false
+        }else{
+            showAlert(message: "QR kodu oluşturulamadı")
+        }
+    }
+    
+    
+    @IBAction func downloadButton(_ sender: Any) {
+        saveImage()
+    }
+    
+    @objc func saveImage() {
+        if let pickedImage = imageView.image {
+            UIImageWriteToSavedPhotosAlbum(pickedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        }
+    }
+    
+    @objc func image (_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            // we got back an error!
+            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        } else {
+            let ac = UIAlertController(title: "Saved!", message: "Your altered image has been saved to your photos.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
     }
     
 

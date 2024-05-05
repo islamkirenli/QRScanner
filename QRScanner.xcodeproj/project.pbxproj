@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6611A74C514C99EA47364BAD /* Pods_QRScanner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A303013510595432F0C26FF3 /* Pods_QRScanner.framework */; };
+		B5145BA72BDDB057005EA17A /* ProfilViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5145BA62BDDB057005EA17A /* ProfilViewController.swift */; };
 		B537D18A2BD7DF36005B8992 /* ImageMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B537D1892BD7DF36005B8992 /* ImageMakerViewController.swift */; };
 		B538E8772BCDBF6800D72DC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B538E8762BCDBF6800D72DC1 /* AppDelegate.swift */; };
 		B538E8792BCDBF6800D72DC1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B538E8782BCDBF6800D72DC1 /* SceneDelegate.swift */; };
@@ -14,6 +16,10 @@
 		B538E87E2BCDBF6800D72DC1 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B538E87D2BCDBF6800D72DC1 /* Base */; };
 		B538E8802BCDBF6800D72DC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B538E87F2BCDBF6800D72DC1 /* Assets.xcassets */; };
 		B538E8832BCDBF6800D72DC1 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = B538E8822BCDBF6800D72DC1 /* Base */; };
+		B53F0BE12BE588A500D017F0 /* ShowHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B53F0BE02BE588A500D017F0 /* ShowHistoryViewController.swift */; };
+		B5476C742BE01D260059F2C9 /* SaveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5476C732BE01D260059F2C9 /* SaveViewController.swift */; };
+		B547A3BD2BDE321D00C3F0FB /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B547A3BC2BDE321D00C3F0FB /* LogInViewController.swift */; };
+		B547A3BF2BDE324400C3F0FB /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B547A3BE2BDE324400C3F0FB /* SignUpViewController.swift */; };
 		B565F1D52BD50BAB0028897A /* WIFIMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B565F1D42BD50BAB0028897A /* WIFIMakerViewController.swift */; };
 		B5755B892BD8054A0022CFC5 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5755B882BD8054A0022CFC5 /* HistoryViewController.swift */; };
 		B59DE0B62BD560F800EB6169 /* SocialMedyaMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B59DE0B52BD560F700EB6169 /* SocialMedyaMakerViewController.swift */; };
@@ -24,12 +30,17 @@
 		B5A835482BD44E1200E7B210 /* TextMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A835472BD44E1200E7B210 /* TextMakerViewController.swift */; };
 		B5A8354A2BD46BAE00E7B210 /* EmailMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A835492BD46BAE00E7B210 /* EmailMakerViewController.swift */; };
 		B5A8354C2BD470CF00E7B210 /* VcardMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A8354B2BD470CF00E7B210 /* VcardMakerViewController.swift */; };
+		B5C124782BE6B8C900FEFB73 /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C124772BE6B8C900FEFB73 /* HistoryCell.swift */; };
+		B5C33E232BDD923E00D54549 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5C33E222BDD923E00D54549 /* GoogleService-Info.plist */; };
 		B5D7B35A2BCF1909007234B4 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D7B3592BCF1909007234B4 /* ScannerViewController.swift */; };
 		B5D7B35C2BCF1918007234B4 /* URLMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D7B35B2BCF1918007234B4 /* URLMakerViewController.swift */; };
 		B5DF3E952BDC772400F3DE7C /* AppsMakerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5DF3E942BDC772400F3DE7C /* AppsMakerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A7FC984CBD2B1D4129EE7F4 /* Pods-QRScanner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QRScanner.release.xcconfig"; path = "Target Support Files/Pods-QRScanner/Pods-QRScanner.release.xcconfig"; sourceTree = "<group>"; };
+		A303013510595432F0C26FF3 /* Pods_QRScanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_QRScanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5145BA62BDDB057005EA17A /* ProfilViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilViewController.swift; sourceTree = "<group>"; };
 		B537D1892BD7DF36005B8992 /* ImageMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageMakerViewController.swift; sourceTree = "<group>"; };
 		B538E8732BCDBF6800D72DC1 /* QRScanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QRScanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B538E8762BCDBF6800D72DC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -39,6 +50,10 @@
 		B538E87F2BCDBF6800D72DC1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B538E8822BCDBF6800D72DC1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B538E8842BCDBF6800D72DC1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B53F0BE02BE588A500D017F0 /* ShowHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowHistoryViewController.swift; sourceTree = "<group>"; };
+		B5476C732BE01D260059F2C9 /* SaveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveViewController.swift; sourceTree = "<group>"; };
+		B547A3BC2BDE321D00C3F0FB /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		B547A3BE2BDE324400C3F0FB /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		B565F1D42BD50BAB0028897A /* WIFIMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WIFIMakerViewController.swift; sourceTree = "<group>"; };
 		B5755B882BD8054A0022CFC5 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		B59DE0B52BD560F700EB6169 /* SocialMedyaMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocialMedyaMakerViewController.swift; sourceTree = "<group>"; };
@@ -49,9 +64,12 @@
 		B5A835472BD44E1200E7B210 /* TextMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextMakerViewController.swift; sourceTree = "<group>"; };
 		B5A835492BD46BAE00E7B210 /* EmailMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailMakerViewController.swift; sourceTree = "<group>"; };
 		B5A8354B2BD470CF00E7B210 /* VcardMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VcardMakerViewController.swift; sourceTree = "<group>"; };
+		B5C124772BE6B8C900FEFB73 /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
+		B5C33E222BDD923E00D54549 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B5D7B3592BCF1909007234B4 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
 		B5D7B35B2BCF1918007234B4 /* URLMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLMakerViewController.swift; sourceTree = "<group>"; };
 		B5DF3E942BDC772400F3DE7C /* AppsMakerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppsMakerViewController.swift; sourceTree = "<group>"; };
+		C4B5F28CF5AD2BB9B540798C /* Pods-QRScanner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-QRScanner.debug.xcconfig"; path = "Target Support Files/Pods-QRScanner/Pods-QRScanner.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,17 +77,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6611A74C514C99EA47364BAD /* Pods_QRScanner.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7A271989B90910BCE86106C2 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C4B5F28CF5AD2BB9B540798C /* Pods-QRScanner.debug.xcconfig */,
+				5A7FC984CBD2B1D4129EE7F4 /* Pods-QRScanner.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		B538E86A2BCDBF6800D72DC1 = {
 			isa = PBXGroup;
 			children = (
 				B538E8752BCDBF6800D72DC1 /* QRScanner */,
 				B538E8742BCDBF6800D72DC1 /* Products */,
+				7A271989B90910BCE86106C2 /* Pods */,
+				FD2227FC760C2ED22FE241AF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -92,6 +122,7 @@
 				B538E87F2BCDBF6800D72DC1 /* Assets.xcassets */,
 				B538E8812BCDBF6800D72DC1 /* LaunchScreen.storyboard */,
 				B538E8842BCDBF6800D72DC1 /* Info.plist */,
+				B5C33E222BDD923E00D54549 /* GoogleService-Info.plist */,
 			);
 			path = QRScanner;
 			sourceTree = "<group>";
@@ -104,6 +135,12 @@
 				B5A835432BD4255600E7B210 /* MakerViewController.swift */,
 				B5A835412BD4132500E7B210 /* DesignViewController.swift */,
 				B5755B882BD8054A0022CFC5 /* HistoryViewController.swift */,
+				B5C124772BE6B8C900FEFB73 /* HistoryCell.swift */,
+				B53F0BE02BE588A500D017F0 /* ShowHistoryViewController.swift */,
+				B5145BA62BDDB057005EA17A /* ProfilViewController.swift */,
+				B547A3BC2BDE321D00C3F0FB /* LogInViewController.swift */,
+				B547A3BE2BDE324400C3F0FB /* SignUpViewController.swift */,
+				B5476C732BE01D260059F2C9 /* SaveViewController.swift */,
 				B5A835462BD44DEF00E7B210 /* Makers */,
 			);
 			path = viewControllers;
@@ -125,6 +162,14 @@
 			path = Makers;
 			sourceTree = "<group>";
 		};
+		FD2227FC760C2ED22FE241AF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A303013510595432F0C26FF3 /* Pods_QRScanner.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +177,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B538E8872BCDBF6800D72DC1 /* Build configuration list for PBXNativeTarget "QRScanner" */;
 			buildPhases = (
+				219489595C36875C31946096 /* [CP] Check Pods Manifest.lock */,
 				B538E86F2BCDBF6800D72DC1 /* Sources */,
 				B538E8702BCDBF6800D72DC1 /* Frameworks */,
 				B538E8712BCDBF6800D72DC1 /* Resources */,
+				9F5EC70D8D63EF43951A253E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -184,12 +231,55 @@
 			buildActionMask = 2147483647;
 			files = (
 				B538E8802BCDBF6800D72DC1 /* Assets.xcassets in Resources */,
+				B5C33E232BDD923E00D54549 /* GoogleService-Info.plist in Resources */,
 				B538E8832BCDBF6800D72DC1 /* Base in Resources */,
 				B538E87E2BCDBF6800D72DC1 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		219489595C36875C31946096 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-QRScanner-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9F5EC70D8D63EF43951A253E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QRScanner/Pods-QRScanner-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-QRScanner/Pods-QRScanner-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-QRScanner/Pods-QRScanner-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B538E86F2BCDBF6800D72DC1 /* Sources */ = {
@@ -206,12 +296,18 @@
 				B5755B892BD8054A0022CFC5 /* HistoryViewController.swift in Sources */,
 				B5A835482BD44E1200E7B210 /* TextMakerViewController.swift in Sources */,
 				B538E8772BCDBF6800D72DC1 /* AppDelegate.swift in Sources */,
+				B53F0BE12BE588A500D017F0 /* ShowHistoryViewController.swift in Sources */,
 				B538E8792BCDBF6800D72DC1 /* SceneDelegate.swift in Sources */,
 				B59DE0B62BD560F800EB6169 /* SocialMedyaMakerViewController.swift in Sources */,
+				B5145BA72BDDB057005EA17A /* ProfilViewController.swift in Sources */,
+				B5476C742BE01D260059F2C9 /* SaveViewController.swift in Sources */,
+				B5C124782BE6B8C900FEFB73 /* HistoryCell.swift in Sources */,
 				B5D7B35A2BCF1909007234B4 /* ScannerViewController.swift in Sources */,
+				B547A3BF2BDE324400C3F0FB /* SignUpViewController.swift in Sources */,
 				B5DF3E952BDC772400F3DE7C /* AppsMakerViewController.swift in Sources */,
 				B565F1D52BD50BAB0028897A /* WIFIMakerViewController.swift in Sources */,
 				B59DE0B82BD56EC200EB6169 /* PDFMakerViewController.swift in Sources */,
+				B547A3BD2BDE321D00C3F0FB /* LogInViewController.swift in Sources */,
 				B5A835422BD4132500E7B210 /* DesignViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,7 +371,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -338,7 +434,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -359,6 +455,7 @@
 		};
 		B538E8882BCDBF6800D72DC1 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C4B5F28CF5AD2BB9B540798C /* Pods-QRScanner.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -387,6 +484,7 @@
 		};
 		B538E8892BCDBF6800D72DC1 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5A7FC984CBD2B1D4129EE7F4 /* Pods-QRScanner.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

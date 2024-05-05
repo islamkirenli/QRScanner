@@ -3,7 +3,10 @@ import UIKit
 class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var originalImageView: UIImageView!
-    @IBOutlet weak var qrCodeImageView: UIImageView!
+    @IBOutlet weak var imageView: UIImageView!
+    
+    @IBOutlet weak var saveButtonOutlet: UIButton!
+    @IBOutlet weak var downloadButtonOutlet: UIButton!
     
     var selectedImageData: Data?
     
@@ -13,6 +16,9 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(selectImageTapped))
         originalImageView.addGestureRecognizer(tapGesture)
         originalImageView.isUserInteractionEnabled = true
+        
+        saveButtonOutlet.isHidden = true
+        downloadButtonOutlet.isHidden = true
     }
     
     @objc func selectImageTapped() {
@@ -22,12 +28,26 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
         present(imagePicker, animated: true, completion: nil)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toSaveVC" {
+            if let destinationVC = segue.destination as? SaveViewController {
+                destinationVC.receivedImage = imageView.image
+            }
+        }
+    }
+    
+    @IBAction func saveButton(_ sender: Any) {
+        performSegue(withIdentifier: "toSaveVC", sender: nil)
+    }
+    
     @IBAction func generateQRTapped(_ sender: Any) {
         if let image = originalImageView.image {
             if let imageURL = saveImageToTemporaryDirectory(image: image) {
                 if let qrCode = generateQRCode(from: imageURL) {
                     print(imageURL)
-                    qrCodeImageView.image = qrCode
+                    imageView.image = qrCode
+                    saveButtonOutlet.isHidden = false
+                    downloadButtonOutlet.isHidden = false
                 } else {
                     print("Failed to generate QR code.")
                 }
@@ -75,9 +95,6 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
             return nil
         }
     }
-
-
-    
     
     @IBAction func designButton(_ sender: Any) {
     }
@@ -99,6 +116,30 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
         let alert = UIAlertController(title: "Uyarı", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Tamam", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
+    }
+    
+    
+    @IBAction func downloadButton(_ sender: Any) {
+        saveImage()
+    }
+    
+    @objc func saveImage() {
+        if let pickedImage = imageView.image {
+            UIImageWriteToSavedPhotosAlbum(pickedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        }
+    }
+    
+    @objc func image (_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            // we got back an error!
+            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        } else {
+            let ac = UIAlertController(title: "Saved!", message: "Your altered image has been saved to your photos.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
     }
 }
 
