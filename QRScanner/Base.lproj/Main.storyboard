@@ -847,23 +847,20 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Giriş Ekranı" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Ay-2D-uZ5">
                                 <rect key="frame" x="101" y="249" width="190" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="dll-Pe-ihW"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="27"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Kullanıcı Adı" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jq3-OK-N1G">
                                 <rect key="frame" x="16" y="382" width="361" height="34"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="34" id="E1v-1r-zee"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Şifre" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="20v-Ir-NhZ">
                                 <rect key="frame" x="16" y="442" width="361" height="34"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="34" id="eeA-tl-8dY"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
@@ -883,38 +880,45 @@
                                     <action selector="signUpButton:" destination="d8B-0x-uFC" eventType="touchUpInside" id="Q5A-kB-4MD"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bmr-ll-rqA">
-                                <rect key="frame" x="93.666666666666686" y="602" width="206" height="35"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="1uQ-SX-9fE"/>
-                                </constraints>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bmr-ll-rqA">
+                                <rect key="frame" x="93" y="760" width="206" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Kayıt olmadan devam et"/>
                                 <connections>
                                     <action selector="continueWithNoSignUp:" destination="d8B-0x-uFC" eventType="touchUpInside" id="Zrd-7c-ZfL"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lWW-ig-UDx">
+                                <rect key="frame" x="113" y="602" width="168" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Google ile giriş yap"/>
+                                <connections>
+                                    <action selector="logInWithGoogleButton:" destination="d8B-0x-uFC" eventType="touchUpInside" id="bBU-Sv-S9C"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="957-Bl-b5i"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="jq3-OK-N1G" firstAttribute="trailing" secondItem="bke-jZ-FOv" secondAttribute="trailingMargin" id="3tT-Bf-sAQ"/>
-                            <constraint firstItem="2Ay-2D-uZ5" firstAttribute="top" secondItem="957-Bl-b5i" secondAttribute="top" constant="190" id="96s-n3-QIB"/>
-                            <constraint firstItem="BrK-l7-0cD" firstAttribute="top" secondItem="20v-Ir-NhZ" secondAttribute="bottom" constant="53" id="G4g-Pd-K1g"/>
-                            <constraint firstItem="2Ay-2D-uZ5" firstAttribute="centerX" secondItem="jq3-OK-N1G" secondAttribute="centerX" id="P7y-gf-d54"/>
-                            <constraint firstItem="bmr-ll-rqA" firstAttribute="top" secondItem="BrK-l7-0cD" secondAttribute="bottom" constant="38" id="Qxj-yM-ljs"/>
-                            <constraint firstItem="jq3-OK-N1G" firstAttribute="leading" secondItem="20v-Ir-NhZ" secondAttribute="leading" id="REB-zb-8nf"/>
-                            <constraint firstItem="jq3-OK-N1G" firstAttribute="leading" secondItem="bke-jZ-FOv" secondAttribute="leadingMargin" id="Rxo-zb-5kA"/>
-                            <constraint firstItem="BrK-l7-0cD" firstAttribute="leading" secondItem="957-Bl-b5i" secondAttribute="leading" constant="34" id="SVz-8H-TRY"/>
-                            <constraint firstItem="jq3-OK-N1G" firstAttribute="trailing" secondItem="20v-Ir-NhZ" secondAttribute="trailing" id="SYK-WG-rlK"/>
-                            <constraint firstItem="957-Bl-b5i" firstAttribute="bottom" secondItem="bmr-ll-rqA" secondAttribute="bottom" constant="215" id="V2S-Ps-uz7"/>
-                            <constraint firstItem="BrK-l7-0cD" firstAttribute="baseline" secondItem="xLG-I1-Wir" secondAttribute="baseline" id="ZvZ-v6-8vS"/>
-                            <constraint firstItem="xLG-I1-Wir" firstAttribute="baseline" secondItem="BrK-l7-0cD" secondAttribute="firstBaseline" id="gM8-lJ-BaD"/>
-                            <constraint firstItem="20v-Ir-NhZ" firstAttribute="centerX" secondItem="bmr-ll-rqA" secondAttribute="centerX" id="kC2-I7-ivr"/>
-                            <constraint firstItem="2Ay-2D-uZ5" firstAttribute="leading" secondItem="957-Bl-b5i" secondAttribute="leading" constant="101" id="kCJ-rb-QzB"/>
-                            <constraint firstItem="jq3-OK-N1G" firstAttribute="top" secondItem="2Ay-2D-uZ5" secondAttribute="bottom" constant="51" id="lAg-gZ-DFo"/>
-                            <constraint firstItem="20v-Ir-NhZ" firstAttribute="top" secondItem="jq3-OK-N1G" secondAttribute="bottom" constant="26" id="sX5-8A-44N"/>
-                            <constraint firstItem="957-Bl-b5i" firstAttribute="trailing" secondItem="xLG-I1-Wir" secondAttribute="trailing" constant="53" id="yXm-wl-haG"/>
+                            <constraint firstItem="2Ay-2D-uZ5" firstAttribute="leading" secondItem="957-Bl-b5i" secondAttribute="leading" constant="101" id="094-zn-dSw"/>
+                            <constraint firstItem="2Ay-2D-uZ5" firstAttribute="centerX" secondItem="jq3-OK-N1G" secondAttribute="centerX" id="1kI-nO-U2y"/>
+                            <constraint firstItem="BrK-l7-0cD" firstAttribute="baseline" secondItem="xLG-I1-Wir" secondAttribute="baseline" id="7Zq-mp-Q5I"/>
+                            <constraint firstItem="BrK-l7-0cD" firstAttribute="leading" secondItem="957-Bl-b5i" secondAttribute="leading" constant="34" id="B26-aU-Sfb"/>
+                            <constraint firstItem="BrK-l7-0cD" firstAttribute="top" secondItem="20v-Ir-NhZ" secondAttribute="bottom" constant="53" id="QMZ-ff-GEx"/>
+                            <constraint firstItem="jq3-OK-N1G" firstAttribute="leading" secondItem="20v-Ir-NhZ" secondAttribute="leading" id="ST6-Pf-4xM"/>
+                            <constraint firstItem="bmr-ll-rqA" firstAttribute="leading" secondItem="957-Bl-b5i" secondAttribute="leading" constant="93" id="Szd-ak-m3O"/>
+                            <constraint firstItem="20v-Ir-NhZ" firstAttribute="centerX" secondItem="bmr-ll-rqA" secondAttribute="centerX" id="UXd-gX-krw"/>
+                            <constraint firstItem="957-Bl-b5i" firstAttribute="trailing" secondItem="xLG-I1-Wir" secondAttribute="trailing" constant="53" id="VMe-ac-ySe"/>
+                            <constraint firstItem="jq3-OK-N1G" firstAttribute="trailing" secondItem="20v-Ir-NhZ" secondAttribute="trailing" id="WAd-MX-jPa"/>
+                            <constraint firstItem="jq3-OK-N1G" firstAttribute="top" secondItem="2Ay-2D-uZ5" secondAttribute="bottom" constant="85" id="bmm-ps-KdK"/>
+                            <constraint firstItem="20v-Ir-NhZ" firstAttribute="centerX" secondItem="lWW-ig-UDx" secondAttribute="centerX" id="l8f-5R-ZPR"/>
+                            <constraint firstItem="lWW-ig-UDx" firstAttribute="leading" secondItem="957-Bl-b5i" secondAttribute="leading" constant="113" id="mwR-Xl-kFr"/>
+                            <constraint firstItem="20v-Ir-NhZ" firstAttribute="top" secondItem="jq3-OK-N1G" secondAttribute="bottom" constant="26" id="ptj-6x-Ywz"/>
+                            <constraint firstItem="jq3-OK-N1G" firstAttribute="trailing" secondItem="bke-jZ-FOv" secondAttribute="trailingMargin" id="sIe-YX-VLK"/>
+                            <constraint firstItem="957-Bl-b5i" firstAttribute="bottom" secondItem="bmr-ll-rqA" secondAttribute="bottom" constant="57" id="sT0-FD-bTy"/>
+                            <constraint firstItem="lWW-ig-UDx" firstAttribute="top" secondItem="BrK-l7-0cD" secondAttribute="bottom" constant="38" id="x7b-wN-amh"/>
+                            <constraint firstItem="jq3-OK-N1G" firstAttribute="leading" secondItem="bke-jZ-FOv" secondAttribute="leadingMargin" id="xQM-gN-any"/>
+                            <constraint firstItem="2Ay-2D-uZ5" firstAttribute="top" secondItem="957-Bl-b5i" secondAttribute="top" constant="249" id="zQi-GA-OVZ"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="n5i-pC-PQ8"/>
@@ -1512,8 +1516,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="bu alanda kullanıcın profili yer alacak." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TfU-PS-Hdj">
-                                <rect key="frame" x="51" y="340" width="290" height="69"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="bu alanda kullanıcın profili yer alacak." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TfU-PS-Hdj">
+                                <rect key="frame" x="16" y="340" width="361" height="69"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -1529,7 +1533,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="npx-xy-Dut">
-                                <rect key="frame" x="149" y="551" width="94" height="65"/>
+                                <rect key="frame" x="140" y="552" width="113" height="92"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Giriş Yap"/>
@@ -1546,6 +1550,7 @@
                     <connections>
                         <outlet property="signInButtonOutlet" destination="npx-xy-Dut" id="acS-x9-cxY"/>
                         <outlet property="signOutButtonOutlet" destination="SH6-4A-XA4" id="o88-Dz-oVP"/>
+                        <outlet property="userEmailLabel" destination="TfU-PS-Hdj" id="UrA-ag-IS9"/>
                         <segue destination="d8B-0x-uFC" kind="presentation" identifier="toLogInVC" modalPresentationStyle="fullScreen" id="Kls-xB-ILg"/>
                     </connections>
                 </viewController>
@@ -1688,7 +1693,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="kX1-Wk-3us"/>
         <segue reference="IaH-Fz-9tk"/>
-        <segue reference="wO0-bB-9hh"/>
+        <segue reference="DJo-bd-ztG"/>
         <segue reference="jco-Q5-Oee"/>
     </inferredMetricsTieBreakers>
     <resources>

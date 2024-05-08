@@ -10,20 +10,23 @@ import FirebaseAuth
 
 class ProfilViewController: UIViewController {
     
-    let guncelKullanici = Auth.auth().currentUser
-
+    @IBOutlet weak var userEmailLabel: UILabel!
     @IBOutlet weak var signOutButtonOutlet: UIButton!
     @IBOutlet weak var signInButtonOutlet: UIButton!
+    
+    let currentUser = Auth.auth().currentUser
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if guncelKullanici != nil{
+        if currentUser != nil{
             signInButtonOutlet.isHidden = true
             signOutButtonOutlet.isHidden = false
+            userEmailLabel.text = currentUser?.email
         }else{
             signOutButtonOutlet.isHidden = true
             signInButtonOutlet.isHidden = false
+            userEmailLabel.text = "özellikleri kullanabilmek için giriş yapın."
         }
         
     }

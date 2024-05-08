@@ -28,7 +28,6 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -91,8 +90,18 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let deleteAction = UIContextualAction(style: .destructive, title: "Sil") { [weak self] (_, _, completionHandler) in
             // Silme işlemini gerçekleştir
-            self?.deleteItem(at: indexPath)
-            completionHandler(true)
+            let alertController = UIAlertController(title: "Uyarı", message: "Tamamen silinecek. Emin misin?", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "İptal", style: .cancel){ _ in
+                self?.tableView.reloadData()
+            }
+            let deleteAction = UIAlertAction(title: "Sil", style: .destructive){ _ in
+                self?.deleteItem(at: indexPath)
+                completionHandler(true)
+            }
+
+            alertController.addAction(cancelAction)
+            alertController.addAction(deleteAction)
+            self?.present(alertController, animated: true, completion: nil)
         }
         let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction])
         return swipeConfiguration
@@ -115,7 +124,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
                             if error != nil{
                                 self.showAlert(message: error?.localizedDescription ?? "silinirken hata alındı.")
                             }else{
-                                self.showAlert(message: "başarıyla silindi.")
+                                print("silindi.")
                             }
                         }
                     }
@@ -127,17 +136,6 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.gorselURLDizisi.remove(at: indexPath.row)
         
         tableView.deleteRows(at: [indexPath], with: .automatic)
-    }
-
-
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let shareAction = UIContextualAction(style: .normal, title: "Paylaş") { (_, _, completionHandler) in
-            // Paylaşma işlemini gerçekleştir
-            // Örneğin: self.shareItem(at: indexPath)
-            completionHandler(true)
-        }
-        let swipeConfiguration = UISwipeActionsConfiguration(actions: [shareAction])
-        return swipeConfiguration
     }
 
 
@@ -156,6 +154,10 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         let okAction = UIAlertAction(title: "Tamam", style: .default, handler: nil)
         alertController.addAction(okAction)
         present(alertController, animated: true, completion: nil)
+    }
+    
+    func showDeleteAlert(message: String) {
+        
     }
     
 

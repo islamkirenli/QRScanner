@@ -4,4 +4,8 @@ Podfile
 Podfile.lock
 Pods/
 QRScanner/GoogleService-Info.plist
+QRScanner/Info.plist
+QRScanner.xcodeproj/xcuserdata/islamkirenli.xcuserdatad/xcschemes/xcschememanagement.plist
+QRScanner.xcworkspace/xcuserdata/islamkirenli.xcuserdatad/UserInterfaceState.xcuserstate
+QRScanner.xcodeproj/project.pbxproj
 
