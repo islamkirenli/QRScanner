@@ -6,10 +6,10 @@ class WIFIMakerViewController: UIViewController{
     @IBOutlet weak var ssidTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
-    
     @IBOutlet weak var saveButtonOutlet: UIButton!
-    
     @IBOutlet weak var downloadButtonOutlet: UIButton!
+    
+    var wifiString = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +31,13 @@ class WIFIMakerViewController: UIViewController{
                 destinationVC.receivedImage = imageView.image
             }
         }
+        
+        if segue.identifier == "toDesignVC"{
+            if let destinationVC = segue.destination as? DesignViewController{
+                destinationVC.receivedImage = imageView.image
+                destinationVC.receivedText = wifiString
+            }
+        }
     }
     
     @IBAction func saveButton(_ sender: Any) {
@@ -38,6 +45,7 @@ class WIFIMakerViewController: UIViewController{
     }
     
     @IBAction func designButton(_ sender: Any) {
+        performSegue(withIdentifier: "toDesignVC", sender: nil)
     }
     
     
@@ -62,7 +70,8 @@ class WIFIMakerViewController: UIViewController{
     }
     
     func WifiQR(name ssid: String, password code: String, size: CGFloat = 10) -> UIImage? {
-        return GenerateAndDesign.generate(from: "WIFI:T:WPA;S:\(ssid);P:\(code);;")
+        wifiString = "WIFI:T:WPA;S:\(ssid);P:\(code);;"
+        return GenerateAndDesign.generate(from: wifiString)
     }
     
     func sanitizeTurkishCharacters(_ text: String) -> String {

@@ -7,41 +7,113 @@
 
 import UIKit
 
-class DesignViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class DesignViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, IconSelectionDelegate, IconSelectionViewController.IconSelectionDelegate{
     
-    @IBOutlet weak var labelView: UILabel!
-    @IBOutlet weak var pickerView: UIPickerView!
     
-    let renkler = ["kırmızı","mavi","yeşil","sarı"]
     
+    @IBOutlet weak var foregroundColor: UIColorWell!
+    @IBOutlet weak var backgroundColor: UIColorWell!
+    @IBOutlet weak var designQRImage: UIImageView!
+    @IBOutlet weak var iconImageView: UIImageView!
+    
+    var receivedImage : UIImage?
+    var receivedText : String?
+    var receivedURL : String?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        pickerView.delegate = self
-        pickerView.dataSource = self
+        foregroundColor.selectedColor = UIColor.black
+        backgroundColor.selectedColor = UIColor.white
         
+        designQRImage.image = receivedImage
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(selectImageTapped))
+        iconImageView.addGestureRecognizer(tapGesture)
+        iconImageView.isUserInteractionEnabled = true
         
     }
     
-    @IBAction func renkPicker(_ sender: Any) {
-        pickerView.isHidden = false
+    func didSelectIcon(withName iconName: String) {
+        iconImageView.image = UIImage(named: iconName)
+    }
+  
+    
+    @IBAction func iconsButtono(_ sender: Any) {
+        let iconSelectionVC = IconSelectionViewController()
+        iconSelectionVC.delegate = self
+        present(iconSelectionVC, animated: true, completion: nil)
     }
     
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+    @IBAction func olusturButton(_ sender: Any) {
+        if let receivedText = receivedText {
+            if let iconImage = iconImageView.image{
+                if let qrImage = GenerateAndDesign.generateIcon(withIcon: iconImage, from: receivedText, foregroundColor: foregroundColor.selectedColor!, backgroundColor: backgroundColor.selectedColor!){
+                    designQRImage.image = qrImage
+                }
+            }else{
+                if let qrImage = GenerateAndDesign.generate(from: receivedText, foregroundColor: foregroundColor.selectedColor!, backgroundColor: backgroundColor.selectedColor!){
+                    designQRImage.image = qrImage
+                }
+            }
+            
+        }
     }
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return renkler.count
+    @objc func selectImageTapped() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
     }
     
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return renkler[row]
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let selectedImage = info[.originalImage] as? UIImage {
+            iconImageView.image = selectedImage
+        }
+        dismiss(animated: true, completion: nil)
     }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        labelView.text = renkler[row]
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
     }
-
+    
+    @IBAction func downloadButton(_ sender: Any) {
+        saveImage()
+    }
+    
+    @objc func saveImage() {
+        if let pickedImage = designQRImage.image {
+            UIImageWriteToSavedPhotosAlbum(pickedImage, self, #selector(image(_:didFinishSavingWithError:contextInfo:)), nil)
+        }
+    }
+    
+    @objc func image (_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
+        if let error = error {
+            // we got back an error!
+            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        } else {
+            let ac = UIAlertController(title: "Saved!", message: "Your altered image has been saved to your photos.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            present(ac, animated: true)
+        }
+    }
+    
+    
+    @IBAction func saveButton(_ sender: Any) {
+        performSegue(withIdentifier: "toSaveVC", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toSaveVC" {
+            if let destinationVC = segue.destination as? SaveViewController {
+                destinationVC.receivedImage = designQRImage.image
+            }
+        }
+    }
+    
 }
+
+

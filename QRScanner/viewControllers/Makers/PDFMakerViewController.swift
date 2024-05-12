@@ -82,7 +82,6 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
         if documentURL.isEmpty == false{
             if let qrCodeImage = GenerateAndDesign.generate(from: documentURL) {
                 // QR kodunu imageView'a atayın
-                print(documentURL)
                 imageView.image = qrCodeImage
                 saveButtonOutlet.isHidden = false
                 downloadButtonOutlet.isHidden = false
@@ -97,12 +96,20 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
     
     
     @IBAction func designButton(_ sender: Any) {
+        performSegue(withIdentifier: "toDesignVC", sender: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toSaveVC" {
             if let destinationVC = segue.destination as? SaveViewController {
                 destinationVC.receivedImage = imageView.image
+            }
+        }
+        
+        if segue.identifier == "toDesignVC"{
+            if let destinationVC = segue.destination as? DesignViewController{
+                destinationVC.receivedImage = imageView.image
+                destinationVC.receivedText = documentURL
             }
         }
     }

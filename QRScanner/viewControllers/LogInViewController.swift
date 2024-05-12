@@ -69,14 +69,17 @@ class LogInViewController: UIViewController {
     
     func signInWithGoogle(){
         Task { @MainActor in
-            if await signInWithGoogle() == true{
+            let success = await performSignInWithGoogle()
+            if success {
                 dismiss(animated: true)
                 self.performSegue(withIdentifier: "toTabBarVC", sender: nil)
+            } else {
+                print("burda hata var.....")
             }
         }
     }
     
-    func signInWithGoogle() async -> Bool {
+    func performSignInWithGoogle() async -> Bool {
       guard let clientID = FirebaseApp.app()?.options.clientID else {
         fatalError("No client ID found in Firebase configuration")
       }
@@ -88,18 +91,14 @@ class LogInViewController: UIViewController {
               let rootViewController = window.rootViewController else {
         print("There is no root view controller!")
         return false
-      }
-
+        }
         do {
           let userAuthentication = try await GIDSignIn.sharedInstance.signIn(withPresenting: rootViewController)
-
           let user = userAuthentication.user
-          guard let idToken = user.idToken else { throw AuthenticationError.tokenError(message: "ID token missing") }
+          guard let idToken = user.idToken else { throw AuthenticationError.showAlert(message: "ID token missing") }
           let accessToken = user.accessToken
-
           let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString,
                                                          accessToken: accessToken.tokenString)
-
           let result = try await Auth.auth().signIn(with: credential)
           let firebaseUser = result.user
           print("User \(firebaseUser.uid) signed in with email \(firebaseUser.email ?? "unknown")")
@@ -112,7 +111,7 @@ class LogInViewController: UIViewController {
     }
 
     enum AuthenticationError: Error {
-      case tokenError(message: String)
+      case showAlert(message: String)
     }
     
 }

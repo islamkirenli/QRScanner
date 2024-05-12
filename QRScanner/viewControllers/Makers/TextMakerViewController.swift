@@ -12,6 +12,8 @@ class TextMakerViewController: UIViewController, UITextViewDelegate {
     
     let maxLength = 500
     
+    var sanitizedText = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -59,6 +61,13 @@ class TextMakerViewController: UIViewController, UITextViewDelegate {
                 destinationVC.receivedImage = imageView.image
             }
         }
+        
+        if segue.identifier == "toDesignVC"{
+            if let destinationVC = segue.destination as? DesignViewController{
+                destinationVC.receivedImage = imageView.image
+                destinationVC.receivedText = sanitizedText
+            }
+        }
     }
     
     @IBAction func saveButton(_ sender: Any) {
@@ -72,7 +81,7 @@ class TextMakerViewController: UIViewController, UITextViewDelegate {
             return
         }
         
-        let sanitizedText = sanitizeTurkishCharacters(urlString)
+        sanitizedText = sanitizeTurkishCharacters(urlString)
         
         if let qrCodeImage = GenerateAndDesign.generate(from: sanitizedText) {
             // QR kodunu imageView'a atayın

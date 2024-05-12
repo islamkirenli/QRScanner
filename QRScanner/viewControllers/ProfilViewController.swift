@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import GoogleSignIn
 
 class ProfilViewController: UIViewController {
     
@@ -35,6 +36,7 @@ class ProfilViewController: UIViewController {
     @IBAction func signOutButton(_ sender: Any) {
         do{
             try Auth.auth().signOut()
+            //GIDSignIn.sharedInstance.signOut()
             performSegue(withIdentifier: "toLogInVC", sender: nil)
         }catch{
             print("hata var.")

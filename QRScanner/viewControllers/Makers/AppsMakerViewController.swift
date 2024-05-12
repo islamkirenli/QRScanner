@@ -8,9 +8,10 @@ class AppsMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var idTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
-    
     @IBOutlet weak var saveButtonOutlet: UIButton!
     @IBOutlet weak var downloadButtonOutlet: UIButton!
+    
+    var appStoreURL = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +36,13 @@ class AppsMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         if segue.identifier == "toSaveVC" {
             if let destinationVC = segue.destination as? SaveViewController {
                 destinationVC.receivedImage = imageView.image
+            }
+        }
+        
+        if segue.identifier == "toDesignVC"{
+            if let destinationVC = segue.destination as? DesignViewController{
+                destinationVC.receivedImage = imageView.image
+                destinationVC.receivedText = appStoreURL
             }
         }
     }
@@ -73,7 +81,6 @@ class AppsMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         }
         
         // App Store URL oluşturma işlemi
-        var appStoreURL = ""
         switch selectedAppStore {
         case "App Store":
             appStoreURL = "https://itunes.apple.com/app/id\(appId)"
@@ -96,6 +103,7 @@ class AppsMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     }
     
     @IBAction func designButton(_ sender: Any) {
+        performSegue(withIdentifier: "toDesignVC", sender: nil)
     }
     
     func showAlert(message: String) {

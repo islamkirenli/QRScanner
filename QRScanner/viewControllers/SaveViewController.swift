@@ -60,7 +60,7 @@ class SaveViewController: UIViewController {
                                     if let imageURL = imageURL{
                                         let firestoreDB = Firestore.firestore()
                                         
-                                        let firestoreQRArray = ["gorselurl" : imageURL, "baslik" : self.titleTextField.text!, "email" : Auth.auth().currentUser!.email, "tarih" : FieldValue.serverTimestamp()] as [String : Any]
+                                        let firestoreQRArray = ["gorselurl" : imageURL, "baslik" : self.titleTextField.text!, "email" : Auth.auth().currentUser!.email ?? "user-mail@gmail.com", "tarih" : FieldValue.serverTimestamp()] as [String : Any]
                                         
                                         firestoreDB.collection("QRCodes").addDocument(data: firestoreQRArray) { error in
                                             if error != nil{

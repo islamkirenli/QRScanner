@@ -8,6 +8,7 @@ class URLMakerViewController: UIViewController {
     
     @IBOutlet weak var saveButtonOutlet: UIButton!
     @IBOutlet weak var downloadButtonOutlet: UIButton!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,13 @@ class URLMakerViewController: UIViewController {
         if segue.identifier == "toSaveVC" {
             if let destinationVC = segue.destination as? SaveViewController {
                 destinationVC.receivedImage = imageView.image
+            }
+        }
+        
+        if segue.identifier == "toDesignVC"{
+            if let destinationVC = segue.destination as? DesignViewController{
+                destinationVC.receivedImage = imageView.image
+                destinationVC.receivedText = urlTextField.text
             }
         }
     }

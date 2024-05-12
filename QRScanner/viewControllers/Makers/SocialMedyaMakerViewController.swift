@@ -6,12 +6,13 @@ class SocialMedyaMakerViewController: UIViewController, UIPickerViewDataSource, 
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var accountTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
-    
     @IBOutlet weak var saveButtonOutlet: UIButton!
     @IBOutlet weak var downloadButtonOutlet: UIButton!
     
     let socialMediaPlatforms = ["Facebook", "Twitter", "Instagram"]
     var selectedSocialMediaPlatform: String?
+    
+    var socialMediaURL = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +38,13 @@ class SocialMedyaMakerViewController: UIViewController, UIPickerViewDataSource, 
         if segue.identifier == "toSaveVC" {
             if let destinationVC = segue.destination as? SaveViewController {
                 destinationVC.receivedImage = imageView.image
+            }
+        }
+        
+        if segue.identifier == "toDesignVC"{
+            if let destinationVC = segue.destination as? DesignViewController{
+                destinationVC.receivedImage = imageView.image
+                destinationVC.receivedText = socialMediaURL
             }
         }
     }
@@ -65,6 +73,7 @@ class SocialMedyaMakerViewController: UIViewController, UIPickerViewDataSource, 
     
     
     @IBAction func designButton(_ sender: Any) {
+        performSegue(withIdentifier: "toDesignVC", sender: nil)
     }
     
     @IBAction func generateQRCodeButtonTapped(_ sender: Any) {
@@ -75,7 +84,7 @@ class SocialMedyaMakerViewController: UIViewController, UIPickerViewDataSource, 
             return
         }
 
-                let socialMediaURL = "https://www.\(socialMedia.lowercased()).com/\(username)"
+        socialMediaURL = "https://www.\(socialMedia.lowercased()).com/\(username)"
 
         if let qrCodeImage = GenerateAndDesign.generate(from: socialMediaURL) {
             imageView.image = qrCodeImage

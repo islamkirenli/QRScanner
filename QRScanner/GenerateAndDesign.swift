@@ -1,8 +1,10 @@
 import UIKit
+import SwiftUI
+
 
 class GenerateAndDesign {
     
-    static func generate(from string: String) -> UIImage? {
+    static func generate(from string: String, foregroundColor: UIColor = .black, backgroundColor: UIColor = .white) -> UIImage? {
         let data = string.data(using: .ascii)
         
         if let filter = CIFilter(name: "CIQRCodeGenerator") {
@@ -10,7 +12,9 @@ class GenerateAndDesign {
             let transform = CGAffineTransform(scaleX: 10, y: 10)
             
             if let output = filter.outputImage?.transformed(by: transform) {
-                if let cgImage = CIContext().createCGImage(output, from: output.extent) {
+                let coloredOutput = output.applyingFilter("CIFalseColor", parameters: ["inputColor0": CIColor(cgColor: foregroundColor.cgColor), "inputColor1": CIColor(cgColor: backgroundColor.cgColor)])
+                
+                if let cgImage = CIContext().createCGImage(coloredOutput, from: coloredOutput.extent) {
                     let uiImage = UIImage(cgImage: cgImage)
                     // Convert UIImage to Data with JPG representation
                     if let jpgData = uiImage.jpegData(compressionQuality: 1.0) {
@@ -26,41 +30,62 @@ class GenerateAndDesign {
     }
     
     
-    static func applyColor(to image: CIImage?, foregroundColor: CIColor, backgroundColor: CIColor) -> CIImage? {
-        guard let image = image else { return nil }
-        let colorFilter = CIFilter(name: "CIFalseColor")
-        colorFilter?.setValue(image, forKey: "inputImage")
-        colorFilter?.setValue(foregroundColor, forKey: "inputColor0")
-        colorFilter?.setValue(backgroundColor, forKey: "inputColor1")
-        return colorFilter?.outputImage
-    }
-    
-    static func resize(_ image: CIImage?, withSize size: CGSize) -> UIImage? {
-        guard let image = image else { return nil }
-        let context = CIContext(options: nil)
-        if let cgImage = context.createCGImage(image, from: image.extent) {
-            return UIImage(cgImage: cgImage)
+    static func generateIcon(withIcon icon: UIImage, from string: String, foregroundColor: UIColor = .black, backgroundColor: UIColor = .white) -> UIImage? {
+        let data = string.data(using: .ascii)
+        
+        if let filter = CIFilter(name: "CIQRCodeGenerator") {
+            filter.setValue(data, forKey: "inputMessage")
+            let transform = CGAffineTransform(scaleX: 10, y: 10)
+            
+            if let output = filter.outputImage?.transformed(by: transform) {
+                let coloredOutput = output.applyingFilter("CIFalseColor", parameters: ["inputColor0": CIColor(cgColor: foregroundColor.cgColor), "inputColor1": CIColor(cgColor: backgroundColor.cgColor)])
+                
+                if let cgImage = CIContext().createCGImage(coloredOutput, from: coloredOutput.extent) {
+                    let qrImage = UIImage(cgImage: cgImage)
+                    
+                    // Calculate the center position for the icon
+                    let iconSize = CGSize(width: qrImage.size.width / 4, height: qrImage.size.height / 4)
+                    let center = CGPoint(x: qrImage.size.width / 2 - iconSize.width / 2, y: qrImage.size.height / 2 - iconSize.height / 2)
+                    let iconRect = CGRect(origin: center, size: iconSize)
+                    
+                    // Draw QR code and icon
+                    UIGraphicsBeginImageContextWithOptions(qrImage.size, false, UIScreen.main.scale)
+                    qrImage.draw(in: CGRect(origin: .zero, size: qrImage.size))
+                    
+                    // Draw a frame around the icon
+                    let frameSize = CGSize(width: iconSize.width + 10, height: iconSize.height + 10)
+                    let frameOrigin = CGPoint(x: iconRect.origin.x - 5, y: iconRect.origin.y - 5)
+                    let frameRect = CGRect(origin: frameOrigin, size: frameSize)
+                    backgroundColor.setFill() // Set background color
+                    UIRectFill(frameRect) // Fill the frame with background color
+                    
+                    // Draw the frame
+                    UIColor.white.setStroke()
+                    UIBezierPath(rect: frameRect).stroke()
+                    
+                    icon.draw(in: iconRect)
+                    
+                    // Get the merged image
+                    let mergedImage = UIGraphicsGetImageFromCurrentImageContext()
+                    UIGraphicsEndImageContext()
+                    
+                    return mergedImage
+                }
+            }
         }
+        
         return nil
     }
-    
-    static func addLogo(to image: UIImage, logo: UIImage, scale: CGFloat = 0.25) -> UIImage? {
-        let imageSize = image.size
-        let logoSize = CGSize(width: imageSize.width * scale, height: imageSize.height * scale)
-        
-        UIGraphicsBeginImageContextWithOptions(imageSize, false, 0.0)
-        image.draw(in: CGRect(origin: .zero, size: imageSize))
-        logo.draw(in: CGRect(x: (imageSize.width - logoSize.width) / 2.0,
-                             y: (imageSize.height - logoSize.height) / 2.0,
-                             width: logoSize.width,
-                             height: logoSize.height))
-        
-        let combinedImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return combinedImage
-    }
-    
-    
+   
     
 }
+    
+    
+    
+    
+    
+    
+    
+    
+
 

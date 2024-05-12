@@ -16,11 +16,11 @@ class VcardMakerViewController: UIViewController {
     @IBOutlet weak var faxTextField: UITextField!
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var mobileTextField: UITextField!
-    
     @IBOutlet weak var imageView: UIImageView!
-    
     @IBOutlet weak var saveButtonOutlet: UIButton!
     @IBOutlet weak var downloadButtonOutlet: UIButton!
+    
+    var vCardString = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +42,13 @@ class VcardMakerViewController: UIViewController {
                 destinationVC.receivedImage = imageView.image
             }
         }
+        
+        if segue.identifier == "toDesignVC"{
+            if let destinationVC = segue.destination as? DesignViewController{
+                destinationVC.receivedImage = imageView.image
+                destinationVC.receivedText = vCardString
+            }
+        }
     }
     
     @IBAction func saveButton(_ sender: Any) {
@@ -49,7 +56,7 @@ class VcardMakerViewController: UIViewController {
     }
     
     @IBAction func generateQRCode(_ sender: Any) {
-        let vCardString = """
+        vCardString = """
             BEGIN:VCARD
             VERSION:3.0
             N:\(surnameTextField.text ?? "");\(nameTextField.text ?? "")
@@ -74,6 +81,7 @@ class VcardMakerViewController: UIViewController {
     }
     
     @IBAction func designButton(_ sender: Any) {
+        performSegue(withIdentifier: "toDesignVC", sender: nil)
     }
     
     

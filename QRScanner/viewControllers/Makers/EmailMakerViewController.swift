@@ -7,12 +7,12 @@ class EmailMakerViewController: UIViewController {
     @IBOutlet weak var subjectTextField: UITextField!
     @IBOutlet weak var messageTextField: UITextView!
     @IBOutlet weak var imageView: UIImageView!
-    
     @IBOutlet weak var characterCountLabel: UILabel!
-    
     @IBOutlet weak var saveButtonOutlet: UIButton!
-    
     @IBOutlet weak var downloadButtonOutlet: UIButton!
+    
+    var emailString = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,6 +33,13 @@ class EmailMakerViewController: UIViewController {
                 destinationVC.receivedImage = imageView.image
             }
         }
+        
+        if segue.identifier == "toDesignVC"{
+            if let destinationVC = segue.destination as? DesignViewController{
+                destinationVC.receivedImage = imageView.image
+                destinationVC.receivedText = emailString
+            }
+        }
     }
 
     @IBAction func saveButton(_ sender: Any) {
@@ -51,7 +58,7 @@ class EmailMakerViewController: UIViewController {
         let message = messageTextField.text ?? ""
         
         // QR kodu oluşturmak için e-posta adresi, konu ve mesajı birleştir
-        let emailString = "mailto:\(email)?subject=\(subject)&body=\(message)"
+        emailString = "mailto:\(email)?subject=\(subject)&body=\(message)"
         
         let sanitizedText = sanitizeTurkishCharacters(emailString)
         

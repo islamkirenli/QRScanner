@@ -41,6 +41,13 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
                 destinationVC.receivedImage = imageView.image
             }
         }
+        
+        if segue.identifier == "toDesignVC"{
+            if let destinationVC = segue.destination as? DesignViewController{
+                destinationVC.receivedImage = imageView.image
+                destinationVC.receivedText = originalImageURLForQR
+            }
+        }
     }
     
     @IBAction func saveButton(_ sender: Any) {
@@ -72,6 +79,7 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
     
     
     @IBAction func designButton(_ sender: Any) {
+        performSegue(withIdentifier: "toDesignVC", sender: nil)
     }
     
     
