@@ -10,6 +10,7 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
     
     @IBOutlet weak var saveButtonOutlet: UIButton!
     @IBOutlet weak var downloadButtonOutlet: UIButton!
+    @IBOutlet weak var designButtonOutlet: UIButton!
     
     var originalImageURLForQR = ""
     
@@ -26,6 +27,7 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
         
         saveButtonOutlet.isHidden = true
         downloadButtonOutlet.isHidden = true
+        designButtonOutlet.isHidden = true
     }
     
     @objc func selectImageTapped() {
@@ -51,7 +53,13 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     @IBAction func saveButton(_ sender: Any) {
-        performSegue(withIdentifier: "toSaveVC", sender: nil)
+        if Auth.auth().currentUser != nil{
+            performSegue(withIdentifier: "toSaveVC", sender: nil)
+        }else{
+            Alerts.showAlert2Button(title: "Uyarı", message: "Kaydetme özelliğini kullanabilmek için kullanıcı girişi yapmanız gerekmektedir.", buttonTitle: "Giriş Yap", viewController: self) {
+                self.performSegue(withIdentifier: "toLogInVC", sender: nil)
+            }
+        }
     }
     
     @IBAction func generateQRTapped(_ sender: Any) {
@@ -61,15 +69,16 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
                     // QR kodunu imageView'a atayın
                     print(originalImageURLForQR)
                     imageView.image = qrCodeImage
+                    designButtonOutlet.isHidden = false
                     saveButtonOutlet.isHidden = false
                     downloadButtonOutlet.isHidden = false
                 } else {
                     // QR kodu oluşturulamazsa hata mesajı gösterin
-                    showAlert(message: "QR kodu oluşturulamadı")
+                    Alerts.showAlert(title: "Uyarı", message: "QR kodu oluşturulamadı.", viewController: self)
                 }
             }
         }else{
-            showAlert(message: "bir fotoğraf seçin.")
+            Alerts.showAlert(title: "Uyarı", message: "Bir fotoğraf seçin.", viewController: self)
         }
         
         
@@ -100,7 +109,7 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
                     
                     imageReference.putData(data, metadata: nil) { (storagemetadata, error) in
                         if error != nil{
-                            self.showAlert(message: error?.localizedDescription ?? "görsel yüklenirken hata alındı.")
+                            Alerts.showAlert(title: "Hata!", message: error?.localizedDescription ?? "Görsel yüklenirken hata alındı.", viewController: self)
                         }else{
                             imageReference.downloadURL { (url, error) in
                                 if error == nil{
@@ -115,7 +124,7 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
                                         
                                         firestoreDB.collection("Images").addDocument(data: firestoreImageArray) { error in
                                             if error != nil{
-                                                self.showAlert(message: error?.localizedDescription ?? "firestore'a atılırken hata alındı.")
+                                                Alerts.showAlert(title: "Hata!", message: error?.localizedDescription ?? "Veritabanına atılırken hata alındı.", viewController: self)
                                             }else{
                                                 
                                             }
@@ -133,12 +142,6 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
-    }
-    
-    func showAlert(message: String) {
-        let alert = UIAlertController(title: "Uyarı", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Tamam", style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
     }
     
     

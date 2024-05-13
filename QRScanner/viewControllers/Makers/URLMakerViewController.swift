@@ -1,5 +1,6 @@
 import UIKit
 import Photos
+import FirebaseAuth
 
 class URLMakerViewController: UIViewController {
 
@@ -8,7 +9,7 @@ class URLMakerViewController: UIViewController {
     
     @IBOutlet weak var saveButtonOutlet: UIButton!
     @IBOutlet weak var downloadButtonOutlet: UIButton!
-
+    @IBOutlet weak var designButtonOutlet: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +19,7 @@ class URLMakerViewController: UIViewController {
         
         saveButtonOutlet.isHidden = true
         downloadButtonOutlet.isHidden = true
+        designButtonOutlet.isHidden = true
     }
     
     @objc func klavyeKapat(){
@@ -45,33 +47,34 @@ class URLMakerViewController: UIViewController {
     }
     
     @IBAction func saveButton(_ sender: Any) {
-        performSegue(withIdentifier: "toSaveVC", sender: nil)
+        if Auth.auth().currentUser != nil{
+            performSegue(withIdentifier: "toSaveVC", sender: nil)
+        }else{
+            Alerts.showAlert2Button(title: "Uyarı", message: "Kaydetme özelliğini kullanabilmek için kullanıcı girişi yapmanız gerekmektedir.", buttonTitle: "Giriş Yap", viewController: self) {
+                self.performSegue(withIdentifier: "toLogInVC", sender: nil)
+            }
+        }
     }
     
     @IBAction func createQRCodeButtonTapped(_ sender: Any) {
         guard let urlString = urlTextField.text, !urlString.isEmpty else {
             // Kullanıcı URL girmeden butona tıklarsa hata mesajı gösterin
-            showAlert(message: "Lütfen bir URL girin")
+            Alerts.showAlert(title: "Uyarı", message: "Lüften bir URL girin.", viewController: self)
             return
         }
         
         if let qrCodeImage = GenerateAndDesign.generate(from: urlString) {
             // QR kodunu imageView'a atayın
             imageView.image = qrCodeImage
+            designButtonOutlet.isHidden = false
             saveButtonOutlet.isHidden = false
             downloadButtonOutlet.isHidden = false
         } else {
             // QR kodu oluşturulamazsa hata mesajı gösterin
-            showAlert(message: "QR kodu oluşturulamadı")
+            Alerts.showAlert(title: "Hata!", message: "QR kodu oluşturulamadı.", viewController: self)
         }
     }
 
-    func showAlert(message: String) {
-        let alertController = UIAlertController(title: "Hata", message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Tamam", style: .default, handler: nil)
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion: nil)
-    }
     
     @IBAction func downloadButton(_ sender: Any) {
         saveImage()

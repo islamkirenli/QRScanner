@@ -1,4 +1,5 @@
 import UIKit
+import FirebaseAuth
 
 class AppsMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
@@ -8,8 +9,10 @@ class AppsMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var idTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
+    
     @IBOutlet weak var saveButtonOutlet: UIButton!
     @IBOutlet weak var downloadButtonOutlet: UIButton!
+    @IBOutlet weak var designButtonOutlet: UIButton!
     
     var appStoreURL = ""
     
@@ -26,6 +29,7 @@ class AppsMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         
         saveButtonOutlet.isHidden = true
         downloadButtonOutlet.isHidden = true
+        designButtonOutlet.isHidden = true
     }
     
     @objc func klavyeKapat(){
@@ -48,7 +52,13 @@ class AppsMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     }
     
     @IBAction func saveButton(_ sender: Any) {
-        performSegue(withIdentifier: "toSaveVC", sender: nil)
+        if Auth.auth().currentUser != nil{
+            performSegue(withIdentifier: "toSaveVC", sender: nil)
+        }else{
+            Alerts.showAlert2Button(title: "Uyarı", message: "Kaydetme özelliğini kullanabilmek için kullanıcı girişi yapmanız gerekmektedir.", buttonTitle: "Giriş Yap", viewController: self) {
+                self.performSegue(withIdentifier: "toLogInVC", sender: nil)
+            }
+        }
     }
     
     // UIPickerViewDataSource protocol methods
@@ -71,12 +81,12 @@ class AppsMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     
     @IBAction func generateQRCodeButtonTapped(_ sender: Any) {
         guard let appId = idTextField.text, !appId.isEmpty else {
-            showAlert(message: "Lütfen uygulama ID'sini girin.")
+            Alerts.showAlert(title: "Uyarı", message: "Lütfen uygulama ID'sini girin.", viewController: self)
             return
         }
         
         guard let selectedAppStore = selectedAppStore else {
-            showAlert(message: "Lütfen bir uygulama mağazası seçin.")
+            Alerts.showAlert(title: "Uyarı", message: "Lütfen bir uygulama marketi seçin.", viewController: self)
             return
         }
         
@@ -95,22 +105,16 @@ class AppsMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         // QR kodu oluşturma işlemi
         if let qrCodeImage = GenerateAndDesign.generate(from: appStoreURL) {
             imageView.image = qrCodeImage
+            designButtonOutlet.isHidden = false
             saveButtonOutlet.isHidden = false
             downloadButtonOutlet.isHidden = false
         } else {
-            showAlert(message: "QR kodu oluşturulamadı.")
+            Alerts.showAlert(title: "Hata!", message: "QR kodu oluşturulamadı.", viewController: self)
         }
     }
     
     @IBAction func designButton(_ sender: Any) {
         performSegue(withIdentifier: "toDesignVC", sender: nil)
-    }
-    
-    func showAlert(message: String) {
-        let alertController = UIAlertController(title: "Uyarı", message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Tamam", style: .default, handler: nil)
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion: nil)
     }
     
     

@@ -1,4 +1,5 @@
 import UIKit
+import FirebaseAuth
 
 class VcardMakerViewController: UIViewController {
     
@@ -17,8 +18,10 @@ class VcardMakerViewController: UIViewController {
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var mobileTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
+    
     @IBOutlet weak var saveButtonOutlet: UIButton!
     @IBOutlet weak var downloadButtonOutlet: UIButton!
+    @IBOutlet weak var designButtonOutlet: UIButton!
     
     var vCardString = ""
     
@@ -30,6 +33,7 @@ class VcardMakerViewController: UIViewController {
         
         saveButtonOutlet.isHidden = true
         downloadButtonOutlet.isHidden = true
+        designButtonOutlet.isHidden = true
     }
     
     @objc func klavyeKapat(){
@@ -52,10 +56,24 @@ class VcardMakerViewController: UIViewController {
     }
     
     @IBAction func saveButton(_ sender: Any) {
-        performSegue(withIdentifier: "toSaveVC", sender: nil)
+        if Auth.auth().currentUser != nil{
+            performSegue(withIdentifier: "toSaveVC", sender: nil)
+        }else{
+            Alerts.showAlert2Button(title: "Uyarı", message: "Kaydetme özelliğini kullanabilmek için kullanıcı girişi yapmanız gerekmektedir.", buttonTitle: "Giriş Yap", viewController: self) {
+                self.performSegue(withIdentifier: "toLogInVC", sender: nil)
+            }
+        }
     }
     
     @IBAction func generateQRCode(_ sender: Any) {
+        guard let name = nameTextField.text,
+              let surname = surnameTextField.text,
+              let phoneNumber = mobileTextField.text,
+              let email = emailTextField.text 
+        else{
+            Alerts.showAlert(title: "Uyarı", message: "İsim, soyisim, telefon numarası ve email adresi alanları dolu olmak zorundadır.", viewController: self)
+            return
+        }
         vCardString = """
             BEGIN:VCARD
             VERSION:3.0
@@ -74,7 +92,7 @@ class VcardMakerViewController: UIViewController {
         if let qrCode = GenerateAndDesign.generate(from: vCardString) {
             // QR kodunu image view'e ekle
             imageView.image = qrCode
-            
+            designButtonOutlet.isHidden = false
             saveButtonOutlet.isHidden = false
             downloadButtonOutlet.isHidden = false
         }

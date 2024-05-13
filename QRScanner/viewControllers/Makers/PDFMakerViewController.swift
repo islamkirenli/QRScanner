@@ -9,6 +9,12 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
     
     @IBOutlet weak var saveButtonOutlet: UIButton!
     @IBOutlet weak var downloadButtonOutlet: UIButton!
+    @IBOutlet weak var designButtonOutlet: UIButton!
+    
+    @IBOutlet weak var loadingView: UIActivityIndicatorView!
+    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var checkmarkView: UIImageView!
+    @IBOutlet weak var documentNameLabel: UILabel!
     
     let currentUser = Auth.auth().currentUser
     
@@ -21,6 +27,10 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
         // Do any additional setup after loading the view.
         saveButtonOutlet.isHidden = true
         downloadButtonOutlet.isHidden = true
+        designButtonOutlet.isHidden = true
+        progressView.isHidden = true
+        progressView.progress = 0.0
+        checkmarkView.isHidden = true
     }
 
     
@@ -35,42 +45,92 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
             return
         }
         
+        documentNameLabel.text = selectedURL.lastPathComponent
+        
+        progressView.isHidden = false
+        
         let storage = Storage.storage()
         let storageReference = storage.reference()
         
-        if let currentUserEmail = currentUser?.email{
+        if let currentUserEmail = currentUser?.email {
             let userFolder = storageReference.child(currentUserEmail)
             let uuid = UUID().uuidString
-            let documentReference = userFolder.child("Documents").child("\(uuid)")
+            let documentReference = userFolder.child("Documents").child(uuid)
             
-            documentReference.putFile(from: selectedURL, metadata: nil) { (storagemetadata, error) in
-                if error != nil{
-                    self.showAlert(message: error?.localizedDescription ?? "döküman yüklenemedi.")
-                }else{
-                    documentReference.downloadURL { url, error in
-                        guard let downloadURL = url else {
-                            self.showAlert(message: error?.localizedDescription ?? "dosya urlsi alınırken hata alındı.")
+            DispatchQueue.global().async {
+                do {
+                    let data = try Data(contentsOf: selectedURL)
+                    
+                    let uploadTask = documentReference.putData(data, metadata: nil) { (storageMetadata, error) in
+                        if let error = error {
+                            DispatchQueue.main.async {
+                                Alerts.showAlert(title: "Hata!", message: error.localizedDescription, viewController: self)
+                            }
                             return
                         }
-                        self.documentURL = downloadURL.absoluteString
                         
-                        let firestoreDB = Firestore.firestore()
-                        
-                        let firestoreDocumentArray = ["documenturl" : self.documentURL, "email" : Auth.auth().currentUser!.email, "tarih" : FieldValue.serverTimestamp()] as [String : Any]
-                        
-                        firestoreDB.collection("Documents").addDocument(data: firestoreDocumentArray) { error in
-                            if error != nil{
-                                self.showAlert(message: error?.localizedDescription ?? "firestore'a atılırken hata alındı.")
-                            }else{
-                                
+                        documentReference.downloadURL { (url, error) in
+                            guard let downloadURL = url else {
+                                DispatchQueue.main.async {
+                                    Alerts.showAlert(title: "Hata!", message: error?.localizedDescription ?? "Dosya urlsi alınırken hata alındı.", viewController: self)
+                                }
+                                return
+                            }
+                            
+                            self.documentURL = downloadURL.absoluteString
+                            
+                            let firestoreDB = Firestore.firestore()
+                            
+                            let firestoreDocumentArray = [
+                                "documenturl" : self.documentURL,
+                                "email" : Auth.auth().currentUser!.email,
+                                "tarih" : FieldValue.serverTimestamp()
+                            ] as [String : Any]
+                            
+                            firestoreDB.collection("Documents").addDocument(data: firestoreDocumentArray) { error in
+                                if let error = error {
+                                    DispatchQueue.main.async {
+                                        Alerts.showAlert(title: "Hata!", message: error.localizedDescription, viewController: self)
+                                    }
+                                }
                             }
                         }
+                    }
+                    
+                    // Observe the upload progress
+                    uploadTask.observe(.progress) { snapshot in
+                        guard let progress = snapshot.progress else {
+                            return
+                        }
+                        
+                        // Update progress view on the main thread
+                        DispatchQueue.main.async {
+                            let progressValue = Float(progress.completedUnitCount) / Float(progress.totalUnitCount)
+                            // Update your progress view here with the progressValue
+                            // For example:
+                            self.progressView.progress = progressValue
+                            
+                            if progressValue == 1.0{
+                                self.checkmarkView.isHidden = false
+                            }
+                        }
+                    }
+                    
+                    // Observe when the upload is completed
+                    uploadTask.observe(.success) { snapshot in
+                        
+                    }
+                    
+                } catch {
+                    DispatchQueue.main.async {
+                        Alerts.showAlert(title: "Hata!", message: error.localizedDescription, viewController: self)
                     }
                 }
             }
         }
-        
     }
+
+     
     
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
         print("Doküman seçim işlemi iptal edildi")
@@ -83,14 +143,15 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
             if let qrCodeImage = GenerateAndDesign.generate(from: documentURL) {
                 // QR kodunu imageView'a atayın
                 imageView.image = qrCodeImage
+                designButtonOutlet.isHidden = false
                 saveButtonOutlet.isHidden = false
                 downloadButtonOutlet.isHidden = false
             } else {
                 // QR kodu oluşturulamazsa hata mesajı gösterin
-                showAlert(message: "QR kodu oluşturulamadı")
+                Alerts.showAlert(title: "Hata!", message: "QR kodu oluşturulamadı.", viewController: self)
             }
         }else{
-            showAlert(message: "bir hata alındı.")
+            Alerts.showAlert(title: "Uyarı", message: "Bir döküman seçiniz.", viewController: self)
         }
     }
     
@@ -115,7 +176,13 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
     }
     
     @IBAction func saveButton(_ sender: Any) {
-        performSegue(withIdentifier: "toSaveVC", sender: nil)
+        if Auth.auth().currentUser != nil{
+            performSegue(withIdentifier: "toSaveVC", sender: nil)
+        }else{
+            Alerts.showAlert2Button(title: "Uyarı", message: "Kaydetme özelliğini kullanabilmek için kullanıcı girişi yapmanız gerekmektedir.", buttonTitle: "Giriş Yap", viewController: self) {
+                self.performSegue(withIdentifier: "toLogInVC", sender: nil)
+            }
+        }
     }
 
     
@@ -142,11 +209,5 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
         }
     }
     
-    func showAlert(message: String) {
-        let alertController = UIAlertController(title: "Hata", message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Tamam", style: .default, handler: nil)
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion: nil)
-    }
 }
 

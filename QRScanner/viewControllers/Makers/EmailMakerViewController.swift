@@ -1,4 +1,5 @@
 import UIKit
+import FirebaseAuth
 
 class EmailMakerViewController: UIViewController {
 
@@ -8,8 +9,10 @@ class EmailMakerViewController: UIViewController {
     @IBOutlet weak var messageTextField: UITextView!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var characterCountLabel: UILabel!
+    
     @IBOutlet weak var saveButtonOutlet: UIButton!
     @IBOutlet weak var downloadButtonOutlet: UIButton!
+    @IBOutlet weak var designButtonOutlet: UIButton!
     
     var emailString = ""
     
@@ -21,6 +24,7 @@ class EmailMakerViewController: UIViewController {
         
         saveButtonOutlet.isHidden = true
         downloadButtonOutlet.isHidden = true
+        designButtonOutlet.isHidden = true
     }
     
     @objc func klavyeKapat(){
@@ -43,13 +47,19 @@ class EmailMakerViewController: UIViewController {
     }
 
     @IBAction func saveButton(_ sender: Any) {
-        performSegue(withIdentifier: "toSaveVC", sender: nil)
+        if Auth.auth().currentUser != nil{
+            performSegue(withIdentifier: "toSaveVC", sender: nil)
+        }else{
+            Alerts.showAlert2Button(title: "Uyarı", message: "Kaydetme özelliğini kullanabilmek için kullanıcı girişi yapmanız gerekmektedir.", buttonTitle: "Giriş Yap", viewController: self) {
+                self.performSegue(withIdentifier: "toLogInVC", sender: nil)
+            }
+        }
     }
     
     @IBAction func generateQRCodeButtonTapped(_ sender: Any) {
         guard let email = emailTextField.text, !email.isEmpty else {
             // Kullanıcı e-posta adresi girmeden butona tıklarsa hata mesajı gösterin
-            showAlert(message: "Lütfen bir e-posta adresi girin")
+            Alerts.showAlert(title: "Uyarı", message: "Lütfen bir e-mail adresi girin.", viewController: self)
             return
         }
         
@@ -65,11 +75,12 @@ class EmailMakerViewController: UIViewController {
         if let qrCodeImage = GenerateAndDesign.generate(from: sanitizedText) {
             // Oluşturulan QR kodunu imageView'a atayın
             imageView.image = qrCodeImage
+            designButtonOutlet.isHidden = false
             saveButtonOutlet.isHidden = false
             downloadButtonOutlet.isHidden = false
         } else {
             // QR kodu oluşturulamazsa hata mesajı gösterin
-            showAlert(message: "QR kodu oluşturulamadı")
+            Alerts.showAlert(title: "Hata!", message: "QR kodu oluşturulamadı.", viewController: self)
         }
     }
     
@@ -111,13 +122,7 @@ class EmailMakerViewController: UIViewController {
             present(ac, animated: true)
         }
     }
-    
 
-    func showAlert(message: String) {
-        let alertController = UIAlertController(title: "Hata", message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Tamam", style: .default, handler: nil)
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion: nil)
-    }
+    
 }
 

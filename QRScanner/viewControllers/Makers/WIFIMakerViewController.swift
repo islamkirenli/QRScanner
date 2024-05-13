@@ -1,4 +1,5 @@
 import UIKit
+import FirebaseAuth
 
 
 class WIFIMakerViewController: UIViewController{
@@ -6,8 +7,10 @@ class WIFIMakerViewController: UIViewController{
     @IBOutlet weak var ssidTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
+    
     @IBOutlet weak var saveButtonOutlet: UIButton!
     @IBOutlet weak var downloadButtonOutlet: UIButton!
+    @IBOutlet weak var designButtonOutlet: UIButton!
     
     var wifiString = ""
     
@@ -19,6 +22,7 @@ class WIFIMakerViewController: UIViewController{
         
         saveButtonOutlet.isHidden = true
         downloadButtonOutlet.isHidden = true
+        designButtonOutlet.isHidden = true
     }
     
     @objc func klavyeKapat(){
@@ -41,7 +45,13 @@ class WIFIMakerViewController: UIViewController{
     }
     
     @IBAction func saveButton(_ sender: Any) {
-        performSegue(withIdentifier: "toSaveVC", sender: nil)
+        if Auth.auth().currentUser != nil{
+            performSegue(withIdentifier: "toSaveVC", sender: nil)
+        }else{
+            Alerts.showAlert2Button(title: "Uyarı", message: "Kaydetme özelliğini kullanabilmek için kullanıcı girişi yapmanız gerekmektedir.", buttonTitle: "Giriş Yap", viewController: self) {
+                self.performSegue(withIdentifier: "toLogInVC", sender: nil)
+            }
+        }
     }
     
     @IBAction func designButton(_ sender: Any) {
@@ -51,21 +61,22 @@ class WIFIMakerViewController: UIViewController{
     
     @IBAction func generateQRCodeButtonTapped(_ sender: Any) {
         guard let ssid = ssidTextField.text, !ssid.isEmpty else {
-            showAlert(message: "Please enter SSID")
+            Alerts.showAlert(title: "Uyarı", message: "Wifi adını girin.", viewController: self)
             return
         }
 
         guard let code = passwordTextField.text, !code.isEmpty else {
-            showAlert(message: "Please enter code")
+            Alerts.showAlert(title: "Uyarı", message: "Şifre girin.", viewController: self)
             return
         }
 
         if let qrImage = WifiQR(name: ssid, password: code, size: 100) {
             imageView.image = qrImage
+            designButtonOutlet.isHidden = false
             saveButtonOutlet.isHidden = false
             downloadButtonOutlet.isHidden = false
         } else {
-            showAlert(message: "Failed to generate QR code")
+            Alerts.showAlert(title: "Hata!", message: "QR kodu oluşturulamadı.", viewController: self)
         }
     }
     
@@ -107,12 +118,5 @@ class WIFIMakerViewController: UIViewController{
         }
     }
     
-
-    func showAlert(message: String) {
-        let alertController = UIAlertController(title: "Hata", message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Tamam", style: .default, handler: nil)
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion: nil)
-    }
 }
 

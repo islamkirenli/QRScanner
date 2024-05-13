@@ -1,4 +1,5 @@
 import UIKit
+import FirebaseAuth
 
 class SocialMedyaMakerViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
 
@@ -6,8 +7,10 @@ class SocialMedyaMakerViewController: UIViewController, UIPickerViewDataSource, 
     @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var accountTextField: UITextField!
     @IBOutlet weak var imageView: UIImageView!
+    
     @IBOutlet weak var saveButtonOutlet: UIButton!
     @IBOutlet weak var downloadButtonOutlet: UIButton!
+    @IBOutlet weak var designButtonOutlet: UIButton!
     
     let socialMediaPlatforms = ["Facebook", "Twitter", "Instagram"]
     var selectedSocialMediaPlatform: String?
@@ -28,6 +31,7 @@ class SocialMedyaMakerViewController: UIViewController, UIPickerViewDataSource, 
         
         saveButtonOutlet.isHidden = true
         downloadButtonOutlet.isHidden = true
+        designButtonOutlet.isHidden = true
     }
     
     @objc func klavyeKapat(){
@@ -50,7 +54,13 @@ class SocialMedyaMakerViewController: UIViewController, UIPickerViewDataSource, 
     }
     
     @IBAction func saveButton(_ sender: Any) {
-        performSegue(withIdentifier: "toSaveVC", sender: nil)
+        if Auth.auth().currentUser != nil{
+            performSegue(withIdentifier: "toSaveVC", sender: nil)
+        }else{
+            Alerts.showAlert2Button(title: "Uyarı", message: "Kaydetme özelliğini kullanabilmek için kullanıcı girişi yapmanız gerekmektedir.", buttonTitle: "Giriş Yap", viewController: self) {
+                self.performSegue(withIdentifier: "toLogInVC", sender: nil)
+            }
+        }
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -80,7 +90,7 @@ class SocialMedyaMakerViewController: UIViewController, UIPickerViewDataSource, 
         guard let socialMedia = selectedSocialMediaPlatform,
                 let username = accountTextField.text,
                 !username.isEmpty else {
-            showAlert(message: "Lütfen bir sosyal medya platformu seçin ve bir kullanıcı adı girin.")
+            Alerts.showAlert(title: "Uyarı", message: "Lütfen bir sosyal medya platformu seçin ve bir kullanıcı adı girin.", viewController: self)
             return
         }
 
@@ -88,10 +98,11 @@ class SocialMedyaMakerViewController: UIViewController, UIPickerViewDataSource, 
 
         if let qrCodeImage = GenerateAndDesign.generate(from: socialMediaURL) {
             imageView.image = qrCodeImage
+            designButtonOutlet.isHidden = false
             saveButtonOutlet.isHidden = false
             downloadButtonOutlet.isHidden = false
         }else{
-            showAlert(message: "QR kodu oluşturulamadı")
+            Alerts.showAlert(title: "Hata!", message: "QR kodu oluşturulamadı.", viewController: self)
         }
     }
     
@@ -119,12 +130,5 @@ class SocialMedyaMakerViewController: UIViewController, UIPickerViewDataSource, 
         }
     }
     
-
-    func showAlert(message: String) {
-        let alertController = UIAlertController(title: "Hata", message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Tamam", style: .default, handler: nil)
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion: nil)
-    }
 }
 
