@@ -39,7 +39,7 @@ class DesignViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
   
     
-    @IBAction func iconsButtono(_ sender: Any) {
+    @IBAction func iconsButton(_ sender: Any) {
         let iconSelectionVC = IconSelectionViewController()
         iconSelectionVC.delegate = self
         present(iconSelectionVC, animated: true, completion: nil)

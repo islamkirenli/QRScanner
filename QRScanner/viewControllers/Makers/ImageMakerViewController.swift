@@ -11,6 +11,8 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
     @IBOutlet weak var saveButtonOutlet: UIButton!
     @IBOutlet weak var downloadButtonOutlet: UIButton!
     @IBOutlet weak var designButtonOutlet: UIButton!
+    @IBOutlet weak var checkmark: UIImageView!
+    @IBOutlet weak var progressView: UIProgressView!
     
     var originalImageURLForQR = ""
     
@@ -28,6 +30,9 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
         saveButtonOutlet.isHidden = true
         downloadButtonOutlet.isHidden = true
         designButtonOutlet.isHidden = true
+        progressView.isHidden = true
+        progressView.progress = 0.0
+        checkmark.isHidden = true
     }
     
     @objc func selectImageTapped() {
@@ -91,31 +96,34 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
         performSegue(withIdentifier: "toDesignVC", sender: nil)
     }
     
-    
-    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[.originalImage] as? UIImage {
             originalImageView.image = selectedImage
             
+            progressView.isHidden = false
+                    
             let storage = Storage.storage()
             let storageReference = storage.reference()
             
-            if let currentUserEmail = currentUser?.email{
+            if let currentUserEmail = currentUser?.email {
                 let userFolder = storageReference.child(currentUserEmail)
                 
-                if let data = originalImageView.image?.jpegData(compressionQuality: 0.5){
+                if let data = originalImageView.image?.jpegData(compressionQuality: 0.5) {
                     let uuid = UUID().uuidString
                     let imageReference = userFolder.child("Images").child("\(uuid).jpg")
                     
-                    imageReference.putData(data, metadata: nil) { (storagemetadata, error) in
-                        if error != nil{
-                            Alerts.showAlert(title: "Hata!", message: error?.localizedDescription ?? "Görsel yüklenirken hata alındı.", viewController: self)
-                        }else{
+                    // Görsel yükleme işlemi için progress view
+                    let uploadTask = imageReference.putData(data, metadata: nil) { (storagemetadata, error) in
+                        if error != nil {
+                            DispatchQueue.main.async {
+                                Alerts.showAlert(title: "Hata!", message: error?.localizedDescription ?? "Görsel yüklenirken hata alındı.", viewController: self)
+                            }
+                        } else {
                             imageReference.downloadURL { (url, error) in
-                                if error == nil{
+                                if error == nil {
                                     let originalImageURL = url?.absoluteString
                                     
-                                    if let originalImageURL = originalImageURL{
+                                    if let originalImageURL = originalImageURL {
                                         self.originalImageURLForQR = originalImageURL
                                         
                                         let firestoreDB = Firestore.firestore()
@@ -123,14 +131,30 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
                                         let firestoreImageArray = ["gorselurl" : originalImageURL, "email" : Auth.auth().currentUser!.email, "tarih" : FieldValue.serverTimestamp()] as [String : Any]
                                         
                                         firestoreDB.collection("Images").addDocument(data: firestoreImageArray) { error in
-                                            if error != nil{
-                                                Alerts.showAlert(title: "Hata!", message: error?.localizedDescription ?? "Veritabanına atılırken hata alındı.", viewController: self)
-                                            }else{
-                                                
+                                            if error != nil {
+                                                DispatchQueue.main.async {
+                                                    Alerts.showAlert(title: "Hata!", message: error?.localizedDescription ?? "Veritabanına atılırken hata alındı.", viewController: self)
+                                                }
+                                            } else {
+                                                // Veritabanı işlemi başarıyla tamamlandı
                                             }
                                         }
                                     }
                                 }
+                            }
+                        }
+                    }
+                    
+                    // Progress view güncellemesi
+                    uploadTask.observe(.progress) { snapshot in
+                        guard let progress = snapshot.progress else { return }
+                        DispatchQueue.main.async {
+                            let percentComplete = Float(progress.completedUnitCount) / Float(progress.totalUnitCount)
+                            // Progress view güncelleme işlemi
+                            self.progressView.progress = percentComplete
+                            
+                            if percentComplete == 1.0{
+                                self.checkmark.isHidden = false
                             }
                         }
                     }
@@ -139,6 +163,7 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
         }
         dismiss(animated: true, completion: nil)
     }
+
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
