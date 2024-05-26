@@ -6,10 +6,9 @@
 //
 
 import UIKit
+import GoogleMobileAds
 
 class DesignViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, IconSelectionDelegate, IconSelectionViewController.IconSelectionDelegate{
-    
-    
     
     @IBOutlet weak var foregroundColor: UIColorWell!
     @IBOutlet weak var backgroundColor: UIColorWell!
@@ -19,6 +18,8 @@ class DesignViewController: UIViewController, UIImagePickerControllerDelegate, U
     var receivedImage : UIImage?
     var receivedText : String?
     var receivedURL : String?
+    
+    var bannerView: GADBannerView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,23 @@ class DesignViewController: UIViewController, UIImagePickerControllerDelegate, U
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(selectImageTapped))
         iconImageView.addGestureRecognizer(tapGesture)
         iconImageView.isUserInteractionEnabled = true
+        
+        let viewWidth = view.frame.inset(by: view.safeAreaInsets).width
+
+        // Here the current interface orientation is used. Use
+        // GADLandscapeAnchoredAdaptiveBannerAdSizeWithWidth or
+        // GADPortraitAnchoredAdaptiveBannerAdSizeWithWidth if you prefer to load an ad of a
+        // particular orientation,
+        let adaptiveSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
+        bannerView = GADBannerView(adSize: adaptiveSize)
+        bannerView.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
+
+        bannerView.adUnitID = Ads.bannerAdUnitID
+        bannerView.rootViewController = self
+
+        bannerView.load(GADRequest())
+        
+        Ads.addBannerViewToView(bannerView, viewController: self)
         
     }
     
@@ -52,7 +70,7 @@ class DesignViewController: UIViewController, UIImagePickerControllerDelegate, U
                     designQRImage.image = qrImage
                 }
             }else{
-                if let qrImage = GenerateAndDesign.generate(from: receivedText, foregroundColor: foregroundColor.selectedColor!, backgroundColor: backgroundColor.selectedColor!){
+                if let qrImage = GenerateAndDesign.generate(from: receivedText){
                     designQRImage.image = qrImage
                 }
             }

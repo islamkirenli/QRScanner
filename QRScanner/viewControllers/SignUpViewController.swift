@@ -32,25 +32,17 @@ class SignUpViewController: UIViewController {
             // kayıt olma işlemi
             Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (authdataresult, error) in
                 if error != nil{
-                    self.showAlert(message: error?.localizedDescription ?? "kayıt sırasında hata alındı.")
+                    Alerts.showAlert(title: "Error",message: error?.localizedDescription ?? "kayıt sırasında hata alındı.", viewController: self)
                 }else{
                     self.performSegue(withIdentifier: "toTabBarVC", sender: nil)
                 }
             }
         }else if passwordTextField.text != secondPasswordTextField.text{
-            showAlert(message: "Şifre ve doğrulama şifresi aynı olmalıdır.")
+            Alerts.showAlert(title: "Error",message: "Şifre ve doğrulama şifresi aynı olmalıdır.", viewController: self)
         }else{
-            showAlert(message: "Email ve şifre alanlarını kontrol ediniz.")
+            Alerts.showAlert(title: "Error",message: "Email ve şifre alanlarını kontrol ediniz.", viewController: self)
         }
         
     }
-    
-    func showAlert(message: String) {
-        let alertController = UIAlertController(title: "Hata", message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Tamam", style: .default, handler: nil)
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion: nil)
-    }
-    
 
 }

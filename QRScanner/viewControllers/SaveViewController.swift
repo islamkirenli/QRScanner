@@ -37,7 +37,7 @@ class SaveViewController: UIViewController {
     
     @IBAction func saveButton(_ sender: Any) {
         if titleTextField.text?.isEmpty == true{
-            showAlert(message: "Lütfen başlık girin.")
+            Alerts.showAlert(title: "Error",message: "Lütfen başlık girin.", viewController: self)
         }else{
             let storage = Storage.storage()
             let storageReference = storage.reference()
@@ -51,7 +51,7 @@ class SaveViewController: UIViewController {
                     
                     imageReference.putData(data, metadata: nil) { (storagemetadata, error) in
                         if error != nil{
-                            self.showAlert(message: error?.localizedDescription ?? "hata alındı.")
+                            Alerts.showAlert(title: "Error",message: error?.localizedDescription ?? "hata alındı.", viewController: self)
                         }else{
                             imageReference.downloadURL { (url, error) in
                                 if error == nil{
@@ -64,13 +64,12 @@ class SaveViewController: UIViewController {
                                         
                                         firestoreDB.collection("QRCodes").addDocument(data: firestoreQRArray) { error in
                                             if error != nil{
-                                                self.showAlert(message: error?.localizedDescription ?? "hata aldınız.")
+                                                Alerts.showAlert(title: "Error",message: error?.localizedDescription ?? "hata aldınız.", viewController: self)
                                             }else{
                                                 self.dismiss(animated: true)
                                             }
                                         }
                                     }
-                                    
                                 }
                             }
                         }
@@ -78,17 +77,5 @@ class SaveViewController: UIViewController {
                 }
             }
         }
-        
     }
-    
-    func showAlert(message: String) {
-        let alertController = UIAlertController(title: "Hata", message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Tamam", style: .default, handler: nil)
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion: nil)
-        
-    }
-    
-    
-
 }

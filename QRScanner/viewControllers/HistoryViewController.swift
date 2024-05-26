@@ -9,6 +9,7 @@ import UIKit
 import FirebaseFirestore
 import SDWebImage
 import FirebaseAuth
+import GoogleMobileAds
 
 class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
 
@@ -25,6 +26,8 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     let currentUser = Auth.auth().currentUser
     
+    var bannerView: GADBannerView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,6 +35,23 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         tableView.dataSource = self
         
         firebaseVerileriAl()
+        
+        let viewWidth = view.frame.inset(by: view.safeAreaInsets).width
+
+        // Here the current interface orientation is used. Use
+        // GADLandscapeAnchoredAdaptiveBannerAdSizeWithWidth or
+        // GADPortraitAnchoredAdaptiveBannerAdSizeWithWidth if you prefer to load an ad of a
+        // particular orientation,
+        let adaptiveSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
+        bannerView = GADBannerView(adSize: adaptiveSize)
+        bannerView.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
+
+        bannerView.adUnitID = Ads.bannerAdUnitID
+        bannerView.rootViewController = self
+
+        bannerView.load(GADRequest())
+        
+        Ads.addBannerViewToView(bannerView, viewController: self)
     }
     
     func firebaseVerileriAl(){
@@ -40,7 +60,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
                 .order(by: "tarih", descending: true) 
                 .addSnapshotListener { (snapshot, error) in
                 if error != nil{
-                    self.showAlert(message: error?.localizedDescription ?? "hata var.")
+                    Alerts.showAlert(title: "Error",message: error?.localizedDescription ?? "hata var.", viewController: self)
                 }else{
                     if snapshot?.isEmpty != true && snapshot != nil{
                         
@@ -112,7 +132,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         firestoreDB.collection("QRCodes").whereField("gorselurl", isEqualTo: self.gorselURLDizisi[indexPath.row])
             .addSnapshotListener { (snapshot, error) in
             if error != nil{
-                self.showAlert(message: error?.localizedDescription ?? "hata var.")
+                Alerts.showAlert(title: "Error",message: error?.localizedDescription ?? "hata var.", viewController: self)
             }else{
                 if snapshot?.isEmpty != true && snapshot != nil{
                     for document in snapshot!.documents{
@@ -122,7 +142,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
                         
                         documentRef.delete { error in
                             if error != nil{
-                                self.showAlert(message: error?.localizedDescription ?? "silinirken hata alındı.")
+                                Alerts.showAlert(title: "Error",message: error?.localizedDescription ?? "silinirken hata alındı.", viewController: self)
                             }else{
                                 print("silindi.")
                             }
@@ -146,14 +166,6 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
             destinationVC.alinanTitle = secilenTitle
             destinationVC.alinanGorselURl = secilenGorselUrl
         }
-    }
-    
-    
-    func showAlert(message: String) {
-        let alertController = UIAlertController(title: "Hata", message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Tamam", style: .default, handler: nil)
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion: nil)
     }
     
     func showDeleteAlert(message: String) {

@@ -34,14 +34,14 @@ class LogInViewController: UIViewController {
         if emailTextField.text != "" && passwordTextField.text != ""{
             Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (authdataresult, error) in
                 if error != nil{
-                    self.showAlert(message: error?.localizedDescription ?? "giriş yağılırken hata alındı.")
+                    Alerts.showAlert(title: "Error",message: error?.localizedDescription ?? "giriş yağılırken hata alındı.", viewController: self)
                 }else{
                     self.performSegue(withIdentifier: "toTabBarVC", sender: nil)
                 }
             }
         }
         else{
-            self.showAlert(message: "email ve şifre girin.")
+            Alerts.showAlert(title: "Error",message: "email ve şifre girin.", viewController: self)
         }
     }
     
@@ -54,17 +54,12 @@ class LogInViewController: UIViewController {
     }
     
     
-
+    @IBAction func forgetPasswordButton(_ sender: Any) {
+        performSegue(withIdentifier: "toForgetPasswordVC", sender: nil)
+    }
     
     @IBAction func continueWithNoSignUp(_ sender: Any) {
         performSegue(withIdentifier: "toTabBarVC", sender: nil)
-    }
-    
-    func showAlert(message: String) {
-        let alertController = UIAlertController(title: "Hata", message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Tamam", style: .default, handler: nil)
-        alertController.addAction(okAction)
-        present(alertController, animated: true, completion: nil)
     }
     
     func signInWithGoogle(){

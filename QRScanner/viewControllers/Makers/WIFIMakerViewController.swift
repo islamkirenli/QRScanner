@@ -1,6 +1,6 @@
 import UIKit
 import FirebaseAuth
-
+import GoogleMobileAds
 
 class WIFIMakerViewController: UIViewController{
 
@@ -14,6 +14,8 @@ class WIFIMakerViewController: UIViewController{
     
     var wifiString = ""
     
+    var bannerView: GADBannerView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,6 +25,23 @@ class WIFIMakerViewController: UIViewController{
         saveButtonOutlet.isHidden = true
         downloadButtonOutlet.isHidden = true
         designButtonOutlet.isHidden = true
+        
+        let viewWidth = view.frame.inset(by: view.safeAreaInsets).width
+
+        // Here the current interface orientation is used. Use
+        // GADLandscapeAnchoredAdaptiveBannerAdSizeWithWidth or
+        // GADPortraitAnchoredAdaptiveBannerAdSizeWithWidth if you prefer to load an ad of a
+        // particular orientation,
+        let adaptiveSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
+        bannerView = GADBannerView(adSize: adaptiveSize)
+        bannerView.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
+
+        bannerView.adUnitID = Ads.bannerAdUnitID
+        bannerView.rootViewController = self
+
+        bannerView.load(GADRequest())
+        
+        Ads.addBannerViewToView(bannerView, viewController: self)
     }
     
     @objc func klavyeKapat(){

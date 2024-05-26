@@ -1,5 +1,6 @@
 import UIKit
 import FirebaseAuth
+import GoogleMobileAds
 
 class VcardMakerViewController: UIViewController {
     
@@ -25,6 +26,8 @@ class VcardMakerViewController: UIViewController {
     
     var vCardString = ""
     
+    var bannerView: GADBannerView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -34,6 +37,23 @@ class VcardMakerViewController: UIViewController {
         saveButtonOutlet.isHidden = true
         downloadButtonOutlet.isHidden = true
         designButtonOutlet.isHidden = true
+        
+        let viewWidth = view.frame.inset(by: view.safeAreaInsets).width
+
+        // Here the current interface orientation is used. Use
+        // GADLandscapeAnchoredAdaptiveBannerAdSizeWithWidth or
+        // GADPortraitAnchoredAdaptiveBannerAdSizeWithWidth if you prefer to load an ad of a
+        // particular orientation,
+        let adaptiveSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
+        bannerView = GADBannerView(adSize: adaptiveSize)
+        bannerView.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
+
+        bannerView.adUnitID = Ads.bannerAdUnitID
+        bannerView.rootViewController = self
+
+        bannerView.load(GADRequest())
+        
+        Ads.addBannerViewToView(bannerView, viewController: self)
     }
     
     @objc func klavyeKapat(){
@@ -88,8 +108,10 @@ class VcardMakerViewController: UIViewController {
             URL:\(websiteURLTextField.text ?? "")
             END:VCARD
             """
+        
+        let sanitizedText = sanitizeTurkishCharacters(vCardString)
         // QR kodunu oluştur
-        if let qrCode = GenerateAndDesign.generate(from: vCardString) {
+        if let qrCode = GenerateAndDesign.generate(from: sanitizedText) {
             // QR kodunu image view'e ekle
             imageView.image = qrCode
             designButtonOutlet.isHidden = false
@@ -100,6 +122,15 @@ class VcardMakerViewController: UIViewController {
     
     @IBAction func designButton(_ sender: Any) {
         performSegue(withIdentifier: "toDesignVC", sender: nil)
+    }
+    
+    func sanitizeTurkishCharacters(_ text: String) -> String {
+            let turkishCharacters: [Character: Character] = ["ı": "i", "İ": "I", "ğ": "g", "Ğ": "G", "ü": "u", "Ü": "U", "ş": "s", "Ş": "S", "ö": "o", "Ö": "O", "ç": "c", "Ç": "C"]
+            var sanitizedText = text
+            for (turkishCharacter, asciiCharacter) in turkishCharacters {
+                sanitizedText = sanitizedText.replacingOccurrences(of: String(turkishCharacter), with: String(asciiCharacter))
+            }
+            return sanitizedText
     }
     
     
