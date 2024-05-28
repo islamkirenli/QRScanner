@@ -86,37 +86,34 @@ class VcardMakerViewController: UIViewController {
     }
     
     @IBAction func generateQRCode(_ sender: Any) {
-        guard let name = nameTextField.text,
-              let surname = surnameTextField.text,
-              let phoneNumber = mobileTextField.text,
-              let email = emailTextField.text 
-        else{
-            Alerts.showAlert(title: "Uyarı", message: "İsim, soyisim, telefon numarası ve email adresi alanları dolu olmak zorundadır.", viewController: self)
-            return
-        }
-        vCardString = """
-            BEGIN:VCARD
-            VERSION:3.0
-            N:\(surnameTextField.text ?? "");\(nameTextField.text ?? "")
-            TEL;TYPE=CELL:\(mobileTextField.text ?? "")
-            TEL;TYPE=HOME,VOICE:\(phoneTextField.text ?? "")
-            TEL;TYPE=WORK,FAX:\(faxTextField.text ?? "")
-            EMAIL:\(emailTextField.text ?? "")
-            ORG:\(companyTextField.text ?? "")
-            TITLE:\(jobTextField.text ?? "")
-            ADR;TYPE=WORK:;;\(streetTextField.text ?? "");\(cityTextField.text ?? "");\(stateTextField.text ?? "");\(zipTextField.text ?? "");\(countryTextField.text ?? "")
-            URL:\(websiteURLTextField.text ?? "")
-            END:VCARD
-            """
         
-        let sanitizedText = sanitizeTurkishCharacters(vCardString)
-        // QR kodunu oluştur
-        if let qrCode = GenerateAndDesign.generate(from: sanitizedText) {
-            // QR kodunu image view'e ekle
-            imageView.image = qrCode
-            designButtonOutlet.isHidden = false
-            saveButtonOutlet.isHidden = false
-            downloadButtonOutlet.isHidden = false
+        if (nameTextField.text?.isEmpty == true || surnameTextField.text?.isEmpty == true || mobileTextField.text?.isEmpty == true || emailTextField.text?.isEmpty == true){
+            Alerts.showAlert(title: "Uyarı", message: "İsim, soyisim, telefon numarası ve email adresi alanları dolu olmak zorundadır.", viewController: self)
+        }else{
+            vCardString = """
+                BEGIN:VCARD
+                VERSION:3.0
+                N:\(surnameTextField.text ?? "");\(nameTextField.text ?? "")
+                TEL;TYPE=CELL:\(mobileTextField.text ?? "")
+                TEL;TYPE=HOME,VOICE:\(phoneTextField.text ?? "")
+                TEL;TYPE=WORK,FAX:\(faxTextField.text ?? "")
+                EMAIL:\(emailTextField.text ?? "")
+                ORG:\(companyTextField.text ?? "")
+                TITLE:\(jobTextField.text ?? "")
+                ADR;TYPE=WORK:;;\(streetTextField.text ?? "");\(cityTextField.text ?? "");\(stateTextField.text ?? "");\(zipTextField.text ?? "");\(countryTextField.text ?? "")
+                URL:\(websiteURLTextField.text ?? "")
+                END:VCARD
+                """
+            
+            let sanitizedText = sanitizeTurkishCharacters(vCardString)
+            // QR kodunu oluştur
+            if let qrCode = GenerateAndDesign.generate(from: sanitizedText) {
+                // QR kodunu image view'e ekle
+                imageView.image = qrCode
+                designButtonOutlet.isHidden = false
+                saveButtonOutlet.isHidden = false
+                downloadButtonOutlet.isHidden = false
+            }
         }
     }
     
