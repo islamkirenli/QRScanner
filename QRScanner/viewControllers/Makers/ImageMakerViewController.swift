@@ -109,9 +109,6 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
         
     }
     
-    
-    
-    
     @IBAction func designButton(_ sender: Any) {
         performSegue(withIdentifier: "toDesignVC", sender: nil)
     }
@@ -129,6 +126,14 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
                 let userFolder = storageReference.child(currentUserEmail)
                 
                 if let data = originalImageView.image?.jpegData(compressionQuality: 0.5) {
+                    let maxSize: Int = 5 * 1024 * 1024 // 5 MB
+                    if data.count > maxSize {
+                        Alerts.showAlert(title: "Hata!", message: "Fotoğraf boyutu 5 MB'dan büyük olamaz.", viewController: self)
+                        progressView.isHidden = true
+                        checkmark.isHidden = true
+                        return
+                    }
+                    
                     let uuid = UUID().uuidString
                     let imageReference = userFolder.child("Images").child("\(uuid).jpg")
                     

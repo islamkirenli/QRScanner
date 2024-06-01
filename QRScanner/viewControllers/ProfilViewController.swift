@@ -15,7 +15,6 @@ class ProfilViewController: UIViewController, AvatarSelectionDelegate, AvatarSel
     
     @IBOutlet weak var userEmailLabel: UILabel!
     @IBOutlet weak var signOutButtonOutlet: UIButton!
-    @IBOutlet weak var signInButtonOutlet: UIButton!
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var surnameTextField: UITextField!
@@ -32,13 +31,10 @@ class ProfilViewController: UIViewController, AvatarSelectionDelegate, AvatarSel
         super.viewDidLoad()
 
         if currentUser != nil{
-            signInButtonOutlet.isHidden = true
             signOutButtonOutlet.isHidden = false
             userEmailLabel.text = currentUser?.email
         }else{
-            signOutButtonOutlet.isHidden = true
-            signInButtonOutlet.isHidden = false
-            userEmailLabel.text = "özellikleri kullanabilmek için giriş yapın."
+            self.performSegue(withIdentifier: "toLogInVC", sender: nil)
         }
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(selectImageTapped))
@@ -92,10 +88,6 @@ class ProfilViewController: UIViewController, AvatarSelectionDelegate, AvatarSel
         }catch{
             print("hata var.")
         }
-    }
-    
-    @IBAction func signInButton(_ sender: Any) {
-        performSegue(withIdentifier: "toLogInVC", sender: nil)
     }
     
     

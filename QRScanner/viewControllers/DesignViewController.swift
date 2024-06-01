@@ -19,6 +19,8 @@ class DesignViewController: UIViewController, UIImagePickerControllerDelegate, U
     var receivedText : String?
     var receivedURL : String?
     
+    var isIconSelected = false
+    
     var bannerView: GADBannerView!
 
     override func viewDidLoad() {
@@ -54,6 +56,7 @@ class DesignViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     func didSelectIcon(withName iconName: String) {
         iconImageView.image = UIImage(named: iconName)
+        isIconSelected = true
     }
   
     
@@ -65,12 +68,15 @@ class DesignViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     @IBAction func olusturButton(_ sender: Any) {
         if let receivedText = receivedText {
-            if let iconImage = iconImageView.image{
-                if let qrImage = GenerateAndDesign.generateIcon(withIcon: iconImage, from: receivedText, foregroundColor: foregroundColor.selectedColor!, backgroundColor: backgroundColor.selectedColor!){
-                    designQRImage.image = qrImage
+            if isIconSelected == true{
+                if let iconImage = iconImageView.image{
+                    if let qrImage = GenerateAndDesign.generateIcon(withIcon: iconImage, from: receivedText, foregroundColor: foregroundColor.selectedColor!, backgroundColor: backgroundColor.selectedColor!){
+                        designQRImage.image = qrImage
+                    }
                 }
-            }else{
-                if let qrImage = GenerateAndDesign.generate(from: receivedText){
+            }
+            else{
+                if let qrImage = GenerateAndDesign.generate(from: receivedText, foregroundColor: foregroundColor.selectedColor!, backgroundColor: backgroundColor.selectedColor!){
                     designQRImage.image = qrImage
                 }
             }
