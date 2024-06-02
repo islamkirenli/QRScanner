@@ -126,7 +126,7 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
                 let userFolder = storageReference.child(currentUserEmail)
                 
                 if let data = originalImageView.image?.jpegData(compressionQuality: 0.5) {
-                    let maxSize: Int = 5 * 1024 * 1024 // 5 MB
+                    let maxSize: Int = 15 * 1024 * 1024 // 15 MB
                     if data.count > maxSize {
                         Alerts.showAlert(title: "Hata!", message: "Fotoğraf boyutu 5 MB'dan büyük olamaz.", viewController: self)
                         progressView.isHidden = true

@@ -81,7 +81,7 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
                 do {
                     let data = try Data(contentsOf: selectedURL)
                     
-                    let maxSize: Int = 5 * 1024 * 1024 // 5 MB
+                    let maxSize: Int = 50 * 1024 * 1024 // 50 MB
                     if data.count > maxSize {
                         DispatchQueue.main.async {
                             Alerts.showAlert(title: "Hata!", message: "Dosya boyutu 5 MB'dan büyük olamaz.", viewController: self)

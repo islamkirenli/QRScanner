@@ -41,6 +41,8 @@ class URLMakerViewController: UIViewController {
         bannerView.load(GADRequest())
         
         Ads.addBannerViewToView(bannerView, viewController: self)
+        
+
     }
     
     @objc func klavyeKapat(){

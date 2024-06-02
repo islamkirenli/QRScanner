@@ -2,7 +2,7 @@ import UIKit
 
 class IconSelectionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    let icons = ["after-effects", "android", "app-store-ios", "apple", "atom", "behance", "bitcoin", "bluetooth", "discord", "facebook-messenger", "facebook", "figma", "github", "google", "illustrator", "indesign", "instagram", "java", "line", "linkedin", "paypal", "photoshop", "pinterest", "premiere", "snapchat", "spotify", "telegram", "tik-tok", "twitch", "twitter", "visa", "vk", "whatsapp", "windows", "youtube"]
+    let icons = ["after-effects", "android", "app-store-ios", "apple", "atom", "behance", "bitcoin", "bluetooth", "discord", "facebook-messenger", "facebook", "figma", "github", "google", "illustrator", "indesign", "instagram", "java", "line", "linkedin", "logo", "paypal", "photoshop", "pinterest", "premiere", "snapchat", "spotify", "telegram", "tik-tok", "twitch", "twitter", "visa", "vk", "whatsapp", "windows", "youtube"]
     
     weak var delegate: IconSelectionDelegate?
     
