@@ -84,7 +84,7 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
                     let maxSize: Int = 50 * 1024 * 1024 // 50 MB
                     if data.count > maxSize {
                         DispatchQueue.main.async {
-                            Alerts.showAlert(title: "Hata!", message: "Dosya boyutu 5 MB'dan büyük olamaz.", viewController: self)
+                            Alerts.showAlert(title: "Hata!", message: "Dosya boyutu 50 MB'dan büyük olamaz.", viewController: self)
                             self.progressView.isHidden = true
                             self.checkmarkView.isHidden = true
                         }
