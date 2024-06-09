@@ -13,7 +13,7 @@ class SocialMedyaMakerViewController: UIViewController, UIPickerViewDataSource, 
     @IBOutlet weak var downloadButtonOutlet: UIButton!
     @IBOutlet weak var designButtonOutlet: UIButton!
     
-    let socialMediaPlatforms = ["Facebook", "Twitter", "Instagram"]
+    let socialMediaPlatforms = ["Facebook", "Twitter", "Instagram", "TikTok", "Snapchat", "LinkedIn", "Pinterest", "YouTube", "Reddit"]
     var selectedSocialMediaPlatform: String?
     
     var socialMediaURL = ""
@@ -77,7 +77,7 @@ class SocialMedyaMakerViewController: UIViewController, UIPickerViewDataSource, 
         if Auth.auth().currentUser != nil{
             performSegue(withIdentifier: "toSaveVC", sender: nil)
         }else{
-            Alerts.showAlert2Button(title: "Uyarı", message: "Kaydetme özelliğini kullanabilmek için kullanıcı girişi yapmanız gerekmektedir.", buttonTitle: "Giriş Yap", viewController: self) {
+            Alerts.showAlert2Button(title: "Alert", message: "You need to log in to use the save feature.", buttonTitle: "Log In", viewController: self) {
                 self.performSegue(withIdentifier: "toLogInVC", sender: nil)
             }
         }
@@ -110,11 +110,19 @@ class SocialMedyaMakerViewController: UIViewController, UIPickerViewDataSource, 
         guard let socialMedia = selectedSocialMediaPlatform,
                 let username = accountTextField.text,
                 !username.isEmpty else {
-            Alerts.showAlert(title: "Uyarı", message: "Lütfen bir sosyal medya platformu seçin ve bir kullanıcı adı girin.", viewController: self)
+            Alerts.showAlert(title: "Alert", message: "Please select a social media platform and enter a username.", viewController: self)
             return
         }
 
-        socialMediaURL = "https://www.\(socialMedia.lowercased()).com/\(username)"
+        if socialMedia == "TikTok"{
+            socialMediaURL = "https://www.\(socialMedia.lowercased()).com/@\(username)"
+        }else if socialMedia == "Snapchat"{
+            socialMediaURL = "https://www.\(socialMedia.lowercased()).com/add/\(username)"
+        }else if socialMedia == "Reddit"{
+            socialMediaURL = "https://www.\(socialMedia.lowercased()).com/r/\(username)"
+        }else{
+            socialMediaURL = "https://www.\(socialMedia.lowercased()).com/\(username)"
+        }
 
         if let qrCodeImage = GenerateAndDesign.generate(from: socialMediaURL) {
             imageView.image = qrCodeImage
@@ -122,7 +130,7 @@ class SocialMedyaMakerViewController: UIViewController, UIPickerViewDataSource, 
             saveButtonOutlet.isHidden = false
             downloadButtonOutlet.isHidden = false
         }else{
-            Alerts.showAlert(title: "Hata!", message: "QR kodu oluşturulamadı.", viewController: self)
+            Alerts.showAlert(title: "Error", message: "The QR code could not be generated.", viewController: self)
         }
     }
     

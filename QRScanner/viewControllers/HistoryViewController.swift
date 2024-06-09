@@ -60,7 +60,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
                 .order(by: "tarih", descending: true) 
                 .addSnapshotListener { (snapshot, error) in
                 if error != nil{
-                    Alerts.showAlert(title: "Error",message: error?.localizedDescription ?? "hata var.", viewController: self)
+                    Alerts.showAlert(title: "Error",message: error?.localizedDescription ?? "There is an error.", viewController: self)
                 }else{
                     if snapshot?.isEmpty != true && snapshot != nil{
                         
@@ -108,13 +108,13 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Sil") { [weak self] (_, _, completionHandler) in
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (_, _, completionHandler) in
             // Silme işlemini gerçekleştir
-            let alertController = UIAlertController(title: "Uyarı", message: "Tamamen silinecek. Emin misin?", preferredStyle: .alert)
-            let cancelAction = UIAlertAction(title: "İptal", style: .cancel){ _ in
+            let alertController = UIAlertController(title: "Alert", message: "It will be completely deleted. Are you sure?", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel){ _ in
                 self?.tableView.reloadData()
             }
-            let deleteAction = UIAlertAction(title: "Sil", style: .destructive){ _ in
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive){ _ in
                 self?.deleteItem(at: indexPath)
                 completionHandler(true)
             }
@@ -132,7 +132,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         firestoreDB.collection("QRCodes").whereField("gorselurl", isEqualTo: self.gorselURLDizisi[indexPath.row])
             .addSnapshotListener { (snapshot, error) in
             if error != nil{
-                Alerts.showAlert(title: "Error",message: error?.localizedDescription ?? "hata var.", viewController: self)
+                Alerts.showAlert(title: "Error",message: error?.localizedDescription ?? "There is an error.", viewController: self)
             }else{
                 if snapshot?.isEmpty != true && snapshot != nil{
                     for document in snapshot!.documents{
@@ -142,9 +142,9 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
                         
                         documentRef.delete { error in
                             if error != nil{
-                                Alerts.showAlert(title: "Error",message: error?.localizedDescription ?? "silinirken hata alındı.", viewController: self)
+                                Alerts.showAlert(title: "Error",message: error?.localizedDescription ?? "An error occurred while deleting.", viewController: self)
                             }else{
-                                print("silindi.")
+                                print("Deleted.")
                             }
                         }
                     }

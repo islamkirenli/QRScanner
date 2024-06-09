@@ -75,7 +75,7 @@ class AppsMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         if Auth.auth().currentUser != nil{
             performSegue(withIdentifier: "toSaveVC", sender: nil)
         }else{
-            Alerts.showAlert2Button(title: "Uyarı", message: "Kaydetme özelliğini kullanabilmek için kullanıcı girişi yapmanız gerekmektedir.", buttonTitle: "Giriş Yap", viewController: self) {
+            Alerts.showAlert2Button(title: "Alert", message: "You need to log in to use the save feature.", buttonTitle: "Log In", viewController: self) {
                 self.performSegue(withIdentifier: "toLogInVC", sender: nil)
             }
         }
@@ -101,12 +101,12 @@ class AppsMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerV
     
     @IBAction func generateQRCodeButtonTapped(_ sender: Any) {
         guard let appId = idTextField.text, !appId.isEmpty else {
-            Alerts.showAlert(title: "Uyarı", message: "Lütfen uygulama ID'sini girin.", viewController: self)
+            Alerts.showAlert(title: "Alert", message: "Please enter the application ID.", viewController: self)
             return
         }
         
         guard let selectedAppStore = selectedAppStore else {
-            Alerts.showAlert(title: "Uyarı", message: "Lütfen bir uygulama marketi seçin.", viewController: self)
+            Alerts.showAlert(title: "Alert", message: "Please select an app store.", viewController: self)
             return
         }
         
@@ -129,7 +129,7 @@ class AppsMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerV
             saveButtonOutlet.isHidden = false
             downloadButtonOutlet.isHidden = false
         } else {
-            Alerts.showAlert(title: "Hata!", message: "QR kodu oluşturulamadı.", viewController: self)
+            Alerts.showAlert(title: "Error", message: "The QR code could not be generated.", viewController: self)
         }
     }
     

@@ -81,7 +81,7 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
         if Auth.auth().currentUser != nil{
             performSegue(withIdentifier: "toSaveVC", sender: nil)
         }else{
-            Alerts.showAlert2Button(title: "Uyarı", message: "Kaydetme özelliğini kullanabilmek için kullanıcı girişi yapmanız gerekmektedir.", buttonTitle: "Giriş Yap", viewController: self) {
+            Alerts.showAlert2Button(title: "Alert", message: "You need to log in to use the save feature.", buttonTitle: "Log In", viewController: self) {
                 self.performSegue(withIdentifier: "toLogInVC", sender: nil)
             }
         }
@@ -99,11 +99,11 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
                     downloadButtonOutlet.isHidden = false
                 } else {
                     // QR kodu oluşturulamazsa hata mesajı gösterin
-                    Alerts.showAlert(title: "Uyarı", message: "QR kodu oluşturulamadı.", viewController: self)
+                    Alerts.showAlert(title: "Alert", message: "The QR code could not be generated.", viewController: self)
                 }
             }
         }else{
-            Alerts.showAlert(title: "Uyarı", message: "Bir fotoğraf seçin.", viewController: self)
+            Alerts.showAlert(title: "Alert", message: "Please select a photo.", viewController: self)
         }
         
         
@@ -128,7 +128,7 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
                 if let data = originalImageView.image?.jpegData(compressionQuality: 0.5) {
                     let maxSize: Int = 15 * 1024 * 1024 // 15 MB
                     if data.count > maxSize {
-                        Alerts.showAlert(title: "Hata!", message: "Fotoğraf boyutu 15 MB'dan büyük olamaz.", viewController: self)
+                        Alerts.showAlert(title: "Error", message: "The photo size cannot be more than 15 MB.", viewController: self)
                         progressView.isHidden = true
                         checkmark.isHidden = true
                         return
@@ -141,7 +141,7 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
                     let uploadTask = imageReference.putData(data, metadata: nil) { (storagemetadata, error) in
                         if error != nil {
                             DispatchQueue.main.async {
-                                Alerts.showAlert(title: "Hata!", message: error?.localizedDescription ?? "Görsel yüklenirken hata alındı.", viewController: self)
+                                Alerts.showAlert(title: "Error", message: error?.localizedDescription ?? "There is an error.", viewController: self)
                             }
                         } else {
                             imageReference.downloadURL { (url, error) in
@@ -158,7 +158,7 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
                                         firestoreDB.collection("Images").addDocument(data: firestoreImageArray) { error in
                                             if error != nil {
                                                 DispatchQueue.main.async {
-                                                    Alerts.showAlert(title: "Hata!", message: error?.localizedDescription ?? "Veritabanına atılırken hata alındı.", viewController: self)
+                                                    Alerts.showAlert(title: "Error", message: error?.localizedDescription ?? "There is an error.", viewController: self)
                                                 }
                                             } else {
                                                 // Veritabanı işlemi başarıyla tamamlandı

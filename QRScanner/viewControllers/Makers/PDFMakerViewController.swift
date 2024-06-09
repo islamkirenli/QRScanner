@@ -84,7 +84,7 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
                     let maxSize: Int = 50 * 1024 * 1024 // 50 MB
                     if data.count > maxSize {
                         DispatchQueue.main.async {
-                            Alerts.showAlert(title: "Hata!", message: "Dosya boyutu 50 MB'dan büyük olamaz.", viewController: self)
+                            Alerts.showAlert(title: "Error", message: "The file size cannot be more than 50 MB.", viewController: self)
                             self.progressView.isHidden = true
                             self.checkmarkView.isHidden = true
                         }
@@ -94,7 +94,7 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
                     let uploadTask = documentReference.putData(data, metadata: nil) { (storageMetadata, error) in
                         if let error = error {
                             DispatchQueue.main.async {
-                                Alerts.showAlert(title: "Hata!", message: error.localizedDescription, viewController: self)
+                                Alerts.showAlert(title: "Error", message: error.localizedDescription, viewController: self)
                             }
                             return
                         }
@@ -102,7 +102,7 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
                         documentReference.downloadURL { (url, error) in
                             guard let downloadURL = url else {
                                 DispatchQueue.main.async {
-                                    Alerts.showAlert(title: "Hata!", message: error?.localizedDescription ?? "Dosya urlsi alınırken hata alındı.", viewController: self)
+                                    Alerts.showAlert(title: "Error", message: error?.localizedDescription ?? "There is an error.", viewController: self)
                                 }
                                 return
                             }
@@ -120,7 +120,7 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
                             firestoreDB.collection("Documents").addDocument(data: firestoreDocumentArray) { error in
                                 if let error = error {
                                     DispatchQueue.main.async {
-                                        Alerts.showAlert(title: "Hata!", message: error.localizedDescription, viewController: self)
+                                        Alerts.showAlert(title: "Error", message: error.localizedDescription, viewController: self)
                                     }
                                 }
                             }
@@ -153,7 +153,7 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
                     
                 } catch {
                     DispatchQueue.main.async {
-                        Alerts.showAlert(title: "Hata!", message: error.localizedDescription, viewController: self)
+                        Alerts.showAlert(title: "Error", message: error.localizedDescription, viewController: self)
                     }
                 }
             }
@@ -178,10 +178,10 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
                 downloadButtonOutlet.isHidden = false
             } else {
                 // QR kodu oluşturulamazsa hata mesajı gösterin
-                Alerts.showAlert(title: "Hata!", message: "QR kodu oluşturulamadı.", viewController: self)
+                Alerts.showAlert(title: "Error", message: "The QR code could not be generated.", viewController: self)
             }
         }else{
-            Alerts.showAlert(title: "Uyarı", message: "Bir döküman seçiniz.", viewController: self)
+            Alerts.showAlert(title: "Alert", message: "Please select a document.", viewController: self)
         }
     }
     
@@ -209,7 +209,7 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
         if Auth.auth().currentUser != nil{
             performSegue(withIdentifier: "toSaveVC", sender: nil)
         }else{
-            Alerts.showAlert2Button(title: "Uyarı", message: "Kaydetme özelliğini kullanabilmek için kullanıcı girişi yapmanız gerekmektedir.", buttonTitle: "Giriş Yap", viewController: self) {
+            Alerts.showAlert2Button(title: "Alert", message: "You need to log in to use the save feature.", buttonTitle: "Log In", viewController: self) {
                 self.performSegue(withIdentifier: "toLogInVC", sender: nil)
             }
         }

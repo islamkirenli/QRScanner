@@ -7,6 +7,7 @@
 
 import UIKit
 import GoogleMobileAds
+import FirebaseAuth
 
 class DesignViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, IconSelectionDelegate, IconSelectionViewController.IconSelectionDelegate{
     
@@ -89,6 +90,7 @@ class DesignViewController: UIViewController, UIImagePickerControllerDelegate, U
         imagePicker.delegate = self
         imagePicker.sourceType = .photoLibrary
         present(imagePicker, animated: true, completion: nil)
+        isIconSelected = true
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -115,7 +117,7 @@ class DesignViewController: UIViewController, UIImagePickerControllerDelegate, U
     @objc func image (_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
             // we got back an error!
-            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+            let ac = UIAlertController(title: "Save Error", message: error.localizedDescription, preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .default))
             present(ac, animated: true)
         } else {
@@ -127,7 +129,13 @@ class DesignViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     
     @IBAction func saveButton(_ sender: Any) {
-        performSegue(withIdentifier: "toSaveVC", sender: nil)
+        if Auth.auth().currentUser != nil{
+            performSegue(withIdentifier: "toSaveVC", sender: nil)
+        }else{
+            Alerts.showAlert2Button(title: "Alert", message: "You need to log in to use the save feature.", buttonTitle: "Log In", viewController: self) {
+                self.performSegue(withIdentifier: "toLogInVC", sender: nil)
+            }
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

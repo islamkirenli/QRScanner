@@ -70,7 +70,7 @@ class EmailMakerViewController: UIViewController {
         if Auth.auth().currentUser != nil{
             performSegue(withIdentifier: "toSaveVC", sender: nil)
         }else{
-            Alerts.showAlert2Button(title: "Uyarı", message: "Kaydetme özelliğini kullanabilmek için kullanıcı girişi yapmanız gerekmektedir.", buttonTitle: "Giriş Yap", viewController: self) {
+            Alerts.showAlert2Button(title: "Alert", message: "You need to log in to use the save feature.", buttonTitle: "Log In", viewController: self) {
                 self.performSegue(withIdentifier: "toLogInVC", sender: nil)
             }
         }
@@ -79,7 +79,7 @@ class EmailMakerViewController: UIViewController {
     @IBAction func generateQRCodeButtonTapped(_ sender: Any) {
         guard let email = emailTextField.text, !email.isEmpty else {
             // Kullanıcı e-posta adresi girmeden butona tıklarsa hata mesajı gösterin
-            Alerts.showAlert(title: "Uyarı", message: "Lütfen bir e-mail adresi girin.", viewController: self)
+            Alerts.showAlert(title: "Alert", message: "Please enter an email address.", viewController: self)
             return
         }
         
@@ -100,7 +100,7 @@ class EmailMakerViewController: UIViewController {
             downloadButtonOutlet.isHidden = false
         } else {
             // QR kodu oluşturulamazsa hata mesajı gösterin
-            Alerts.showAlert(title: "Hata!", message: "QR kodu oluşturulamadı.", viewController: self)
+            Alerts.showAlert(title: "Error", message: "The QR code could not be generated.", viewController: self)
         }
     }
     

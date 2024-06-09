@@ -32,15 +32,15 @@ class SignUpViewController: UIViewController {
             // kayıt olma işlemi
             Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (authdataresult, error) in
                 if error != nil{
-                    Alerts.showAlert(title: "Error",message: error?.localizedDescription ?? "kayıt sırasında hata alındı.", viewController: self)
+                    Alerts.showAlert(title: "Error",message: error?.localizedDescription ?? "There is an error.", viewController: self)
                 }else{
                     self.performSegue(withIdentifier: "toTabBarVC", sender: nil)
                 }
             }
         }else if passwordTextField.text != secondPasswordTextField.text{
-            Alerts.showAlert(title: "Error",message: "Şifre ve doğrulama şifresi aynı olmalıdır.", viewController: self)
+            Alerts.showAlert(title: "Error",message: "The password and the confirmation password must be the same.", viewController: self)
         }else{
-            Alerts.showAlert(title: "Error",message: "Email ve şifre alanlarını kontrol ediniz.", viewController: self)
+            Alerts.showAlert(title: "Error",message: "Please check the email and password fields.", viewController: self)
         }
         
     }

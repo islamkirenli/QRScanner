@@ -42,7 +42,7 @@ class ChangePasswordViewController: UIViewController {
         }
         
         if newPasswordTextField.text != reNewPasswordTextField.text{
-            Alerts.showAlert(title: "ERROR", message: "Yeni şifreler aynı olmak zorunda.", viewController: self)
+            Alerts.showAlert(title: "ERROR", message: "The new passwords must match.", viewController: self)
         }
         
         guard let userEmail = currentUser?.email else {

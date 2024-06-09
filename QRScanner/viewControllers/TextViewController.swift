@@ -28,7 +28,7 @@ class TextViewController: UIViewController {
     @objc func copyTapped() {
         if let text = text {
             UIPasteboard.general.string = text
-            let alert = UIAlertController(title: nil, message: "Metin kopyalandı", preferredStyle: .alert)
+            let alert = UIAlertController(title: nil, message: "Text copied", preferredStyle: .alert)
             present(alert, animated: true) {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                     alert.dismiss(animated: true, completion: nil)

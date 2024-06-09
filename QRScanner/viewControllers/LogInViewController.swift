@@ -34,14 +34,14 @@ class LogInViewController: UIViewController {
         if emailTextField.text != "" && passwordTextField.text != ""{
             Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (authdataresult, error) in
                 if error != nil{
-                    Alerts.showAlert(title: "Error",message: error?.localizedDescription ?? "giriş yağılırken hata alındı.", viewController: self)
+                    Alerts.showAlert(title: "Error",message: error?.localizedDescription ?? "There is an error.", viewController: self)
                 }else{
                     self.performSegue(withIdentifier: "toTabBarVC", sender: nil)
                 }
             }
         }
         else{
-            Alerts.showAlert(title: "Error",message: "email ve şifre girin.", viewController: self)
+            Alerts.showAlert(title: "Error",message: "Enter your email and password.", viewController: self)
         }
     }
     

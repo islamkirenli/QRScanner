@@ -37,7 +37,7 @@ class SaveViewController: UIViewController {
     
     @IBAction func saveButton(_ sender: Any) {
         if titleTextField.text?.isEmpty == true{
-            Alerts.showAlert(title: "Error",message: "Lütfen başlık girin.", viewController: self)
+            Alerts.showAlert(title: "Error",message: "Please enter a title.", viewController: self)
         }else{
             let storage = Storage.storage()
             let storageReference = storage.reference()
@@ -51,7 +51,7 @@ class SaveViewController: UIViewController {
                     
                     imageReference.putData(data, metadata: nil) { (storagemetadata, error) in
                         if error != nil{
-                            Alerts.showAlert(title: "Error",message: error?.localizedDescription ?? "hata alındı.", viewController: self)
+                            Alerts.showAlert(title: "Error",message: error?.localizedDescription ?? "There is an error.", viewController: self)
                         }else{
                             imageReference.downloadURL { (url, error) in
                                 if error == nil{
@@ -64,7 +64,7 @@ class SaveViewController: UIViewController {
                                         
                                         firestoreDB.collection("QRCodes").addDocument(data: firestoreQRArray) { error in
                                             if error != nil{
-                                                Alerts.showAlert(title: "Error",message: error?.localizedDescription ?? "hata aldınız.", viewController: self)
+                                                Alerts.showAlert(title: "Error",message: error?.localizedDescription ?? "There is an error.", viewController: self)
                                             }else{
                                                 self.dismiss(animated: true)
                                             }

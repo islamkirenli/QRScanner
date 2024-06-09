@@ -86,7 +86,7 @@ class ProfilViewController: UIViewController, AvatarSelectionDelegate, AvatarSel
             //GIDSignIn.sharedInstance.signOut()
             performSegue(withIdentifier: "toLogInVC", sender: nil)
         }catch{
-            print("hata var.")
+            print("There is an error.")
         }
     }
     
@@ -107,7 +107,7 @@ class ProfilViewController: UIViewController, AvatarSelectionDelegate, AvatarSel
                 print("Error writing document: \(error)")
             } else {
                 // Başarılı yazma
-                Alerts.showAlert(title: "Kaydedildi", message: "Bilgileriniz başarılı bir şekilde kaydedildi.", viewController: self)
+                Alerts.showAlert(title: "Saved!", message: "Your information has been successfully saved.", viewController: self)
                 print("Document successfully written!")
             }
         }
@@ -119,7 +119,7 @@ class ProfilViewController: UIViewController, AvatarSelectionDelegate, AvatarSel
             firestoreDB.collection("Users").whereField("email", isEqualTo: currentUserEmail)
                 .addSnapshotListener { (snapshot, error) in
                 if error != nil{
-                    Alerts.showAlert(title:"Hata!", message: error?.localizedDescription ?? "hata var.", viewController: self)
+                    Alerts.showAlert(title:"Error", message: error?.localizedDescription ?? "There is an error.", viewController: self)
                 }else{
                     if snapshot?.isEmpty != true && snapshot != nil{
                         for document in snapshot!.documents{

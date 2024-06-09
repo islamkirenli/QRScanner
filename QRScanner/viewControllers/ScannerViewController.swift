@@ -74,7 +74,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
 
     @objc func iconTapped() {
-        print("İkon tıklandı")
+        print("Icon tapped.")
         toggleFlash()
     }
 
@@ -99,8 +99,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     }
 
     func failed() {
-        let ac = UIAlertController(title: "Hata", message: "QR kod okuyucu başlatılamadı", preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "Tamam", style: .default))
+        let ac = UIAlertController(title: "Error", message: "The QR code reader could not be started.", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
         present(ac, animated: true)
         captureSession = nil
     }
@@ -176,21 +176,21 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
             activityViewController.excludedActivityTypes = [.addToReadingList, .assignToContact, .saveToCameraRoll]
             present(activityViewController, animated: true, completion: nil)
         } catch {
-            let ac = UIAlertController(title: "Hata", message: "vCard kaydedilemedi.", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "Tamam", style: .default))
+            let ac = UIAlertController(title: "Error", message: "The VCard could not be saved.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
             present(ac, animated: true)
         }
     }
     
     func showWiFiConnectionPrompt(ssid: String, password: String) {
-        let alertController = UIAlertController(title: "Wi-Fi Bağlantısı", message: "Ağa bağlanmak istiyor musunuz?", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Wi-Fi Connection", message: "Do you want to connect to the network?", preferredStyle: .alert)
         
-        alertController.addAction(UIAlertAction(title: "Evet", style: .default) { _ in
+        alertController.addAction(UIAlertAction(title: "Yes", style: .default) { _ in
             // Wi-Fi ağına bağlanma işlemini gerçekleştir
             self.connectToWiFi(ssid, password: password)
         })
         
-        alertController.addAction(UIAlertAction(title: "Hayır", style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
         
         present(alertController, animated: true, completion: nil)
     }
@@ -201,11 +201,11 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
 
         NEHotspotConfigurationManager.shared.apply(hotspotConfig) { error in
             if let error = error {
-                print("Wi-Fi bağlanma hatası: \(error.localizedDescription)")
-                Alerts.showAlert(title: "Bağlantı Hatası", message: "Wi-Fi ağına bağlanırken hata oluştu: \(error.localizedDescription)", viewController: self)
+                print("Wi-Fi connection error: \(error.localizedDescription)")
+                Alerts.showAlert(title: "Connection Error", message: "An error occurred while connecting to the Wi-Fi network: \(error.localizedDescription)", viewController: self)
             } else {
-                print("Wi-Fi başarıyla bağlandı: \(ssid)")
-                Alerts.showAlert(title: "Bağlantı Başarılı", message: "Wi-Fi ağına başarıyla bağlanıldı: \(ssid)", viewController: self)
+                print("Wi-Fi connected successfully: \(ssid)")
+                Alerts.showAlert(title: "Connection Successful", message: "Successfully connected to the Wi-Fi network: \(ssid)", viewController: self)
             }
         }
     }

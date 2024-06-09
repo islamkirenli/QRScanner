@@ -79,7 +79,7 @@ class VcardMakerViewController: UIViewController {
         if Auth.auth().currentUser != nil{
             performSegue(withIdentifier: "toSaveVC", sender: nil)
         }else{
-            Alerts.showAlert2Button(title: "Uyarı", message: "Kaydetme özelliğini kullanabilmek için kullanıcı girişi yapmanız gerekmektedir.", buttonTitle: "Giriş Yap", viewController: self) {
+            Alerts.showAlert2Button(title: "Alert", message: "You need to log in to use the save feature.", buttonTitle: "Log In", viewController: self) {
                 self.performSegue(withIdentifier: "toLogInVC", sender: nil)
             }
         }
@@ -88,7 +88,7 @@ class VcardMakerViewController: UIViewController {
     @IBAction func generateQRCode(_ sender: Any) {
         
         if (nameTextField.text?.isEmpty == true || surnameTextField.text?.isEmpty == true || mobileTextField.text?.isEmpty == true || emailTextField.text?.isEmpty == true){
-            Alerts.showAlert(title: "Uyarı", message: "İsim, soyisim, telefon numarası ve email adresi alanları dolu olmak zorundadır.", viewController: self)
+            Alerts.showAlert(title: "Alert", message: "The fields for first name, last name, phone number, and email address must be filled out.", viewController: self)
         }else{
             vCardString = """
                 BEGIN:VCARD

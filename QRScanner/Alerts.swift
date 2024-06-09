@@ -13,7 +13,7 @@ class Alerts {
         alertController.addAction(customAction)
         
         // Add OK button
-        let cancelAction = UIAlertAction(title: "İptal", style: .destructive, handler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
         alertController.addAction(cancelAction)
         
         // Show alert
@@ -22,7 +22,7 @@ class Alerts {
     
     static func showAlert(title: String, message: String, viewController: UIViewController) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "Tamam", style: .default, handler: nil)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alertController.addAction(okAction)
         viewController.present(alertController, animated: true, completion: nil)
     }
