@@ -20,6 +20,40 @@ class ChangePasswordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Çerçeve ayarları
+        currentPasswordTextField.layer.borderColor = UIColor.lightGray.cgColor
+        currentPasswordTextField.layer.borderWidth = 1.0
+        currentPasswordTextField.layer.cornerRadius = 10.0
+        currentPasswordTextField.layer.masksToBounds = true
+        let placeholderText = "Current Password"
+        let placeholderColor = UIColor.gray
+        currentPasswordTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderText,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
+        // Çerçeve ayarları
+        newPasswordTextField.layer.borderColor = UIColor.lightGray.cgColor
+        newPasswordTextField.layer.borderWidth = 1.0
+        newPasswordTextField.layer.cornerRadius = 10.0
+        newPasswordTextField.layer.masksToBounds = true
+        let placeholderText2 = "New Password"
+        newPasswordTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderText2,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
+        // Çerçeve ayarları
+        reNewPasswordTextField.layer.borderColor = UIColor.lightGray.cgColor
+        reNewPasswordTextField.layer.borderWidth = 1.0
+        reNewPasswordTextField.layer.cornerRadius = 10.0
+        reNewPasswordTextField.layer.masksToBounds = true
+        let placeholderText3 = "Confirm New Password"
+        reNewPasswordTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderText3,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(klavyeKapat))
         view.addGestureRecognizer(gestureRecognizer)
 

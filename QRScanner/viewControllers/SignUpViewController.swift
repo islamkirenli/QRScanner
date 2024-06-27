@@ -16,6 +16,40 @@ class SignUpViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Çerçeve ayarları
+        emailTextField.layer.borderColor = UIColor.lightGray.cgColor
+        emailTextField.layer.borderWidth = 1.0
+        emailTextField.layer.cornerRadius = 10.0
+        emailTextField.layer.masksToBounds = true
+        let placeholderTextemail = "example@email.com"
+        let placeholderColor = UIColor.gray
+        emailTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderTextemail,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
+        // Çerçeve ayarları
+        passwordTextField.layer.borderColor = UIColor.lightGray.cgColor
+        passwordTextField.layer.borderWidth = 1.0
+        passwordTextField.layer.cornerRadius = 10.0
+        passwordTextField.layer.masksToBounds = true
+        let placeholderTextpassword = "Password"
+        passwordTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderTextpassword,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
+        // Çerçeve ayarları
+        secondPasswordTextField.layer.borderColor = UIColor.lightGray.cgColor
+        secondPasswordTextField.layer.borderWidth = 1.0
+        secondPasswordTextField.layer.cornerRadius = 10.0
+        secondPasswordTextField.layer.masksToBounds = true
+        let placeholderText = "Confirm Password"
+        secondPasswordTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderText,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
 
         // Do any additional setup after loading the view.
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(klavyeKapat))

@@ -25,6 +25,15 @@ class TextMakerViewController: UIViewController, UITextViewDelegate {
         textField.delegate = self
         updateCharacterCount()
         
+        // Placeholder Text
+        textField.text = "Enter your text"
+        textField.textColor = UIColor.lightGray
+
+        // Border
+        textField.layer.borderColor = UIColor.gray.cgColor
+        textField.layer.borderWidth = 1.0
+        textField.layer.cornerRadius = 5.0
+        
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(klavyeKapat))
         view.addGestureRecognizer(gestureRecognizer)
         
@@ -48,6 +57,21 @@ class TextMakerViewController: UIViewController, UITextViewDelegate {
         bannerView.load(GADRequest())
         
         Ads.addBannerViewToView(bannerView, viewController: self)
+    }
+    
+    // UITextViewDelegate Methods
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Enter your text"
+            textView.textColor = UIColor.lightGray
+        }
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {

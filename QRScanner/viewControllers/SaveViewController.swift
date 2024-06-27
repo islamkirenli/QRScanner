@@ -22,6 +22,18 @@ class SaveViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Çerçeve ayarları
+        titleTextField.layer.borderColor = UIColor.lightGray.cgColor
+        titleTextField.layer.borderWidth = 1.0
+        titleTextField.layer.cornerRadius = 10.0
+        titleTextField.layer.masksToBounds = true
+        let placeholderText = "Title"
+        let placeholderColor = UIColor.gray
+        titleTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderText,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
 
         // Do any additional setup after loading the view.
         imageView.image = receivedImage

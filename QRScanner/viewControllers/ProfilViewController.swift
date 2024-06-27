@@ -37,6 +37,29 @@ class ProfilViewController: UIViewController, AvatarSelectionDelegate, AvatarSel
             self.performSegue(withIdentifier: "toLogInVC", sender: nil)
         }
         
+        // Çerçeve ayarları
+        nameTextField.layer.borderColor = UIColor.lightGray.cgColor
+        nameTextField.layer.borderWidth = 1.0
+        nameTextField.layer.cornerRadius = 10.0
+        nameTextField.layer.masksToBounds = true
+        let placeholderTextname = "Name"
+        let placeholderColor = UIColor.gray
+        nameTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderTextname,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
+        // Çerçeve ayarları
+        surnameTextField.layer.borderColor = UIColor.lightGray.cgColor
+        surnameTextField.layer.borderWidth = 1.0
+        surnameTextField.layer.cornerRadius = 10.0
+        surnameTextField.layer.masksToBounds = true
+        let placeholderText = "Surname"
+        surnameTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderText,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(selectImageTapped))
         avatarImageView.addGestureRecognizer(tapGesture)
         avatarImageView.isUserInteractionEnabled = true
@@ -91,8 +114,36 @@ class ProfilViewController: UIViewController, AvatarSelectionDelegate, AvatarSel
     }
     
     
+    @IBAction func deleteAccountButton(_ sender: Any) {
+        let alertController = UIAlertController(title: "Are you sure you want to delete your account?", message: "This action cannot be undone.", preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            self.deleteUserAccount()
+        }
+        alertController.addAction(deleteAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    func deleteUserAccount() {
+        currentUser?.delete { error in
+            if let error = error {
+                // Hata durumunu ele al
+                print("Kullanıcı silme hatası: \(error.localizedDescription)")
+            } else {
+                // Kullanıcı başarıyla silindi
+                self.performSegue(withIdentifier: "toLogInVC", sender: nil)
+                print("Kullanıcı başarıyla silindi")
+            }
+        }
+    }
+    
     @IBAction func changePasswordButton(_ sender: Any) {
         performSegue(withIdentifier: "toChangePasswordVC", sender: nil)
+        //performSegue(withIdentifier: "toLogInVC", sender: nil)
     }
     
     @IBAction func saveChangesButton(_ sender: Any) {

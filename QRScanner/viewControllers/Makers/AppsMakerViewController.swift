@@ -21,6 +21,19 @@ class AppsMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerV
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Çerçeve ayarları
+        idTextField.layer.borderColor = UIColor.lightGray.cgColor
+        idTextField.layer.borderWidth = 1.0
+        idTextField.layer.cornerRadius = 10.0
+        idTextField.layer.masksToBounds = true
+        let placeholderText = "App ID"
+        let placeholderColor = UIColor.gray
+        idTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderText,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
         pickerView.delegate = self
         pickerView.dataSource = self
         
@@ -98,6 +111,11 @@ class AppsMakerViewController: UIViewController, UIPickerViewDelegate, UIPickerV
         selectedAppStore = appStores[row]
     }
     
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        let titleData = appStores[row]
+        let myTitle = NSAttributedString(string: titleData, attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+        return myTitle
+    }
     
     @IBAction func generateQRCodeButtonTapped(_ sender: Any) {
         guard let appId = idTextField.text, !appId.isEmpty else {

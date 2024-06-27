@@ -23,6 +23,19 @@ class SocialMedyaMakerViewController: UIViewController, UIPickerViewDataSource, 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        // Çerçeve ayarları
+        accountTextField.layer.borderColor = UIColor.lightGray.cgColor
+        accountTextField.layer.borderWidth = 1.0
+        accountTextField.layer.cornerRadius = 10.0
+        accountTextField.layer.masksToBounds = true
+        let placeholderText = "Account ID"
+        let placeholderColor = UIColor.gray
+        accountTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderText,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+                
         pickerView.dataSource = self
         pickerView.delegate = self
         
@@ -99,6 +112,12 @@ class SocialMedyaMakerViewController: UIViewController, UIPickerViewDataSource, 
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedSocialMediaPlatform = socialMediaPlatforms[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+        let titleData = socialMediaPlatforms[row]
+        let myTitle = NSAttributedString(string: titleData, attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+        return myTitle
     }
     
     

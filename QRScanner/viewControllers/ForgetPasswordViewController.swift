@@ -16,6 +16,18 @@ class ForgetPasswordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Çerçeve ayarları
+        userEmailTextField.layer.borderColor = UIColor.lightGray.cgColor
+        userEmailTextField.layer.borderWidth = 1.0
+        userEmailTextField.layer.cornerRadius = 10.0
+        userEmailTextField.layer.masksToBounds = true
+        let placeholderTextemail = "e-Mail"
+        let placeholderColor = UIColor.gray
+        userEmailTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderTextemail,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(klavyeKapat))
         view.addGestureRecognizer(gestureRecognizer)
 

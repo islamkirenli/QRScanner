@@ -18,6 +18,19 @@ class URLMakerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        // Çerçeve ayarları
+        urlTextField.layer.borderColor = UIColor.lightGray.cgColor
+        urlTextField.layer.borderWidth = 1.0
+        urlTextField.layer.cornerRadius = 10.0
+        urlTextField.layer.masksToBounds = true
+        let placeholderText = "Enter URL"
+        let placeholderColor = UIColor.gray
+        urlTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderText,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(klavyeKapat))
         view.addGestureRecognizer(gestureRecognizer)
         

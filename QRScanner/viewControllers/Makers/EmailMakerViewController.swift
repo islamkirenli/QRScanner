@@ -2,7 +2,7 @@ import UIKit
 import FirebaseAuth
 import GoogleMobileAds
 
-class EmailMakerViewController: UIViewController {
+class EmailMakerViewController: UIViewController, UITextViewDelegate{
 
     
     @IBOutlet weak var emailTextField: UITextField!
@@ -17,6 +17,9 @@ class EmailMakerViewController: UIViewController {
     
     var emailString = ""
     
+    let maxLength = 500
+
+    
     var bannerView: GADBannerView!
 
     override func viewDidLoad() {
@@ -24,6 +27,41 @@ class EmailMakerViewController: UIViewController {
         
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(klavyeKapat))
         view.addGestureRecognizer(gestureRecognizer)
+        
+        // Çerçeve ayarları
+        emailTextField.layer.borderColor = UIColor.lightGray.cgColor
+        emailTextField.layer.borderWidth = 1.0
+        emailTextField.layer.cornerRadius = 10.0
+        emailTextField.layer.masksToBounds = true
+        let placeholderText = "e-Mail"
+        let placeholderColor = UIColor.gray
+        emailTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderText,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
+        // Çerçeve ayarları
+        subjectTextField.layer.borderColor = UIColor.lightGray.cgColor
+        subjectTextField.layer.borderWidth = 1.0
+        subjectTextField.layer.cornerRadius = 10.0
+        subjectTextField.layer.masksToBounds = true
+        let placeholderTextsubject = "Subject"
+        subjectTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderTextsubject,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
+        // Placeholder Text
+        messageTextField.text = "Enter your message"
+        messageTextField.textColor = UIColor.lightGray
+
+        // Border
+        messageTextField.layer.borderColor = UIColor.gray.cgColor
+        messageTextField.layer.borderWidth = 1.0
+        messageTextField.layer.cornerRadius = 5.0
+        
+        // Delegate
+        messageTextField.delegate = self
         
         saveButtonOutlet.isHidden = true
         downloadButtonOutlet.isHidden = true
@@ -45,6 +83,45 @@ class EmailMakerViewController: UIViewController {
         bannerView.load(GADRequest())
         
         Ads.addBannerViewToView(bannerView, viewController: self)
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        // Mevcut metnin uzunluğunu ve yeni eklenen metnin uzunluğunu hesapla
+        let currentText = textView.text ?? ""
+        guard let stringRange = Range(range, in: currentText) else { return false }
+        let updatedText = currentText.replacingCharacters(in: stringRange, with: text)
+        
+        // Maksimum karakter sayısını kontrol et
+        return updatedText.count <= maxLength
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        // Metin değiştiğinde karakter sayısını güncelle
+        updateCharacterCount()
+    }
+    
+    func updateCharacterCount() {
+        // Mevcut metin uzunluğunu al ve karakter sayısını hesapla
+        let currentText = messageTextField.text ?? ""
+        //let remainingCharacters = maxLength - currentText.count
+        
+        // Kalan karakter sayısını etikete yazdır
+        characterCountLabel.text = "\(currentText.count)/\(maxLength)"
+    }
+    
+    // UITextViewDelegate Methods
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
+        }
+    }
+
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Enter your message"
+            textView.textColor = UIColor.lightGray
+        }
     }
     
     @objc func klavyeKapat(){

@@ -34,6 +34,8 @@ class VcardMakerViewController: UIViewController {
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(klavyeKapat))
         view.addGestureRecognizer(gestureRecognizer)
         
+        textFieledBorder()
+        
         saveButtonOutlet.isHidden = true
         downloadButtonOutlet.isHidden = true
         designButtonOutlet.isHidden = true
@@ -152,6 +154,163 @@ class VcardMakerViewController: UIViewController {
             ac.addAction(UIAlertAction(title: "OK", style: .default))
             present(ac, animated: true)
         }
+    }
+    
+    func textFieledBorder(){
+        // Çerçeve ayarları
+        nameTextField.layer.borderColor = UIColor.lightGray.cgColor
+        nameTextField.layer.borderWidth = 1.0
+        nameTextField.layer.cornerRadius = 10.0
+        nameTextField.layer.masksToBounds = true
+        let placeholderText = "Name"
+        let placeholderColor = UIColor.gray
+        nameTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderText,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
+        // Çerçeve ayarları
+        surnameTextField.layer.borderColor = UIColor.lightGray.cgColor
+        surnameTextField.layer.borderWidth = 1.0
+        surnameTextField.layer.cornerRadius = 10.0
+        surnameTextField.layer.masksToBounds = true
+        let placeholderText2 = "Surname"
+        surnameTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderText2,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
+        // Çerçeve ayarları
+        websiteURLTextField.layer.borderColor = UIColor.lightGray.cgColor
+        websiteURLTextField.layer.borderWidth = 1.0
+        websiteURLTextField.layer.cornerRadius = 10.0
+        websiteURLTextField.layer.masksToBounds = true
+        let placeholderText3 = "www.your-website.com"
+        websiteURLTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderText3,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
+        // Çerçeve ayarları
+        mobileTextField.layer.borderColor = UIColor.lightGray.cgColor
+        mobileTextField.layer.borderWidth = 1.0
+        mobileTextField.layer.cornerRadius = 10.0
+        mobileTextField.layer.masksToBounds = true
+        let placeholderText4 = "Mobile"
+        mobileTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderText4,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
+        // Çerçeve ayarları
+        phoneTextField.layer.borderColor = UIColor.lightGray.cgColor
+        phoneTextField.layer.borderWidth = 1.0
+        phoneTextField.layer.cornerRadius = 10.0
+        phoneTextField.layer.masksToBounds = true
+        let placeholderText5 = "Phone"
+        phoneTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderText5,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
+        // Çerçeve ayarları
+        faxTextField.layer.borderColor = UIColor.lightGray.cgColor
+        faxTextField.layer.borderWidth = 1.0
+        faxTextField.layer.cornerRadius = 10.0
+        faxTextField.layer.masksToBounds = true
+        let placeholderText6 = "Fax"
+        faxTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderText6,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
+        // Çerçeve ayarları
+        emailTextField.layer.borderColor = UIColor.lightGray.cgColor
+        emailTextField.layer.borderWidth = 1.0
+        emailTextField.layer.cornerRadius = 10.0
+        emailTextField.layer.masksToBounds = true
+        let placeholderText7 = "your@email.com"
+        emailTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderText7,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
+        // Çerçeve ayarları
+        companyTextField.layer.borderColor = UIColor.lightGray.cgColor
+        companyTextField.layer.borderWidth = 1.0
+        companyTextField.layer.cornerRadius = 10.0
+        companyTextField.layer.masksToBounds = true
+        let placeholderText8 = "Company"
+        companyTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderText8,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
+        // Çerçeve ayarları
+        jobTextField.layer.borderColor = UIColor.lightGray.cgColor
+        jobTextField.layer.borderWidth = 1.0
+        jobTextField.layer.cornerRadius = 10.0
+        jobTextField.layer.masksToBounds = true
+        let placeholderText9 = "Your Job"
+        jobTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderText9,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
+        // Çerçeve ayarları
+        streetTextField.layer.borderColor = UIColor.lightGray.cgColor
+        streetTextField.layer.borderWidth = 1.0
+        streetTextField.layer.cornerRadius = 10.0
+        streetTextField.layer.masksToBounds = true
+        let placeholderText10 = "Street"
+        streetTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderText10,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
+        // Çerçeve ayarları
+        cityTextField.layer.borderColor = UIColor.lightGray.cgColor
+        cityTextField.layer.borderWidth = 1.0
+        cityTextField.layer.cornerRadius = 10.0
+        cityTextField.layer.masksToBounds = true
+        let placeholderText11 = "City"
+        cityTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderText11,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
+        // Çerçeve ayarları
+        zipTextField.layer.borderColor = UIColor.lightGray.cgColor
+        zipTextField.layer.borderWidth = 1.0
+        zipTextField.layer.cornerRadius = 10.0
+        zipTextField.layer.masksToBounds = true
+        let placeholderText12 = "ZIP"
+        zipTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderText12,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
+        // Çerçeve ayarları
+        stateTextField.layer.borderColor = UIColor.lightGray.cgColor
+        stateTextField.layer.borderWidth = 1.0
+        stateTextField.layer.cornerRadius = 10.0
+        stateTextField.layer.masksToBounds = true
+        let placeholderText13 = "State"
+        stateTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderText13,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
+        // Çerçeve ayarları
+        countryTextField.layer.borderColor = UIColor.lightGray.cgColor
+        countryTextField.layer.borderWidth = 1.0
+        countryTextField.layer.cornerRadius = 10.0
+        countryTextField.layer.masksToBounds = true
+        let placeholderText14 = "Country"
+        countryTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderText14,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
     }
     
     

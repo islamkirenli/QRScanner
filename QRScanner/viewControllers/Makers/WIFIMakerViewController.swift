@@ -19,6 +19,29 @@ class WIFIMakerViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Çerçeve ayarları
+        ssidTextField.layer.borderColor = UIColor.lightGray.cgColor
+        ssidTextField.layer.borderWidth = 1.0
+        ssidTextField.layer.cornerRadius = 10.0
+        ssidTextField.layer.masksToBounds = true
+        let placeholderText = "Network Name"
+        let placeholderColor = UIColor.gray
+        ssidTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderText,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
+        // Çerçeve ayarları
+        passwordTextField.layer.borderColor = UIColor.lightGray.cgColor
+        passwordTextField.layer.borderWidth = 1.0
+        passwordTextField.layer.cornerRadius = 10.0
+        passwordTextField.layer.masksToBounds = true
+        let placeholderTextpassword = "Password"
+        passwordTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholderTextpassword,
+            attributes: [NSAttributedString.Key.foregroundColor: placeholderColor]
+        )
+        
         let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(klavyeKapat))
         view.addGestureRecognizer(gestureRecognizer)
         
