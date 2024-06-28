@@ -594,7 +594,7 @@
                                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pjA-2j-FlD">
                                                 <rect key="frame" x="46" y="274" width="108" height="33"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="filled" title="Craete QR" cornerStyle="capsule">
+                                                <buttonConfiguration key="configuration" style="filled" title="Create QR" cornerStyle="capsule">
                                                     <fontDescription key="titleFontDescription" name="Optima-Regular" family="Optima" pointSize="16"/>
                                                     <color key="baseBackgroundColor" red="0.41568627450000001" green="0.43921568630000002" blue="0.29803921570000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </buttonConfiguration>
@@ -2909,10 +2909,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="O3f-NL-6lc"/>
+        <segue reference="IaH-Fz-9tk"/>
         <segue reference="DJo-bd-ztG"/>
-        <segue reference="Kls-xB-ILg"/>
-        <segue reference="mHw-5P-dbc"/>
+        <segue reference="3ba-nP-YVg"/>
+        <segue reference="jco-Q5-Oee"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="apple.logo" catalog="system" width="105" height="128"/>
@@ -2939,7 +2939,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

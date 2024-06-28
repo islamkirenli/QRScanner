@@ -36,6 +36,7 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
         checkmark.isHidden = true
         
         AdManager.shared.setupBannerAd(viewController: self, adUnitID: Ads.bannerAdUnitID)
+        AdManager.shared.loadInterstitialAd(adUnitID: Ads.interstitialAdUnitID)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -78,6 +79,8 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
     @IBAction func generateQRTapped(_ sender: Any) {
         if let image = originalImageView.image{
             if originalImageURLForQR.isEmpty == false{
+                AdManager.shared.loadInterstitialAd(adUnitID: Ads.interstitialAdUnitID)
+                AdManager.shared.showInterstitialAd(from: self)
                 if let qrCodeImage = GenerateAndDesign.generate(from: originalImageURLForQR) {
                     // QR kodunu imageView'a atayın
                     print(originalImageURLForQR)
@@ -98,6 +101,8 @@ class ImageMakerViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     @IBAction func designButton(_ sender: Any) {
+        AdManager.shared.loadInterstitialAd(adUnitID: Ads.interstitialAdUnitID)
+        AdManager.shared.showInterstitialAd(from: self)
         performSegue(withIdentifier: "toDesignVC", sender: nil)
     }
     

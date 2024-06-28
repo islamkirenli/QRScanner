@@ -34,6 +34,7 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
         checkmarkView.isHidden = true
         
         AdManager.shared.setupBannerAd(viewController: self, adUnitID: Ads.bannerAdUnitID)
+        AdManager.shared.loadInterstitialAd(adUnitID: Ads.interstitialAdUnitID)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -157,6 +158,8 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
     
     @IBAction func generateQRCodeButtonTapped(_ sender: Any) {
         if documentURL.isEmpty == false{
+            AdManager.shared.loadInterstitialAd(adUnitID: Ads.interstitialAdUnitID)
+            AdManager.shared.showInterstitialAd(from: self)
             if let qrCodeImage = GenerateAndDesign.generate(from: documentURL) {
                 // QR kodunu imageView'a atayın
                 imageView.image = qrCodeImage
@@ -174,6 +177,8 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
     
     
     @IBAction func designButton(_ sender: Any) {
+        AdManager.shared.loadInterstitialAd(adUnitID: Ads.interstitialAdUnitID)
+        AdManager.shared.showInterstitialAd(from: self)
         performSegue(withIdentifier: "toDesignVC", sender: nil)
     }
     

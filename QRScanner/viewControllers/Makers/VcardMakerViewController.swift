@@ -39,6 +39,7 @@ class VcardMakerViewController: UIViewController {
         designButtonOutlet.isHidden = true
         
         AdManager.shared.setupBannerAd(viewController: self, adUnitID: Ads.bannerAdUnitID)
+        AdManager.shared.loadInterstitialAd(adUnitID: Ads.interstitialAdUnitID)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -108,6 +109,8 @@ class VcardMakerViewController: UIViewController {
     }
     
     @IBAction func designButton(_ sender: Any) {
+        AdManager.shared.loadInterstitialAd(adUnitID: Ads.interstitialAdUnitID)
+        AdManager.shared.showInterstitialAd(from: self)
         performSegue(withIdentifier: "toDesignVC", sender: nil)
     }
     

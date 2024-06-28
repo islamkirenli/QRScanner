@@ -6,6 +6,8 @@ class AdManager: NSObject, GADBannerViewDelegate {
     var bannerView: GADBannerView!
     var adTimer: Timer?
     var bannerContainerView: UIView!
+    
+    var interstitial: GADInterstitialAd?
 
     func setupBannerAd(viewController: UIViewController, adUnitID: String) {
         bannerContainerView = UIView()
@@ -47,6 +49,37 @@ class AdManager: NSObject, GADBannerViewDelegate {
     func invalidateTimer() {
         adTimer?.invalidate()
         adTimer = nil
+    }
+    
+    func loadInterstitialAd(adUnitID: String) {
+        let request = GADRequest()
+        GADInterstitialAd.load(withAdUnitID: adUnitID, request: request, completionHandler: { [weak self] ad, error in
+            if let error = error {
+                print("Failed to load interstitial ad with error: \(error.localizedDescription)")
+                return
+            }
+            self?.interstitial = ad
+            self?.interstitial?.fullScreenContentDelegate = self as? any GADFullScreenContentDelegate
+        })
+    }
+
+    func showInterstitialAd(from viewController: UIViewController) {
+        if let interstitial = interstitial {
+            interstitial.present(fromRootViewController: viewController)
+        } else {
+            print("Interstitial ad wasn't ready")
+            loadInterstitialAd(adUnitID: Ads.interstitialAdUnitID)
+        }
+    }
+
+    // GADFullScreenContentDelegate methods
+    func ad(_ ad: GADFullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
+        print("Ad did fail to present full screen content.")
+    }
+
+    func adDidDismissFullScreenContent(_ ad: GADFullScreenPresentingAd) {
+        print("Ad did dismiss full screen content.")
+        loadInterstitialAd(adUnitID: Ads.interstitialAdUnitID)
     }
 }
 
