@@ -22,10 +22,8 @@ class ShowHistoryViewController: UIViewController {
         // Do any additional setup after loading the view.
         titleTextLabel.text = alinanTitle
         imageView.sd_setImage(with: URL(string: alinanGorselURl))
-        
     }
     
-
     @IBAction func downloadButton(_ sender: Any) {
         saveImage()
     }

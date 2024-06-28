@@ -23,8 +23,6 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
     
     var selectedPDFURL: URL?
     
-    var bannerView: GADBannerView!
-
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -35,24 +33,13 @@ class PDFMakerViewController: UIViewController, UIDocumentPickerDelegate {
         progressView.progress = 0.0
         checkmarkView.isHidden = true
         
-        let viewWidth = view.frame.inset(by: view.safeAreaInsets).width
-
-        // Here the current interface orientation is used. Use
-        // GADLandscapeAnchoredAdaptiveBannerAdSizeWithWidth or
-        // GADPortraitAnchoredAdaptiveBannerAdSizeWithWidth if you prefer to load an ad of a
-        // particular orientation,
-        let adaptiveSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
-        bannerView = GADBannerView(adSize: adaptiveSize)
-        bannerView.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
-
-        bannerView.adUnitID = Ads.bannerAdUnitID
-        bannerView.rootViewController = self
-
-        bannerView.load(GADRequest())
-        
-        Ads.addBannerViewToView(bannerView, viewController: self)
+        AdManager.shared.setupBannerAd(viewController: self, adUnitID: Ads.bannerAdUnitID)
     }
-
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        AdManager.shared.invalidateTimer()
+    }
     
     @IBAction func selectPDFButtonTapped(_ sender: Any) {
         let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.item], asCopy: true)

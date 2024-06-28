@@ -25,9 +25,7 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
     let firestoreDB = Firestore.firestore()
     
     let currentUser = Auth.auth().currentUser
-    
-    var bannerView: GADBannerView!
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -36,22 +34,12 @@ class HistoryViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         firebaseVerileriAl()
         
-        let viewWidth = view.frame.inset(by: view.safeAreaInsets).width
-
-        // Here the current interface orientation is used. Use
-        // GADLandscapeAnchoredAdaptiveBannerAdSizeWithWidth or
-        // GADPortraitAnchoredAdaptiveBannerAdSizeWithWidth if you prefer to load an ad of a
-        // particular orientation,
-        let adaptiveSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
-        bannerView = GADBannerView(adSize: adaptiveSize)
-        bannerView.adSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
-
-        bannerView.adUnitID = Ads.bannerAdUnitID
-        bannerView.rootViewController = self
-
-        bannerView.load(GADRequest())
-        
-        Ads.addBannerViewToView(bannerView, viewController: self)
+        AdManager.shared.setupBannerAd(viewController: self, adUnitID: Ads.bannerAdUnitID)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        AdManager.shared.invalidateTimer()
     }
     
     func firebaseVerileriAl(){
